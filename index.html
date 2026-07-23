@@ -2292,6 +2292,10 @@ const btnLogout = document.getElementById('btnLogout');
 btnLogin.onclick = async () => {
   await supabaseClient.auth.signInWithOAuth({
     provider: 'google',
+    options: {
+      // Zwingt Supabase, exakt dorthin zurückzukehren, wo der Nutzer gerade ist
+      redirectTo: window.location.origin + window.location.pathname
+    }
   });
 };
 
