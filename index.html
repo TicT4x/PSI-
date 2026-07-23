@@ -1,3 +1,5 @@
+https://wcgywnxnjnwvalhavkxz.supabase.co/rest/v1/lernstand
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,6 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root{
   --bg:#dde3e8;
@@ -2219,28 +2224,64 @@ a:`<div class="note">Diese Frage ist im Fragenkatalog als unsicher markiert und 
 </script>
 <script>
 /* =======================================================================
-   Speicher: window.storage (falls vorhanden) → localStorage → Arbeitsspeicher
+   Speicher: Supabase (BaaS Profilösung)
    ======================================================================= */
-const KEY='psi-karteikarten-v1';
-const Store=(()=>{
-  let mem=null;
-  const hasWS = typeof window!=='undefined' && window.storage && typeof window.storage.get==='function';
+// 1. Initialisierung (Trage hier deine Daten aus dem Supabase-Dashboard ein)
+const supabaseUrl = 'https://DEINE-PROJECT-URL.supabase.co';
+const supabaseAnonKey = 'DEIN-ANON-KEY';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+// 2. Nutzer-Simulation (In einer echten App kommt hier der Login hin)
+const USER_ID = 'test-nutzer-1';
+
+const Store = (()=>{
   async function load(){
-    if(hasWS){ try{ const r=await window.storage.get(KEY); if(r&&r.value) return JSON.parse(r.value);}catch(e){} }
-    try{ const raw=localStorage.getItem(KEY); if(raw) return JSON.parse(raw);}catch(e){}
-    return mem;
+    try {
+      const { data, error } = await supabase
+        .from('lernstand')
+        .select('daten')
+        .eq('user_id', USER_ID)
+        .single(); // Holt genau den einen Eintrag dieses Nutzers
+
+      // Fehlercode PGRST116 bedeutet "Keine Zeile gefunden" (z.B. beim allerersten Start)
+      if (error && error.code !== 'PGRST116') {
+        console.error("Supabase Lade-Fehler:", error);
+        return null;
+      }
+      return data ? data.daten : null;
+    } catch (e) {
+      console.warn("Konnte nicht von Supabase laden:", e);
+      return null;
+    }
   }
+
   async function save(v){
-    mem=v; const s=JSON.stringify(v);
-    if(hasWS){ try{ await window.storage.set(KEY,s); return; }catch(e){} }
-    try{ localStorage.setItem(KEY,s); }catch(e){}
+    try {
+      // upsert = Update falls vorhanden, Insert falls neu (setzt voraus, dass user_id Primary Key ist)
+      const { error } = await supabase
+        .from('lernstand')
+        .upsert({ user_id: USER_ID, daten: v });
+      
+      if (error) console.error("Supabase Speicher-Fehler:", error);
+    } catch (e) {
+      console.error("Fehler beim Speichern:", e);
+    }
   }
+
   async function clear(){
-    mem=null;
-    if(hasWS){ try{ await window.storage.delete(KEY);}catch(e){} }
-    try{ localStorage.removeItem(KEY);}catch(e){}
+    try {
+      const { error } = await supabase
+        .from('lernstand')
+        .delete()
+        .eq('user_id', USER_ID);
+        
+      if (error) console.error("Supabase Lösch-Fehler:", error);
+    } catch (e) {
+      console.error("Fehler beim Löschen:", e);
+    }
   }
-  return {load,save,clear};
+
+  return {load, save, clear};
 })();
 
 /* ======================= Zustand ======================= */
