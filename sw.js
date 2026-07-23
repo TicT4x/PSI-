@@ -3,7 +3,7 @@
    App-Shell offline, Schriften und CDN im Laufzeit-Cache,
    Supabase-Anfragen immer direkt ins Netz.
    ===================================================================== */
-const VERSION = 'psi-2026-07-23-1';
+const VERSION = 'psi-2026-07-23-2';
 const SHELL   = 'shell-' + VERSION;
 const RUNTIME = 'runtime-' + VERSION;
 
@@ -11,10 +11,10 @@ const SHELL_FILES = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/icon-maskable-512.png',
-  './icons/apple-touch-icon.png'
+  './icon-192.png',
+  './icon-512.png',
+  './icon-maskable-512.png',
+  './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', event => {
