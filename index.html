@@ -192,6 +192,10 @@ kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--rule);backgrou
     <div class="mark">PSI <span>·</span> Karteikarten</div>
     <div class="sub">Propulsion System Integration · FH Aachen</div>
     <div class="head-sp"></div>
+
+    <button class="hbtn" id="btnLogin" style="display:none;">Login mit Google</button>
+    <button class="hbtn" id="btnLogout" style="display:none;">Logout</button>
+    
     <button class="hbtn" id="tabLearn" aria-pressed="true">Lernen</button>
     <button class="hbtn" id="tabList" aria-pressed="false">Übersicht</button>
     <button class="hbtn" id="btnReset">Zurücksetzen</button>
@@ -2222,28 +2226,25 @@ a:`<div class="note">Diese Frage ist im Fragenkatalog als unsicher markiert und 
 </script>
 <script>
 /* =======================================================================
-   Speicher: Supabase (BaaS Profilösung)
+   Speicher: Supabase (BaaS Profilösung mit Google Auth)
    ======================================================================= */
 // 1. Initialisierung
 const supabaseUrl = 'https://wcgywnxnjnwvalhavkxz.supabase.co';
 const supabaseAnonKey = 'sb_publishable_tAEyDNOwwPzpe9hJkQlx0w_iaySou6P';
-
-// NEU: Die Variable heißt nun "supabaseClient", um Namenskonflikte zu vermeiden
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-// 2. Nutzer-Simulation (In einer echten App kommt hier der Login hin)
-const USER_ID = 'test-nutzer-1';
+// Die User-ID ist anfangs leer und wird beim Login gefüllt
+let USER_ID = null;
 
 const Store = (()=>{
   async function load(){
+    if (!USER_ID) return null; // Ohne Login laden wir nichts
     try {
       const { data, error } = await supabaseClient
         .from('lernstand')
         .select('daten')
         .eq('user_id', USER_ID)
         .single(); 
-
-      // Fehlercode PGRST116 bedeutet "Keine Zeile gefunden" (z.B. beim allerersten Start)
       if (error && error.code !== 'PGRST116') {
         console.error("Supabase Lade-Fehler:", error);
         return null;
@@ -2256,11 +2257,11 @@ const Store = (()=>{
   }
 
   async function save(v){
+    if (!USER_ID) return; // Ohne Login speichern wir nichts
     try {
       const { error } = await supabaseClient
         .from('lernstand')
         .upsert({ user_id: USER_ID, daten: v });
-      
       if (error) console.error("Supabase Speicher-Fehler:", error);
     } catch (e) {
       console.error("Fehler beim Speichern:", e);
@@ -2268,12 +2269,12 @@ const Store = (()=>{
   }
 
   async function clear(){
+    if (!USER_ID) return;
     try {
       const { error } = await supabaseClient
         .from('lernstand')
         .delete()
         .eq('user_id', USER_ID);
-        
       if (error) console.error("Supabase Lösch-Fehler:", error);
     } catch (e) {
       console.error("Fehler beim Löschen:", e);
@@ -2283,6 +2284,47 @@ const Store = (()=>{
   return {load, save, clear};
 })();
 
+/* ======================= Auth (Login/Logout) ======================= */
+const btnLogin = document.getElementById('btnLogin');
+const btnLogout = document.getElementById('btnLogout');
+
+// Klick auf Login
+btnLogin.onclick = async () => {
+  await supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+  });
+};
+
+// Klick auf Logout
+btnLogout.onclick = async () => {
+  await supabaseClient.auth.signOut();
+};
+
+// Beobachte den Login-Status
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
+  if (session) {
+    // Nutzer ist eingeloggt!
+    USER_ID = session.user.id;
+    btnLogin.style.display = 'none';
+    btnLogout.style.display = 'inline-block';
+    
+    // Daten des Nutzers laden
+    const saved = await Store.load();
+    S = (saved && typeof saved === 'object') ? saved : {};
+    build(); 
+    render();
+  } else {
+    // Nutzer ist ausgeloggt
+    USER_ID = null;
+    btnLogin.style.display = 'inline-block';
+    btnLogout.style.display = 'none';
+    
+    // Karten auf 0 setzen
+    S = {};
+    build();
+    render();
+  }
+});
 /* ======================= Zustand ======================= */
 let S={};                 // id -> {box, r, w}
 let mode='prio';          // prio | new | weak | all
@@ -2450,13 +2492,6 @@ document.addEventListener('keydown',e=>{
   if(e.key==='2'||e.key==='ArrowRight'){ e.preventDefault(); grade(true); }
   if(e.key.toLowerCase()==='n'){ e.preventDefault(); next(); }
 });
-
-/* ======================= Start ======================= */
-(async()=>{
-  const saved=await Store.load();
-  S=(saved&&typeof saved==='object')?saved:{};
-  build(); render();
-})();
 </script>
 </body>
 </html>
