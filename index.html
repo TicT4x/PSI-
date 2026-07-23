@@ -2224,10 +2224,12 @@ a:`<div class="note">Diese Frage ist im Fragenkatalog als unsicher markiert und 
 /* =======================================================================
    Speicher: Supabase (BaaS Profilösung)
    ======================================================================= */
-// 1. Initialisierung (Trage hier deine Daten aus dem Supabase-Dashboard ein)
-const supabaseUrl = 'https://wcgywnxnjnwvalhavkxz.supabase.co/rest/v1/lernstand';
+// 1. Initialisierung
+const supabaseUrl = 'https://wcgywnxnjnwvalhavkxz.supabase.co';
 const supabaseAnonKey = 'sb_publishable_tAEyDNOwwPzpe9hJkQlx0w_iaySou6P';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+// NEU: Die Variable heißt nun "supabaseClient", um Namenskonflikte zu vermeiden
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // 2. Nutzer-Simulation (In einer echten App kommt hier der Login hin)
 const USER_ID = 'test-nutzer-1';
@@ -2235,11 +2237,11 @@ const USER_ID = 'test-nutzer-1';
 const Store = (()=>{
   async function load(){
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('lernstand')
         .select('daten')
         .eq('user_id', USER_ID)
-        .single(); // Holt genau den einen Eintrag dieses Nutzers
+        .single(); 
 
       // Fehlercode PGRST116 bedeutet "Keine Zeile gefunden" (z.B. beim allerersten Start)
       if (error && error.code !== 'PGRST116') {
@@ -2255,8 +2257,7 @@ const Store = (()=>{
 
   async function save(v){
     try {
-      // upsert = Update falls vorhanden, Insert falls neu (setzt voraus, dass user_id Primary Key ist)
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('lernstand')
         .upsert({ user_id: USER_ID, daten: v });
       
@@ -2268,7 +2269,7 @@ const Store = (()=>{
 
   async function clear(){
     try {
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('lernstand')
         .delete()
         .eq('user_id', USER_ID);
