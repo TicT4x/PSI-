@@ -808,12 +808,54 @@ function build(){
   queue = p; qi = 0; neueKarte();
 }
 
-/* Setzt alles zurück, was nur zur gerade gezeigten Karte gehört. */
+/* Zustands-Speicher für die aktuell angezeigte Karte (ob umgedreht, geklickt etc.) */
+function speichereKartenZustand() {
+  if (!FACH || !queue || !queue[qi]) return;
+  const state = {
+    id: queue[qi].id,
+    revealed: revealed,
+    checked: checked,
+    picked: Array.from(picked), // Sets lassen sich sonst nicht als JSON speichern
+    mcOrder: mcOrder
+  };
+  try { localStorage.setItem('qard-zustand-' + FACH.kuerzel, JSON.stringify(state)); } catch(e){}
+}
+
+function ladeKartenZustand(c_id) {
+  if (!FACH) return null;
+  try {
+    const raw = localStorage.getItem('qard-zustand-' + FACH.kuerzel);
+    if (raw) {
+      const state = JSON.parse(raw);
+      // Zustand nur anwenden, wenn er auch exakt zu dieser Karte gehört!
+      if (state.id === c_id) return state;
+    }
+  } catch(e){}
+  return null;
+}
+
+/* Setzt alles zurück, ODER lädt den gesicherten Zustand der Karte. */
 function neueKarte(){
-  revealed = false; checked = false; picked = new Set(); mcOrder = null;
-  // NEU: Speichere die ID der aktuellen Karte für dieses Fach
-  if (FACH && queue && queue[qi]) {
-    try { localStorage.setItem('qard-letzte-karte-' + FACH.kuerzel, queue[qi].id); } catch(e){}
+  const c = FACH && queue && queue[qi] ? queue[qi] : null;
+  
+  // 1. Prüfen, ob wir für diese Karte einen gespeicherten Ansichts-Zustand haben
+  const state = c ? ladeKartenZustand(c.id) : null;
+  
+  if (state) {
+    // Zuvor gesicherten Zustand wiederherstellen
+    revealed = state.revealed || false;
+    checked = state.checked || false;
+    picked = new Set(state.picked || []);
+    mcOrder = state.mcOrder || null;
+  } else {
+    // Standard-Werte für eine neue Karte
+    revealed = false; checked = false; picked = new Set(); mcOrder = null;
+  }
+  
+  // 2. Speichere die ID und den initialen Zustand der aktuellen Karte
+  if (c) {
+    try { localStorage.setItem('qard-letzte-karte-' + FACH.kuerzel, c.id); } catch(e){}
+    speichereKartenZustand();
   }
 }
 
@@ -824,6 +866,7 @@ function mcOpts(c){
   if (!mcOrder){
     mcOrder = c.mc.opts.map((_, i) => i);
     if (c.mc.mischen) shuffle(mcOrder);
+    speichereKartenZustand(); // NEU: Gemischte Reihenfolge sichern
   }
   return mcOrder.map(i => c.mc.opts[i]);
 }
@@ -835,16 +878,18 @@ function mcWaehle(i){
   if (!c || !c.mc || checked) return;
   if (c.mc.mehrfach){
     picked.has(i) ? picked.delete(i) : picked.add(i);
+    speichereKartenZustand(); // NEU: Klick sichern
     render();
   } else {
     picked = new Set([i]);
-    mcPruefen();
+    mcPruefen(); // mcPruefen sichert den Zustand mit
   }
 }
 function mcPruefen(){
   const c = queue[qi];
   if (!c || !c.mc || checked || !picked.size) return;
   checked = true; revealed = true;
+  speichereKartenZustand(); // NEU: Auflösung sichern
   render();
 }
 
@@ -865,7 +910,11 @@ function prev(){ if (qi > 0){ qi--; neueKarte(); render(); } }
 function reveal(){
   const c = queue[qi];
   if (c && c.mc) return;               // Auswahlfragen werden geprüft, nicht aufgedeckt
-  if (!revealed){ revealed = true; render(); }
+  if (!revealed){ 
+    revealed = true; 
+    speichereKartenZustand(); // NEU: Aufdecken sichern
+    render(); 
+  }
 }
 
 /* ======================= Rendering ======================= */
