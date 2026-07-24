@@ -662,8 +662,9 @@ function leseMC(el, datei, id){
   const flag = n => liste.hasAttribute(n) || el.hasAttribute(n);
   const mc = {
     opts,
-    mehrfach: flag('data-mehrfach') || opts.filter(o => o.richtig).length > 1,
+    mehrfach: true,
     mischen : flag('data-mischen')
+  };
   };
   liste.remove();
   return mc;
@@ -1052,9 +1053,7 @@ function mcMarkup(c){
   const treffer = mcTrefferzahl(c);
   const lead = checked
     ? 'Antworten'
-    : (c.mc.mehrfach
-        ? 'Mehrfachauswahl' + (treffer > 1 ? ' · ' + treffer + ' richtig' : '')
-        : 'Eine Antwort wählen');
+    : 'Antwort(en) wählen';
 
   const zeilen = opts.map((o, i) => {
     const gewaehlt = picked.has(i);
