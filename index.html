@@ -469,7 +469,8 @@ const META = '__meta';   // reservierter Schlüssel im Lernstand, kein Fach
 function fachKeys(o){ return Object.keys(o || {}).filter(k => k.slice(0, 2) !== '__'); }
 function holeMeta(o){
   const m = (o && o[META]) || {};
-  return { stand: m.stand | 0, reset: m.reset || {} };
+  // KORREKTUR: || statt | 
+  return { stand: m.stand || 0, reset: m.reset || {} };
 }
 function setzeStand(o, t){
   const m = holeMeta(o);
@@ -479,12 +480,13 @@ function setzeStand(o, t){
 
 /* Welcher der beiden Stände derselben Karte ist der aktuellere? */
 function juenger(x, y){
-  const tx = x.t | 0, ty = y.t | 0;
+  // KORREKTUR: || statt | (verhindert den 32-Bit Überlauf bei Zeitstempeln)
+  const tx = x.t || 0, ty = y.t || 0;
   if (tx !== ty) return tx > ty ? x : y;
   /* Kein oder gleicher Zeitstempel: wie bisher nach Versuchen und Box */
-  const sx = (x.r|0) + (x.w|0), sy = (y.r|0) + (y.w|0);
+  const sx = (x.r || 0) + (x.w || 0), sy = (y.r || 0) + (y.w || 0);
   if (sx !== sy) return sx > sy ? x : y;
-  return (x.box|0) >= (y.box|0) ? x : y;
+  return (x.box || 0) >= (y.box || 0) ? x : y;
 }
 
 function mergeFach(a, b, resetT){
@@ -493,7 +495,8 @@ function mergeFach(a, b, resetT){
     const x = (a || {})[id], y = (b || {})[id];
     const w = !x ? y : (!y ? x : juenger(x, y));
     /* Wurde das Fach auf einem Gerät zurückgesetzt, verfällt alles Ältere. */
-    if (resetT && (w.t | 0) < resetT) return;
+    // KORREKTUR: || statt |
+    if (resetT && (w.t || 0) < resetT) return;
     out[id] = w;
   });
   return out;
@@ -503,11 +506,13 @@ function mergeAlle(a, b){
   const ma = holeMeta(a), mb = holeMeta(b);
   const reset = {};
   new Set([...Object.keys(ma.reset), ...Object.keys(mb.reset)]).forEach(k => {
-    reset[k] = Math.max(ma.reset[k] | 0, mb.reset[k] | 0);
+    // KORREKTUR: || statt |
+    reset[k] = Math.max(ma.reset[k] || 0, mb.reset[k] || 0);
   });
-  const out = { [META]: { stand: Math.max(ma.stand, mb.stand), reset } };
+  const out = { [META]: { stand: Math.max(ma.stand || 0, mb.stand || 0), reset } };
   new Set([...fachKeys(a), ...fachKeys(b)]).forEach(k => {
-    out[k] = mergeFach((a || {})[k], (b || {})[k], reset[k] | 0);
+    // KORREKTUR: || statt |
+    out[k] = mergeFach((a || {})[k], (b || {})[k], reset[k] || 0);
   });
   return out;
 }
