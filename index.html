@@ -785,6 +785,10 @@ function build(){
 /* Setzt alles zurück, was nur zur gerade gezeigten Karte gehört. */
 function neueKarte(){
   revealed = false; checked = false; picked = new Set(); mcOrder = null;
+  // NEU: Speichere die ID der aktuellen Karte für dieses Fach
+  if (FACH && queue && queue[qi]) {
+    try { localStorage.setItem('qard-letzte-karte-' + FACH.kuerzel, queue[qi].id); } catch(e){}
+  }
 }
 
 /* Antworten in der Reihenfolge, in der sie gerade auf dem Schirm stehen.
@@ -1259,7 +1263,9 @@ document.addEventListener('click', e => {
   if (!revealed && view === 'learn' && !(akt && akt.mc) && e.target.closest('.card')) reveal();
 });
 
-let tX = 0, tY = 0, tT = 0;
+//Wischegeste
+  
+/* let tX = 0, tY = 0, tT = 0;
 const host = $('cardHost');
 host.addEventListener('touchstart', e => {
   if (e.touches.length !== 1) return;
@@ -1276,6 +1282,7 @@ host.addEventListener('touchend', e => {
   if (!revealed){ reveal(); return; }
   grade(dx > 0);
 }, { passive:true });
+*/
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape'){
