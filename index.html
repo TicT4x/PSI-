@@ -749,8 +749,22 @@ function setzeFach(fach){
   mode = 'prio'; cat = '*'; search = ''; filtersOpen = false;
   if ($('q')) $('q').value = '';
   build();
+  
+  // NEU: Gespeicherte Karte auslesen und an diese Stelle in der Warteschlange springen
+  try {
+    const letzteId = localStorage.getItem('qard-letzte-karte-' + fach.kuerzel);
+    if (letzteId) {
+      const idx = queue.findIndex(c => c.id === letzteId);
+      if (idx >= 0) {
+        qi = idx;
+        neueKarte(); // Variablen für genau diese Karte neu setzen
+      }
+    }
+  } catch(e){}
+
   view = 'learn';
   render();
+}
 }
 
 function zeigeFehler(titel, htmlText){
