@@ -36,6 +36,13 @@ ul.mc li[data-richtig],ol.mc li[data-richtig],.mc li.richtig{border-color:#1c6a5
      10  assessment of static stability
      11  assessment of aerodynamic performance from the drag polar
      12  how to improve the aerodynamic performance
+
+     Sources: AD_Script V100 (2025-03-20), chapters 1-11 and 13.
+     Chapter 5 (Preliminary Sizing, script pages 96-154) is image-only in
+     the PDF; its content was read from the page graphics.
+     Chapter 12 (Flight Performance) is NOT contained in this version of
+     the script - script pages 326-340 are missing between chapter 11 and
+     chapter 13.
      =================================================================== -->
 
 
@@ -1392,6 +1399,599 @@ ul.mc li[data-richtig],ol.mc li[data-richtig],.mc li.richtig{border-color:#1c6a5
   <span class="begruendung">Especially when the design deviates significantly from the reference aircraft the statistics were derived from.</span></li>
 <li data-begruendung="Experience is no protection: even large, experienced manufacturers have fallen victim to optimistic engineering predictions.">Experienced companies are immune to optimistic predictions</li>
 </ul>
+</article>
+
+
+
+<!-- ############ 10 — PRELIMINARY SIZING (Chapter 5, full) ############ -->
+
+<article data-id="82" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 97">
+<h1>Which sub-questions does preliminary sizing answer?</h1>
+<p class="hinweis">The key question is: "How big do I need to draw the aircraft?"</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>How much wing area do I need?
+  <span class="begruendung">Follows from the wing loading W/S together with the take-off mass.</span></li>
+<li data-richtig>How big are the engines?
+  <span class="begruendung">Follows from T/W (jets) or P/W (props) together with the take-off mass.</span></li>
+<li data-richtig>How much fuel volume do I need to provide?
+  <span class="begruendung">Follows from the fuel mass fraction determined by the mission analysis.</span></li>
+<li data-begruendung="Detailed structural layout comes much later; preliminary sizing only delivers overall parameters.">Which spar and rib layout does the wing need?</li>
+<li data-begruendung="The empennage is sized in Chapter 11, well after preliminary sizing.">How large must the horizontal stabilizer be?</li>
+</ul>
+
+<p>The outputs of preliminary sizing are: <span class="fx">T/W = T<sub>TO</sub>/(m<sub>MTO</sub>&middot;g)</span>, <span class="fx">W/S = m<sub>MTO</sub>/S</span>, plus m<sub>MTO</sub>, m<sub>F</sub> and m<sub>OE</sub>.</p>
+</article>
+
+
+<article data-id="83" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 97">
+<h1>Which statements about the possible approaches to preliminary sizing are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>A purely statistical approach lacks accuracy, but is always possible
+  <span class="begruendung">Even with almost no data you can always fall back on statistics — which is why it is the safety net of conceptual design.</span></li>
+<li data-richtig>A purely theoretical approach is not feasible
+  <span class="begruendung">Too many required inputs simply do not exist yet at this stage.</span></li>
+<li data-richtig>In practice a mixture of statistical and theoretical methods is applied
+  <span class="begruendung">Which mixture is chosen depends strongly on the configuration and on the data available.</span></li>
+<li data-richtig>Neither the sequence nor the methods of preliminary sizing are unique
+  <span class="begruendung">There is no single correct approach — the sequence depends on which methods you picked. If, for instance, the empty-mass method depends on T/W, the matching has to be done first.</span></li>
+<li data-begruendung="Different aircraft types need different approaches — that is precisely why you must know the configuration type before you start.">One standard procedure works for every aircraft type</li>
+</ul>
+</article>
+
+
+<article data-id="84" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 98">
+<h1>In which order do configuration idea, sketch and sizing come?</h1>
+<p class="hinweis">The answers refer to an order, so they are not shuffled.</p>
+
+<ol class="mc">
+<li data-richtig>Configuration idea with specific features &rarr; sketch to document the thoughts &rarr; sizing &rarr; further design process (Chapters 6&ndash;11)
+  <span class="begruendung">You cannot size an aircraft you have not conceived: payload, propulsion, aspect ratio, sweep, tail type and high-lift system all change the sizing result.</span></li>
+<li data-begruendung="Sizing requires knowledge of the configuration — the specifics of the configuration change the sizing.">Sizing first, then choose a configuration that fits the numbers</li>
+<li data-begruendung="The sketch is not decoration; it is the working document that fixes the assumptions entering the sizing (AR, Swet/Sref, number of engines, high-lift system).">The sketch is optional and only serves presentation purposes</li>
+<li data-begruendung="Chapters 6–11 can only start once the aircraft is sized.">The wing and empennage design (Chapters 8 and 11) come before preliminary sizing</li>
+</ol>
+
+<p>The 1978 Rockwell study for a B-1 successor is the classic illustration: very different configurations can serve the very same mission &mdash; and each one sizes differently.</p>
+</article>
+
+
+<article data-id="85" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 99">
+<h1>Which notation is used in the lecture?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>T/W: thrust-to-weight ratio, for jet-driven aircraft
+  <span class="begruendung">Thrust is what a jet manufacturer sells.</span></li>
+<li data-richtig>P/W: power-to-weight ratio, for propeller-driven aircraft
+  <span class="begruendung">Used on the vertical axis of the matching diagrams for props, typically in kW/kg.</span></li>
+<li data-richtig>W/P: weight-to-power ratio or "power loading", for propeller-driven aircraft
+  <span class="begruendung">Simply the reciprocal of P/W — watch which one a given diagram uses, because "low is good" flips.</span></li>
+<li data-richtig>W/S: wing loading, no matter whether defined as mass/area or force/area
+  <span class="begruendung">Both definitions appear in the literature; be consistent within one diagram.</span></li>
+<li data-begruendung="It is the other way round: T/W is sometimes used as a shorthand covering both T/W and P/W in explanatory text.">P/W is used as a synonym for T/W in explanatory texts</li>
+</ul>
+</article>
+
+
+<article data-id="86" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 101">
+<h1>What is the relation between C<sub>L,max</sub> and C<sub>L,max,Take-off</sub>?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>L,max,Take-off</sub> is about 0.8 &times; C<sub>L,max</sub>
+  <span class="begruendung">Because take-off uses a smaller flap setting than landing — full flaps would create too much drag for the required climb gradient.</span></li>
+<li data-richtig>C<sub>L,max</sub> denotes the absolute maximum lift and is only used for landing
+  <span class="begruendung">It corresponds to the maximum flap deflection.</span></li>
+<li data-begruendung="The take-off value is lower, not higher — less flap deflection is used.">C<sub>L,max,Take-off</sub> is about 1.2 &times; C<sub>L,max</sub></li>
+<li data-begruendung="The two differ because of the different flap settings.">Both are identical, since the same high-lift system is installed</li>
+</ul>
+
+<p>So if a first estimate gives C<sub>L,max</sub> = 2.6 for landing, use roughly 2.1 for take-off.</p>
+</article>
+
+
+<article data-id="87" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 101">
+<h1>According to the [Dubs] table used in the lecture, which 2D maximum lift coefficients can be reached?</h1>
+<p class="hinweis">Base airfoil: c<sub>l,max</sub> = 1.45</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Plain flap: &asymp; 2.25 (&Delta; &asymp; 0.80)
+  <span class="begruendung">The simplest and least effective trailing-edge device.</span></li>
+<li data-richtig>Fowler flap: &asymp; 2.80 (&Delta; &asymp; 1.35)
+  <span class="begruendung">Same value as the double-slotted flap — Fowler motion adds area on top of camber.</span></li>
+<li data-richtig>Slat alone: &asymp; 2.00 (&Delta; &asymp; 0.55)
+  <span class="begruendung">A leading-edge device alone gives a modest lift increment; its main benefit is the delayed stall.</span></li>
+<li data-richtig>Slat and Fowler flap: &asymp; 3.00 (&Delta; &asymp; 1.55)
+  <span class="begruendung">The most powerful combination in the table.</span></li>
+<li data-begruendung="A slotted flap reaches about 2.60 (Δ ≈ 1.15) — clearly more than a plain flap but less than a Fowler.">Slotted flap: &asymp; 2.25, the same as a plain flap</li>
+</ul>
+
+<p>These are <em>2D airfoil</em> data. They still have to be adjusted for a (swept) 3D wing &mdash; via sweep and aspect ratio corrections.</p>
+</article>
+
+
+<article data-id="88" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 102">
+<h1>Which statements about the statistical C<sub>L,max</sub> bands (after [Roskam]) are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Higher values are usually found for slower flying aircraft
+  <span class="begruendung">A slow aircraft needs a large C<sub>L,max</sub> to keep its stall speed down.</span></li>
+<li data-richtig>Lower values are usually found for faster flying aircraft
+  <span class="begruendung">Compare the Lockheed Starfighter (fast, low C<sub>L,max</sub>) with the Hawker Harrier (slow, high C<sub>L,max</sub>).</span></li>
+<li data-richtig>For transport jets the clean C<sub>L,max</sub> lies roughly between 1.2 and 1.8
+  <span class="begruendung">With about 1.6–2.2 for take-off and about 1.8–2.8 for landing.</span></li>
+<li data-begruendung="The clean values of most categories overlap around 1.2–1.9; the big differences appear in the take-off and landing values.">The clean C<sub>L,max</sub> differs enormously between aircraft categories</li>
+</ul>
+
+<p>Within preliminary sizing it is entirely legitimate to keep C<sub>L,max</sub> as a free parameter and compute T/W and W/S for several values &mdash; it can then be traded.</p>
+</article>
+
+
+<article data-id="89" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 103">
+<h1>Which simplification is applied to the drag polar within preliminary sizing?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The zero-angle-of-attack lift coefficient C<sub>L0</sub> is neglected
+  <span class="begruendung">C<sub>D</sub> = C<sub>D0</sub> + C<sub>L</sub>²/(π·AR·e) instead of the full form with (C<sub>L</sub> − C<sub>L0</sub>)².</span></li>
+<li data-begruendung="Induced drag is exactly the term that couples the sizing to the aspect ratio — it cannot be dropped.">The induced drag is neglected</li>
+<li data-begruendung="C<sub>D0</sub> is the dominant unknown of the whole sizing and is estimated with considerable care.">The zero-lift drag is neglected</li>
+<li data-begruendung="The Oswald factor is an essential input, estimated from statistics.">The Oswald factor is set to 1</li>
+</ul>
+
+<p>Drag must always be assessed together with lift: for any C<sub>L</sub> a corresponding C<sub>D</sub> follows, and their ratio L/D is the measure of aerodynamic efficiency that enters both the T/W constraints and the mass calculation.</p>
+</article>
+
+
+<article data-id="90" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 104">
+<h1>Which statements about the airplane efficiency factor e (Oswald factor) are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Sailplanes: e &asymp; 0.85 &hellip; 0.98
+  <span class="begruendung">The highest values of all categories — clean configuration, high aspect ratio, little interference.</span></li>
+<li data-richtig>Civil jets: e &asymp; 0.75 &hellip; 0.90
+  <span class="begruendung">General aviation aircraft sit somewhat lower, at about 0.70 … 0.80.</span></li>
+<li data-richtig>It is a total correction factor that scales the ideal drag-due-to-lift to fit the real aircraft
+  <span class="begruendung">It even absorbs an estimate for trim drag.</span></li>
+<li data-richtig>There is no direct relation to the lift distribution
+  <span class="begruendung">A common misconception. The lift distribution influences e slightly, but the major influence is the overall configuration of the aircraft.</span></li>
+<li data-begruendung="Fighters lie around 0.70 … 0.85, i.e. below sailplanes, not above them.">Fighter aircraft reach the highest e values of all categories</li>
+</ul>
+
+<div class="note">Named after W. B. Oswald, who first applied the factor in 1932.</div>
+</article>
+
+
+<article data-id="91" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 105">
+<h1>An aircraft has AR = 9, e = 0.85 and C<sub>D0</sub> = 0.020. Which (L/D)<sub>max</sub> results?</h1>
+<p class="hinweis">(L/D)<sub>max</sub> = &frac12; &middot; &radic;(&pi;&middot;AR&middot;e / C<sub>D0</sub>)</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 17.3
+  <span class="begruendung">π·9·0.85 = 24.03; 24.03/0.020 = 1201.7; √1201.7 = 34.7; half of that ≈ 17.3.</span></li>
+<li data-begruendung="That would be the value without the factor ½.">&asymp; 34.7</li>
+<li data-begruendung="Too low — that would correspond to a much higher C<sub>D0</sub> or a much lower aspect ratio.">&asymp; 8.7</li>
+<li data-begruendung="Far too high for an aircraft with C<sub>D0</sub> = 0.020; such values belong to sailplanes.">&asymp; 45</li>
+</ul>
+
+<p>The relation can also be inverted: if (L/D)<sub>max</sub> is easier to estimate than C<sub>D0</sub> in the early stages, use <span class="fx">C<sub>D0</sub> = &pi;&middot;AR&middot;e / (4&middot;(L/D)<sub>max</sub>&sup2;)</span>.</p>
+</article>
+
+
+<article data-id="92" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 105">
+<h1>How does Loftin's method estimate C<sub>D0</sub>?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>D0</sub> is scaled from a reference aircraft by the ratio of wetted-area ratios
+  <span class="begruendung">Assumption: for very similar aircraft concepts, zero-lift drag scales with wetted area.</span></li>
+<li data-richtig>A Reynolds number correction with the exponent 1/6 is applied
+  <span class="begruendung">Accounts for the fact that the skin-friction coefficient falls slowly with increasing Reynolds number.</span></li>
+<li data-richtig>It only works if the reference C<sub>D0</sub> is known and the concepts are similar
+  <span class="begruendung">Typical use: known data of a 200-seat aircraft is used to estimate C<sub>D0</sub> of a new 150-seat aircraft.</span></li>
+<li data-begruendung="The reference value must come from a preliminary design or a drag build-up method — it is not free of prerequisites.">No reference aircraft is needed</li>
+</ul>
+
+<p>Required inputs: S<sub>wet</sub>/S<sub>ref</sub> for the new aircraft and for the reference, plus the Reynolds numbers of both.</p>
+</article>
+
+
+<article data-id="93" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 108 f.">
+<h1>The Boeing B-47 (AR = 9.4) and the Avro Vulcan (AR = 3.0) both reach L/D<sub>max</sub> &asymp; 17. How can that be?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Both have almost the same wetted aspect ratio b&sup2;/S<sub>wet</sub>
+  <span class="begruendung">B-47 ≈ 1.2, Vulcan ≈ 1.1. That is the parameter that really matters, not the geometric aspect ratio.</span></li>
+<li data-richtig>The Vulcan compensates its low aspect ratio with a much smaller S<sub>wet</sub>/S<sub>ref</sub>
+  <span class="begruendung">A delta wing has an enormous reference area relative to its wetted area, so its parasite drag coefficient is very low.</span></li>
+<li data-richtig>Subsonic L/D<sub>max</sub> is mainly governed by wing span and wetted area
+  <span class="begruendung">Induced drag falls with span, parasite drag rises with wetted area — combining both gives b²/S<sub>wet</sub>.</span></li>
+<li data-begruendung="Geometric aspect ratio alone is not decisive; that is exactly the point of this comparison.">Because the geometric aspect ratio alone determines L/D<sub>max</sub></li>
+</ul>
+
+<p><span class="fx">wetted aspect ratio = b&sup2;/S<sub>wet</sub> = AR / (S<sub>wet</sub>/S<sub>ref</sub>)</span></p>
+</article>
+
+
+<article data-id="94" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 109">
+<h1>A civil transport jet has AR = 9.0 and S<sub>wet</sub>/S<sub>ref</sub> = 6.0. Which L/D<sub>max</sub> does Raymer's correlation give?</h1>
+<p class="hinweis">For civil transport jets: L/D<sub>max</sub> = 7.5 &middot; (wetted aspect ratio) + 8</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 19
+  <span class="begruendung">Wetted aspect ratio = 9.0/6.0 = 1.5 → L/D<sub>max</sub> = 7.5·1.5 + 8 = 19.25.</span></li>
+<li data-begruendung="That would use the geometric aspect ratio 9.0 directly instead of the wetted aspect ratio.">&asymp; 75</li>
+<li data-begruendung="Too low; that would correspond to a wetted aspect ratio of about 0.5, typical of a fighter.">&asymp; 12</li>
+<li data-begruendung="Far too high for a transport jet; such values belong to sailplanes.">&asymp; 40</li>
+</ul>
+
+<p>Several curves exist for different aircraft classes (retractable-gear props, fixed-gear props, subsonic jets, jets at Mach 1.15) &mdash; the correlation for the individual design must be chosen. Required inputs are AR and S<sub>wet</sub>/S<sub>ref</sub>, both estimated from the sketch and from statistics.</p>
+</article>
+
+
+<article data-id="95" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 111">
+<h1>Which lift coefficients are used to calculate L/D<sub>TO</sub> and L/D<sub>Landing</sub>?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>L,TO</sub> = C<sub>L,max,TO</sub> / 1.44
+  <span class="begruendung">Because v<sub>TO</sub> = 1.2 · v<sub>stall</sub>, and lift scales with the square of the speed: 1.2² = 1.44.</span></li>
+<li data-richtig>C<sub>L,L</sub> = C<sub>L,max,L</sub> / 1.69
+  <span class="begruendung">Because v<sub>L</sub> = 1.3 · v<sub>stall</sub>: 1.3² = 1.69.</span></li>
+<li data-begruendung="The aircraft never flies at C<sub>L,max</sub> in these phases — it keeps a speed margin to the stall.">C<sub>L,max,TO</sub> and C<sub>L,max,L</sub> are used directly</li>
+<li data-begruendung="The factors come from the speed margins 1.2 and 1.3, which are squared — not from an arbitrary safety factor.">Both are divided by the same factor 1.5</li>
+</ul>
+
+<p><span class="fx">L/D = C<sub>L</sub> / (C<sub>D0</sub> + &Delta;C<sub>D0</sub> + C<sub>L</sub>&sup2;/(&pi;&middot;e&middot;AR))</span>, with C<sub>D0</sub> and AR from the clean L/D<sub>max</sub> estimate.</p>
+</article>
+
+
+<article data-id="96" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 111">
+<h1>Which drag and efficiency increments are used for the take-off and landing configuration?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Take-off flaps: &Delta;C<sub>D0</sub> = 0.010 &hellip; 0.020, e = 0.70 &hellip; 0.80
+  <span class="begruendung">A modest penalty — take-off settings are deliberately low-drag.</span></li>
+<li data-richtig>Landing flaps: &Delta;C<sub>D0</sub> = 0.055 &hellip; 0.075, e = 0.65 &hellip; 0.75
+  <span class="begruendung">Roughly five times the take-off increment. Here the drag is welcome for the approach — but it makes the missed approach the critical climb case.</span></li>
+<li data-richtig>Landing gear: &Delta;C<sub>D0</sub> = 0.015 &hellip; 0.025, no effect on e
+  <span class="begruendung">The gear adds parasite drag but does not distort the lift distribution.</span></li>
+<li data-richtig>Clean: &Delta;C<sub>D0</sub> = 0, e = 0.75 &hellip; 0.90
+  <span class="begruendung">The reference configuration.</span></li>
+<li data-begruendung="Landing flaps produce clearly more drag than take-off flaps — the increment is about 0.055–0.075 versus 0.010–0.020.">Take-off and landing flaps produce roughly the same &Delta;C<sub>D0</sub></li>
+</ul>
+
+<p>Note that the flap settings reduce e as well &mdash; a partial-span flap distorts the spanwise lift distribution.</p>
+</article>
+
+
+<article data-id="97" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 112 f.">
+<h1>Which rules govern the choice of the design point in the matching process?</h1>
+<p class="hinweis">The lecture gives an explicit priority order.</p>
+
+<ol class="mc">
+<li data-richtig>Priority 1: choose the lowest possible T/W (or P/W)
+  <span class="begruendung">A lower T/W means smaller engines and thus lower weight and cost.</span></li>
+<li data-richtig>Priority 2: choose the highest possible W/S
+  <span class="begruendung">A higher W/S means a smaller wing and thus lower structural weight, less wetted area, less drag.</span></li>
+<li data-richtig>All values must first be converted to maximum take-off weight and sea level
+  <span class="begruendung">Otherwise the constraint curves are not comparable in one diagram.</span></li>
+<li data-begruendung="The white area of the diagram is the possible design space — the shaded area violates at least one requirement.">The design point may lie in the shaded area if only one requirement is violated</li>
+</ol>
+
+<p>Civil aircraft under CS-23 and CS-25 are mainly sized by landing and take-off field length plus climb and cruise requirements. Military aircraft may additionally be driven by manoeuvrability (fighters) or loiter (surveillance).</p>
+</article>
+
+
+<article data-id="98" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 115 f.">
+<h1>Which statements about the energy approach to aircraft performance are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The energy height h<sub>e</sub> = h + v&sup2;/(2g) equals the altitude the aircraft would reach if its speed were traded for height without energy loss
+  <span class="begruendung">The specific energy has the unit of a distance, hence the name "energy height".</span></li>
+<li data-richtig>P<sub>s</sub> = dh<sub>e</sub>/dt = dh/dt + (v/g)&middot;dv/dt is the specific excess power
+  <span class="begruendung">It is the time rate at which the aircraft gains altitude or speed.</span></li>
+<li data-richtig>P<sub>s</sub> = 0 means steady horizontal flight, or an exchange of altitude for airspeed
+  <span class="begruendung">P<sub>s</sub> &lt; 0 means the aircraft decelerates and/or descends, P<sub>s</sub> &gt; 0 means it accelerates and/or climbs.</span></li>
+<li data-richtig>Lift adds no power to the aircraft system
+  <span class="begruendung">By definition lift acts normal to the velocity vector, so it does no work. Only thrust adds and drag subtracts power.</span></li>
+<li data-begruendung="The load factor n is contained in the equation — that is exactly what makes it the energy-manoeuvrability equation.">The load factor does not appear in the energy equation</li>
+</ul>
+</article>
+
+
+<article data-id="99" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 116 ff.">
+<h1>The energy-manoeuvrability equation reads T/W = q&middot;C<sub>D0</sub>/(W/S) + n&sup2;/(&pi;&middot;AR&middot;e) &middot; (1/q) &middot; (W/S) + P<sub>s</sub>/v. Which statements are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The first term is the parasite drag contribution and falls with increasing W/S
+  <span class="begruendung">A small wing means little wetted area for a given weight.</span></li>
+<li data-richtig>The second term is the induced drag contribution and rises with increasing W/S
+  <span class="begruendung">A small wing has to work at a high lift coefficient. The two competing terms are what makes the cruise constraint a U-shaped curve with a minimum.</span></li>
+<li data-richtig>Cruise, climb and turning flight are all special cases of this single equation
+  <span class="begruendung">Cruise: n = 1, P<sub>s</sub> = 0. Steady climb: n = 1, P<sub>s</sub> = climb rate. Turn: n = 1/cos(bank angle).</span></li>
+<li data-richtig>Every such requirement yields a <em>minimum</em> value for T/W
+  <span class="begruendung">Unlike the landing and stall constraints, which yield a maximum W/S.</span></li>
+<li data-begruendung="It can be simplified to T/W = 1/(L/D) + Ps/v — a compact form used for the climb constraints.">The equation cannot be simplified further</li>
+</ul>
+
+<p>Example for a shallow cruise turn at 15&deg; bank: <span class="fx">n = 1/cos(15&deg;) = 1.035</span>.</p>
+</article>
+
+
+<article data-id="100" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 123">
+<h1>A twin-engine aircraft has (L/D)<sub>TO</sub> = 12 and must achieve a 2.4 % climb gradient with one engine inoperative. Which T/W is required?</h1>
+<p class="hinweis">T/W = N/(N&minus;1) &middot; [ 1/(L/D)<sub>TO</sub> + sin&gamma; ]</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 0.215
+  <span class="begruendung">1/12 = 0.0833; + 0.024 = 0.1073; × 2/(2−1) = 0.2147.</span></li>
+<li data-begruendung="That is the all-engines-operating value; it misses the OEI factor N/(N−1) = 2.">&asymp; 0.107</li>
+<li data-begruendung="This forgets the climb gradient term.">&asymp; 0.167</li>
+<li data-begruendung="Far too high; that would be a fighter-class thrust-to-weight ratio.">&asymp; 0.90</li>
+</ul>
+
+<p>The factor N/(N&minus;1) accounts for the loss of one of N engines. For a twin it doubles the required T/W &mdash; which is why the OEI second-segment climb is so often the sizing constraint for twins.</p>
+</article>
+
+
+<article data-id="101" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 121 f.">
+<h1>Which climb gradients does CS-25.121 require with one engine inoperative?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Second segment (gear retracted, at V<sub>2</sub>): 2.4 % for two engines
+  <span class="begruendung">2.7 % for three-engined and 3.0 % for four-engined aeroplanes.</span></li>
+<li data-richtig>Discontinued approach (balked landing): 2.1 % for two engines
+  <span class="begruendung">2.4 % for three and 2.7 % for four engines, at maximum landing weight with go-around thrust.</span></li>
+<li data-richtig>The requirement gets more demanding as the number of engines increases
+  <span class="begruendung">Logical: with four engines you only lose a quarter of the thrust, so more residual performance can be demanded.</span></li>
+<li data-begruendung="CS-23 uses different values, e.g. 2.0 % at 400 ft for commuter category aeroplanes with the critical engine inoperative.">CS-23 requires exactly the same gradients as CS-25</li>
+</ul>
+
+<p>The two critical phases are the same ones for which the speed is known from the stall speed: after take-off (v<sub>TO</sub> = 1.2&middot;v<sub>stall</sub>) and during the missed approach (v<sub>L</sub> = 1.3&middot;v<sub>stall</sub>).</p>
+</article>
+
+
+<article data-id="102" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 125 ff.">
+<h1>Which statements about the take-off field length constraint are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The requirement is converted into a ground roll distance s<sub>G</sub>, because energy-based methods work more easily with it
+  <span class="begruendung">For CS-23 aircraft the total take-off distance is roughly 30–40 % higher than s<sub>G</sub>, for CS-25 aircraft roughly 25–30 % higher.</span></li>
+<li data-richtig>The mean acceleration during the ground roll depends on available T/W, aerodynamic drag and rolling friction
+  <span class="begruendung">These are the three terms of the resulting T/W equation.</span></li>
+<li data-richtig>The velocity at the middle of the ground run is v<sub>GR</sub> = v<sub>TO</sub>/&radic;2
+  <span class="begruendung">Follows from constant acceleration: after half the distance the aircraft has reached 1/√2 of the lift-off speed. This is the speed used for the mean dynamic pressure.</span></li>
+<li data-richtig>The equation yields a <em>minimum</em> value for T/W
+  <span class="begruendung">Like all thrust-driven constraints.</span></li>
+<li data-begruendung="The lift-off speed is approximately the take-off speed v_TO ≈ 1.2·v_stall, which depends on W/S and C_L,max,TO.">The lift-off speed is independent of the wing loading</li>
+</ul>
+</article>
+
+
+<article data-id="103" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 128">
+<h1>Which input data are used for the take-off ground run calculation?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>L,GR</sub> &asymp; 0.15
+  <span class="begruendung">The lift coefficient during the ground roll of a tricycle-gear aircraft, sitting nearly level.</span></li>
+<li data-richtig>C<sub>D,GR</sub> = C<sub>D0</sub> + &Delta;C<sub>D0,TO</sub>
+  <span class="begruendung">Induced drag is neglected because C<sub>L,GR</sub> is small (below 0.2).</span></li>
+<li data-richtig>Rolling friction on dry concrete or asphalt: &mu; &asymp; 0.02 &hellip; 0.05
+  <span class="begruendung">With brakes on the same surface gives 0.30–0.50 — that is the landing case. Soft turf and wet grass reach about 0.07–0.08 rolling.</span></li>
+<li data-richtig>For a taildragger with C<sub>L,GR</sub> above 0.2 the induced drag must be included
+  <span class="begruendung">C<sub>D,GR</sub> = C<sub>D0</sub> + ΔC<sub>D0,TO</sub> + C<sub>Di,TO</sub>. A taildragger sits at a high angle of attack during the whole ground run.</span></li>
+<li data-begruendung="Ground friction varies strongly with the surface — that is why a table of surfaces is given.">The ground friction coefficient is the same for every runway surface</li>
+</ul>
+</article>
+
+
+<article data-id="104" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 131">
+<h1>Raymer gives the landing field length as s<sub>LFL</sub> = 5&middot;(W/S)&middot;1/[(&rho;/&rho;<sub>0</sub>)&middot;C<sub>L,max,L</sub>] + s<sub>a</sub>. Which statements are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>s<sub>a</sub> is the obstacle clearance distance: 300 m for airliners on a 3&deg; glideslope
+  <span class="begruendung">180 m for a GA-type power-off approach and 135 m for STOL on a 7° glideslope.</span></li>
+<li data-richtig>Rearranged, the equation yields a <em>maximum</em> permissible wing loading
+  <span class="begruendung">W/S = (s<sub>LFL</sub> − s<sub>a</sub>)/5 · (ρ/ρ<sub>0</sub>) · C<sub>L,max,L</sub> — hence the vertical line in the matching diagram.</span></li>
+<li data-richtig>Civil certification specifications do not allow credit for thrust reversers
+  <span class="begruendung">Although reversers or reversible-pitch props do improve the real deceleration, CS-25 instead requires a safety margin of two-thirds (factor 1.67).</span></li>
+<li data-richtig>A higher C<sub>L,max,L</sub> permits a higher wing loading
+  <span class="begruendung">Which is exactly the feedback loop to the high-lift system design in Chapter 9.</span></li>
+<li data-begruendung="The relation is linear in W/S, not quadratic — it comes from a statistical linear dependency between the square of the approach speed and the landing field length.">The landing field length grows with the square of the wing loading</li>
+</ul>
+</article>
+
+
+<article data-id="105" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 132">
+<h1>A CS-23 aircraft shall not exceed a stall speed of 31.4 m/s at C<sub>L,max</sub> = 1.8 and &rho; = 1.225 kg/m&sup3;. Which maximum wing loading follows?</h1>
+<p class="hinweis">W/S = &frac12; &middot; &rho; &middot; v<sub>S</sub>&sup2; &middot; C<sub>L,max</sub></p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 1088 N/m&sup2;
+  <span class="begruendung">0.5 · 1.225 · 31.4² · 1.8 = 0.5 · 1.225 · 986 · 1.8 ≈ 1087 N/m². Roughly 111 kg/m².</span></li>
+<li data-begruendung="This would forget the factor ½.">&asymp; 2175 N/m&sup2;</li>
+<li data-begruendung="This would forget C<sub>L,max</sub>.">&asymp; 604 N/m&sup2;</li>
+<li data-begruendung="Far too high — that is the wing loading of a large jet transport.">&asymp; 6000 N/m&sup2;</li>
+</ul>
+
+<p>The equation yields a <em>maximum</em> value for W/S, i.e. a vertical line in the matching diagram. The 61 kn threshold matters because CS-23 treats aircraft above it separately in several paragraphs.</p>
+</article>
+
+
+<article data-id="106" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 133 ff.">
+<h1>Why must the constraint values be corrected to reference conditions, and how?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Because each constraint was calculated at its own flight condition, and only take-off at ISA MSL makes them comparable
+  <span class="begruendung">Otherwise you would be plotting apples against oranges in one diagram.</span></li>
+<li data-richtig>(T/W)<sub>take-off</sub> = (T/W)<sub>cruise</sub> &middot; (W<sub>cruise</sub>/W<sub>take-off</sub>) &middot; (T<sub>take-off</sub>/T<sub>cruise</sub>)
+  <span class="begruendung">Two effects: the aircraft is lighter in cruise because fuel has been burnt, and the engine delivers less thrust at altitude and speed.</span></li>
+<li data-richtig>(W/S)<sub>take-off</sub> = (W/S)<sub>landing</sub> &middot; (W<sub>take-off</sub>/W<sub>landing</sub>)
+  <span class="begruendung">The landing constraint is evaluated at landing weight, which is lower than MTOW.</span></li>
+<li data-richtig>The landing field length and missed-approach climb constraints use the landing weight
+  <span class="begruendung">Cruise, take-off field length and after-take-off climb use W<sub>TO</sub>; manoeuvring and stall speed use whatever the requirement specifies.</span></li>
+<li data-begruendung="For transport jets the landing-to-take-off weight ratio averages about 0.84 and can go down to 0.65 — far from 1.">The weight ratio can always be set to 1 without significant error</li>
+</ul>
+</article>
+
+
+<article data-id="107" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 136 f.">
+<h1>How is T/W converted to P/W for a propeller aircraft, and which efficiencies apply?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>T = &eta;<sub>prop</sub> &middot; P &middot; 1000 / v, with P in kW and v in m/s
+  <span class="begruendung">The ideal thrust P/v is reduced by the propeller efficiency.</span></li>
+<li data-richtig>The propeller efficiency depends on speed, so different values apply to cruise and to take-off
+  <span class="begruendung">Example single-engine aircraft: about 0.80 at high speed (cruise, manoeuvre) and about 0.70 at low speed (take-off, loiter).</span></li>
+<li data-richtig>For turboprops the available power is assumed to fall with the density ratio: P = P<sub>0</sub>&middot;&sigma;
+  <span class="begruendung">A simple and acceptable approximation.</span></li>
+<li data-richtig>For piston engines the Gagg and Ferrar model is used: P = P<sub>0</sub>&middot;(&sigma; &minus; 0.117)/0.883
+  <span class="begruendung">Piston engines lose power slightly faster than the density ratio alone would suggest.</span></li>
+<li data-begruendung="Engine manufacturers for propeller aircraft sell power, not thrust — which is exactly why the conversion is needed.">Propeller engine manufacturers sell thrust, so no conversion is needed</li>
+</ul>
+
+<p>For climb phases the efficiency can be interpolated between the low-speed and high-speed values.</p>
+</article>
+
+
+<article data-id="108" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 140">
+<h1>Which typical installed thrust- or power-to-weight ratios are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Jet fighter (dogfighter): T/W &asymp; 0.9
+  <span class="begruendung">The highest value of all categories — manoeuvrability requires excess thrust.</span></li>
+<li data-richtig>Jet transport: T/W &asymp; 0.25 &hellip; 0.4
+  <span class="begruendung">The higher value applies to aircraft with fewer engines, because the OEI case is more demanding.</span></li>
+<li data-richtig>Military cargo/bomber: T/W &asymp; 0.25
+  <span class="begruendung">Efficiency matters more than agility.</span></li>
+<li data-richtig>Twin turboprop: P/W &asymp; 0.33 kW/kg
+  <span class="begruendung">Compared with about 0.12 kW/kg for a general aviation single and 0.07 kW/kg for a powered sailplane.</span></li>
+<li data-begruendung="A powered sailplane needs the least power of all, about 0.07 kW/kg — not the most.">Powered sailplane: P/W &asymp; 0.30 kW/kg</li>
+</ul>
+</article>
+
+
+<article data-id="109" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 140">
+<h1>Which typical wing loadings (after [Howe]) are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Ultralight aircraft: 200 &ndash; 400 N/m&sup2;
+  <span class="begruendung">Extremely low — that is what makes their stall speeds so low.</span></li>
+<li data-richtig>Light single piston engine aircraft: 500 &ndash; 800 N/m&sup2;
+  <span class="begruendung">Roughly 50–80 kg/m².</span></li>
+<li data-richtig>Long haul jet transport: 6200 &ndash; 7000+ N/m&sup2;
+  <span class="begruendung">About an order of magnitude above an ultralight — the reason such aircraft need elaborate high-lift systems.</span></li>
+<li data-richtig>Land-based strike/interceptor aircraft: 4000 &ndash; 5000 N/m&sup2;
+  <span class="begruendung">Naval versions sit lower, at about 3500–4000 N/m², because of the carrier approach speed.</span></li>
+<li data-begruendung="Small executive jets sit around 2200 N/m²; 1000 N/m² would be general-aviation territory.">Small executive jets: &asymp; 1000 N/m&sup2;</li>
+</ul>
+
+<div class="note">Rough conversion: divide N/m&sup2; by 9.81 to obtain kg/m&sup2;.</div>
+</article>
+
+
+<article data-id="110" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 141 f.">
+<h1>The maximum take-off mass is calculated as m<sub>MTO</sub> = m<sub>PL</sub> / (1 &minus; m<sub>F</sub>/m<sub>MTO</sub> &minus; m<sub>OE</sub>/m<sub>MTO</sub>). Which statements are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The payload mass comes from the requirements
+  <span class="begruendung">It is the only absolute mass in the equation — everything else is a fraction.</span></li>
+<li data-richtig>The fuel fraction comes from the mission analysis and statistics
+  <span class="begruendung">Segment fuel fractions from tables, plus Breguet equations for cruise and loiter.</span></li>
+<li data-richtig>Assuming m<sub>OE</sub>/m<sub>MTO</sub> = const. (Torenbeek) avoids iteration but is less accurate
+  <span class="begruendung">The fraction is then independent of the result.</span></li>
+<li data-richtig>Assuming m<sub>OE</sub> = f(m<sub>MTO</sub>) (Raymer, Gudmundsson) requires iteration but is more accurate
+  <span class="begruendung">The statistical curves have the form W<sub>e</sub>/W<sub>0</sub> = A·W<sub>0</sub><sup>C</sup>, so the unknown appears on both sides.</span></li>
+<li data-begruendung="The equation has the take-off mass on both sides whenever the empty mass fraction depends on it — that is precisely the source of the iteration.">The equation can always be solved explicitly without iteration</li>
+</ul>
+</article>
+
+
+<article data-id="111" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 146 f.">
+<h1>How is the total mission fuel fraction determined?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>As the product of the individual mission segment mass fractions
+  <span class="begruendung">m<sub>F</sub>/m<sub>MTO</sub> = 1 − Π(m<sub>i</sub>/m<sub>i−1</sub>) over all segments.</span></li>
+<li data-richtig>Start, warm-up, taxi, take-off, climb, descent, landing and shutdown are taken from tables
+  <span class="begruendung">Typical values for transport jets: 0.990 for start/warm-up, 0.990 taxi, 0.995 take-off, 0.980 climb, 0.990 descent, 0.992 landing/taxi/shutdown.</span></li>
+<li data-richtig>Cruise segments are computed with the Breguet range equation
+  <span class="begruendung">Loiter segments with the Breguet endurance equation.</span></li>
+<li data-begruendung="For battery-electric aircraft the individual segment battery mass fractions are added, not multiplied — because the battery does not get lighter.">For battery-electric aircraft the segment fractions are multiplied in the same way</li>
+</ul>
+
+<div class="note">The table values are based on experience and judgement &mdash; there is no substitute for common sense.</div>
+</article>
+
+
+<article data-id="112" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 147 f.">
+<h1>Which statements about the Breguet factors used in the lecture are correct?</h1>
+<p class="hinweis">m<sub>1</sub>/m<sub>0</sub> = e<sup>&minus;s/B<sub>s</sub></sup> &nbsp;and&nbsp; m<sub>1</sub>/m<sub>0</sub> = e<sup>&minus;t/B<sub>t</sub></sup></p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The Breguet range factor for level cruise is B<sub>s</sub> = (L/D)&middot;V/SFC<sub>T</sub>
+  <span class="begruendung">It has the dimension of a length — typically km.</span></li>
+<li data-richtig>The Breguet endurance factor for level cruise is B<sub>t</sub> = (L/D)/SFC<sub>T</sub>
+  <span class="begruendung">It has the dimension of a time — typically h. The speed drops out.</span></li>
+<li data-richtig>For climb and descent the flight path angle enters, via a term with sin&gamma;
+  <span class="begruendung">The factor becomes smaller in a climb, because part of the fuel energy goes into potential energy.</span></li>
+<li data-richtig>The exponent must be non-dimensional, so units have to be watched carefully
+  <span class="begruendung">Typical consistent choice: [s] = km, [B<sub>s</sub>] = km, [SFC<sub>T</sub>] = lb/lb/h = 1/h, [V] = km/h.</span></li>
+<li data-begruendung="Range is exponential in the mass ratio, not linear: doubling the fuel does not double the range.">Doubling the fuel mass doubles the range</li>
+</ul>
+</article>
+
+
+<article data-id="113" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 148">
+<h1>Which typical thrust-specific fuel consumption values apply to subsonic jets?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>High-bypass turbofan: &asymp; 0.5 (cruise) / 0.4 (loiter) [1/h]
+  <span class="begruendung">The best of the three — the reason every transport aircraft uses one.</span></li>
+<li data-richtig>Low-bypass turbofan: &asymp; 0.8 (cruise) / 0.7 (loiter) [1/h]
+  <span class="begruendung">Typical for older or military aircraft.</span></li>
+<li data-richtig>Pure turbojet: &asymp; 0.9 (cruise) / 0.8 (loiter) [1/h]
+  <span class="begruendung">The worst of the three.</span></li>
+<li data-richtig>Loiter values are lower than cruise values
+  <span class="begruendung">Consistent across all engine types.</span></li>
+<li data-begruendung="A propeller SFC is given in lb/hp/h and must be converted to an equivalent jet SFC via SFC_eq = SFC_P·V/(550·η_p) — the units are a classic source of errors.">Propeller SFC values can be inserted into the jet equations unchanged</li>
+</ul>
+</article>
+
+
+<article data-id="114" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 152 ff.">
+<h1>What has to be treated differently when sizing a battery-electric aircraft?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Electric motors do not lose power with altitude, unlike combustion engines
+  <span class="begruendung">The power lapse models (density ratio, Gagg and Ferrar) do not apply.</span></li>
+<li data-richtig>The cooling performance of the heat exchanger still falls with the density ratio
+  <span class="begruendung">So an oversized cooling system may be needed, and its extra drag must be accounted for in the aerodynamic performance.</span></li>
+<li data-richtig>The segment battery mass fractions are summed, not multiplied
+  <span class="begruendung">Unlike fuel, a battery does not get lighter as it is discharged — the aircraft mass stays constant.</span></li>
+<li data-richtig>The battery fraction depends on the specific energy E* of the battery
+  <span class="begruendung">Together with the total system efficiency from battery to shaft, the propeller efficiency and L/D.</span></li>
+<li data-begruendung="The overall logic is the same as for conventional propulsion; only specific points differ.">The matching diagram cannot be used for electric aircraft</li>
+</ul>
+
+<p>The system efficiency chain: battery 0.97&ndash;0.99, inverter 0.95&ndash;0.99, e-motor 0.94&ndash;0.99, gearbox 0.98&ndash;1.00 &mdash; multiplied together.</p>
+</article>
+
+
+<article data-id="115" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 p. 150 f. / 154">
+<h1>Which "lessons learned" does the lecture draw from preliminary sizing?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Preliminary sizing fixes take-off mass, thrust or power, and wing area
+  <span class="begruendung">The three parameters that determine the whole rest of the design.</span></li>
+<li data-richtig>The calculated values are only valid for the first "shot" at the design
+  <span class="begruendung">They are subject to change in the next design stages — treat them very carefully and do not regard them as final.</span></li>
+<li data-richtig>A poor C<sub>D0</sub> estimate can threaten the whole design
+  <span class="begruendung">It is singled out explicitly in the lessons learned. Both drag and mass errors propagate through the entire sizing loop.</span></li>
+<li data-richtig>You must be sure about the mission profile before sizing
+  <span class="begruendung">Changes further along the timeline may force a resizing and become extremely expensive.</span></li>
+<li data-begruendung="Textbook statistics should always be used with caution — if your company has experience and better data, rely on that instead.">Statistical values from textbooks can be applied without further thought</li>
+</ul>
+
+<p>The better the initial estimates, the less re-designing has to be done.</p>
 </article>
 
 
