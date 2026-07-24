@@ -5,4 +5,10 @@
     "kuerzel": "PSI",
     "beschreibung": "FH Aachen, Prof. Dr.-Ing. H. Funke"
   }
+  {
+    "datei": "ad.html",
+    "name": "Aircraft Design",
+    "kuerzel": "AD",
+    "beschreibung": "FH Aachen, Prof. Dr.-Ing. c.Braun"
+  }
 ]
