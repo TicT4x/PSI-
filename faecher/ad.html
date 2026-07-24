@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aircraft Design</title>
+
+<meta name="fach" content="Aircraft Design">
+<meta name="kuerzel" content="AD">
+
+<style>
+body{max-width:52em;margin:2em auto;padding:0 1em;font:16px/1.6 system-ui,sans-serif}
+article{border:1px solid #ccc;padding:1em 1.5em;margin:1.5em 0}
+h1{font-size:1.3em;margin:0 0 .5em}
+svg{max-width:100%;height:auto}
+table{border-collapse:collapse}th,td{border:1px solid #ccc;padding:.3em .6em}
+ul.mc,ol.mc{list-style:none;padding:0;margin:1em 0}
+ul.mc li,ol.mc li{border:1px solid #ccc;padding:.5em .8em;margin:.35em 0}
+ul.mc li[data-richtig],ol.mc li[data-richtig],.mc li.richtig{border-color:#1c6a56}
+.begruendung{display:block;font-size:.85em;color:#555;border-left:2px solid #ddd;padding-left:.7em;margin-top:.4em}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     AIRCRAFT DESIGN — Knowledge Test preparation
+     Built along the 12 learning goals of the exam checklist:
+      1  typical values for relevant performance parameters
+      2  sizing from point performance + mission analysis
+      3  influence of performance parameters on the sizing result
+      4  influence of wing parameters on wing performance
+      5  layout of a high-lift system and estimation of its performance
+      6  landing gear configuration and typical values
+      7  empennage sizing
+      8  use of the "scissor" diagram
+      9  parameters influencing the "scissor" diagram
+     10  assessment of static stability
+     11  assessment of aerodynamic performance from the drag polar
+     12  how to improve the aerodynamic performance
+     =================================================================== -->
+
+
+<!-- ############ 1 — TYPICAL VALUES ############ -->
+
+<article data-id="1" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>An untwisted wing is designed for a small propeller-driven general aviation aircraft. Which wing incidence angle is a reasonable starting value for conceptual design?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>i &asymp; 2&deg;
+  <span class="begruendung">Typical conceptual-design values: home-builts and small propeller aircraft i &asymp; 2&deg;, jet transports i &asymp; 1&deg;, military jets i &asymp; 0&deg;.</span></li>
+<li data-begruendung="That is the typical value for a jet transport.">i &asymp; 1&deg;</li>
+<li data-begruendung="That is the typical value for a military jet, which flies at high speed and low CL.">i &asymp; 0&deg;</li>
+<li data-begruendung="Far too much. Such an incidence would produce a large fuselage drag penalty in cruise.">i &asymp; 8&deg;</li>
+</ul>
+
+<p>The incidence angle is chosen so that the wing sits at its design angle of attack while the fuselage sits at its minimum-drag attitude in cruise.</p>
+<div class="note">For a twisted wing the <em>average</em> incidence between root and tip should match these values.</div>
+</article>
+
+
+<article data-id="2" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>A wing shall have a geometric twist of &epsilon; = &minus;4&deg; and an average incidence of 2&deg;. Which root and tip incidence follow?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Root 4&deg;, tip 0&deg;
+  <span class="begruendung">Average = (4&deg; + 0&deg;)/2 = 2&deg;, and the difference tip &minus; root = &minus;4&deg; gives the required wash-out.</span></li>
+<li data-begruendung="Average would be 0°, not 2°.">Root 2&deg;, tip &minus;2&deg;</li>
+<li data-begruendung="The difference is only −2°, not the required −4°.">Root 3&deg;, tip 1&deg;</li>
+<li data-begruendung="Average would be 4°.">Root 6&deg;, tip 2&deg;</li>
+</ul>
+
+<p><span class="fx">i<sub>avg</sub> = (i<sub>root</sub> + i<sub>tip</sub>)/2</span> and <span class="fx">&epsilon; = i<sub>tip</sub> &minus; i<sub>root</sub></span>.</p>
+</article>
+
+
+<article data-id="3" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>For initial design purposes, which amount of geometric wash-out is normally assumed to provide adequate stall characteristics?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&epsilon; &asymp; &minus;3&deg;
+  <span class="begruendung">About −3° of wash-out is the standard first guess: it unloads the tip so that the root stalls first.</span></li>
+<li data-begruendung="Positive twist (wash-in) would load the tip even more and promote tip stall.">&epsilon; &asymp; +3&deg;</li>
+<li data-begruendung="Far too much; the wing would perform poorly at all off-design angles of attack.">&epsilon; &asymp; &minus;15&deg;</li>
+<li data-begruendung="No twist is possible, but then tip stall must be prevented by other means (planform, airfoil choice).">&epsilon; = 0&deg;</li>
+</ul>
+
+<p>Twist optimised for one lift coefficient is only optimal at that condition &mdash; the more twist is applied, the worse the wing performs at other angles of attack.</p>
+<div class="note">The elliptical Spitfire wing also used about &minus;2&deg; of wash-out &mdash; the &bdquo;perfect elliptical lift distribution&ldquo; story is a myth.</div>
+</article>
+
+
+<article data-id="4" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>The airfoil of a high aspect ratio wing reaches c<sub>l,max</sub> = 1.6 in 2D. Which maximum lift coefficient should be assumed for the clean 3D wing in conceptual design?</h1>
+<p class="hinweis">Guideline: C<sub>L,max,wing</sub> = 0.85 &hellip; 0.92 &middot; c<sub>l,max,airfoil</sub></p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>About 1.4 &ndash; 1.5
+  <span class="begruendung">0.85 … 0.92 × 1.6 ≈ 1.36 … 1.47. The higher end of the band applies to high aspect ratio wings.</span></li>
+<li data-begruendung="3D effects (downwash, tip vortices) always reduce the achievable maximum lift compared to 2D.">About 1.6, the 3D wing reaches the same value</li>
+<li data-begruendung="Only a wing with high-lift devices deployed would exceed the 2D clean airfoil value.">About 1.8</li>
+<li data-begruendung="Too pessimistic; that factor would be around 0.6.">About 1.0</li>
+</ul>
+
+<p>Lower values within the band apply to low aspect ratio wings, higher values to high aspect ratio wings. Sweep reduces the value further, roughly with <span class="fx">cos(&Lambda;<sub>c/4</sub>)</span>.</p>
+</article>
+
+
+<article data-id="5" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which value is typically assumed for the dynamic pressure ratio &eta;<sub>H</sub> at the horizontal stabilizer?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&eta;<sub>H</sub> &asymp; 0.90
+  <span class="begruendung">The tail sits in the wake of wing and fuselage, so it sees a reduced dynamic pressure. The usual band is 0.85 … 0.95, with 0.90 as the standard assumption.</span></li>
+<li data-begruendung="A value of 1.0 would mean the tail sees completely undisturbed flow — unrealistic for a conventional tail.">&eta;<sub>H</sub> = 1.00</li>
+<li data-begruendung="Far too low; such a strong loss would make the tail almost useless.">&eta;<sub>H</sub> &asymp; 0.50</li>
+<li data-begruendung="The tail cannot see a higher dynamic pressure than the free stream, unless it sits in a propeller slipstream.">&eta;<sub>H</sub> &asymp; 1.20</li>
+</ul>
+
+<p>Note the exception: on some small and multi-engine propeller aircraft the tail is placed <em>intentionally</em> in the slipstream to increase its effectiveness.</p>
+</article>
+
+
+<article data-id="6" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which first guess is normally used for the distance of the total centre of gravity behind the leading edge of the mean aerodynamic chord (x<sub>CG,LEMAC</sub>)?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 0.30 &middot; MAC
+  <span class="begruendung">A c.g. at roughly 30 % MAC is the standard starting assumption for placing the wing group relative to the fuselage group.</span></li>
+<li data-begruendung="That is the typical position of the aerodynamic centre in subsonic flow, not of the c.g.">&asymp; 0.25 &middot; MAC</li>
+<li data-begruendung="Much too far aft; the aircraft would normally be statically unstable.">&asymp; 0.75 &middot; MAC</li>
+<li data-begruendung="The c.g. is not placed at the leading edge; a huge tail download would be needed to trim.">0 &middot; MAC (at LEMAC)</li>
+</ul>
+
+<p>It is used in <span class="fx">x<sub>LEMAC</sub> = x<sub>FG</sub> &minus; x<sub>CG,LEMAC</sub> + (m<sub>WG</sub>/m<sub>FG</sub>)(x<sub>WG,LEMAC</sub> &minus; x<sub>CG,LEMAC</sub>)</span> to find the wing position.</p>
+</article>
+
+
+<article data-id="7" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 8 / Ch. 11">
+<h1>Where is the aerodynamic centre of a lifting surface located?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>At about 25 % of the chord in subsonic flow
+  <span class="begruendung">The classic quarter-chord position.</span></li>
+<li data-richtig>At about 40 &hellip; 50 % of the chord in supersonic flow
+  <span class="begruendung">The a.c. moves aft with supersonic flow — this rearward shift is a major source of trim drag for supersonic aircraft.</span></li>
+<li data-richtig>For a wing or stabilizer, on the mean aerodynamic chord at the same relative position as on the airfoil
+  <span class="begruendung">This is exactly why the MAC is constructed: it lets 2D airfoil knowledge be transferred to the 3D surface.</span></li>
+<li data-begruendung="It is a fixed point for a given Mach number regime; the point where the moment stays constant is the definition of the a.c., not the c.g.">Always at the centre of gravity of the aircraft</li>
+<li data-begruendung="The a.c. moves aft, not forward, when going supersonic.">It moves forward to about 10 % chord at supersonic speed</li>
+</ul>
+
+<p>Careful: the formulas commonly used compute the <em>mean geometric chord</em> (MGC), which is only an approximation of the true MAC &mdash; the real MAC also depends on airfoil, twist and sweep.</p>
+</article>
+
+
+<article data-id="8" data-kapitel="Typical Values" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which aspect ratio band fits which aircraft category?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Low aspect ratio &rarr; fighters
+  <span class="begruendung">Low A gives high structural strength and high roll manoeuvrability — at the price of high induced drag.</span></li>
+<li data-richtig>Medium aspect ratio &rarr; general aviation and short-range transports
+  <span class="begruendung">A compromise between structural weight and drag.</span></li>
+<li data-richtig>High aspect ratio &rarr; long-range transports and sailplanes
+  <span class="begruendung">High A minimises induced drag and therefore maximises L/D — the decisive parameter for range and glide performance.</span></li>
+<li data-begruendung="The opposite is true: sailplanes use the highest aspect ratios of all aircraft.">Very low aspect ratio &rarr; sailplanes</li>
+</ul>
+
+<p>Remember the geometric coupling: for a fixed wing area, <span class="fx">b = &radic;(A &middot; S<sub>ref</sub>)</span> &mdash; a higher aspect ratio directly means a larger span.</p>
+</article>
+
+
+<!-- ############ 2 — PRELIMINARY SIZING ############ -->
+
+<article data-id="9" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5">
+<h1>Which quantities are plotted on the axes of a matching diagram (constraint diagram)?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Wing loading W/S on the horizontal axis
+  <span class="begruendung">W/S is the first of the two sizing outputs — it fixes the wing area once the take-off mass is known.</span></li>
+<li data-richtig>Thrust-to-weight ratio T/W (or power loading W/P) on the vertical axis
+  <span class="begruendung">The second sizing output — it fixes the required engine size.</span></li>
+<li data-begruendung="Range and payload belong to the payload-range diagram, which describes an existing aircraft, not the sizing process.">Range over payload</li>
+<li data-begruendung="This is the scissor diagram used for empennage sizing, not the matching diagram.">Stabilizer area ratio over c.g. position</li>
+</ul>
+
+<p>Each point performance requirement (take-off, landing, climb, cruise, ceiling, manoeuvre) is transformed into a curve in this plane. The feasible region is the intersection of all constraints; the design point is chosen inside it.</p>
+</article>
+
+
+<article data-id="10" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5">
+<h1>Which of the following requirements appear as an (almost) vertical line in the matching diagram?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Landing field length
+  <span class="begruendung">The approach/landing speed follows from W/S and C<sub>L,max,L</sub> only — thrust does not appear, so the constraint is a vertical limit on wing loading.</span></li>
+<li data-richtig>Maximum stall speed requirement
+  <span class="begruendung">Same reason: V<sub>S</sub> = √(2(W/S)/(ρ C<sub>L,max</sub>)) is independent of installed thrust.</span></li>
+<li data-begruendung="The climb gradient requirement is essentially independent of W/S and therefore appears as a horizontal line.">Second-segment climb gradient with one engine inoperative</li>
+<li data-begruendung="The take-off distance requirement couples both quantities and appears as a rising curve.">Take-off field length</li>
+</ul>
+
+<p>Vertical constraints only limit W/S; horizontal constraints only limit T/W; all others couple both.</p>
+<div class="note">Landing normally sets the <em>maximum</em> wing loading, take-off and climb set the <em>minimum</em> thrust-to-weight ratio.</div>
+</article>
+
+
+<article data-id="11" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5">
+<h1>Where is the design point usually chosen in the matching diagram of a transport aircraft?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>At the highest permissible wing loading and the lowest thrust-to-weight ratio that still satisfies all constraints
+  <span class="begruendung">A high W/S means a small wing (low weight, low wetted area, low drag) and a low T/W means a small engine (low weight, low fuel burn and low cost).</span></li>
+<li data-begruendung="A low wing loading gives an unnecessarily large and heavy wing.">At the lowest possible wing loading</li>
+<li data-begruendung="Excess thrust costs weight, fuel and money; it is only chosen if a requirement demands it.">At the highest possible thrust-to-weight ratio</li>
+<li data-begruendung="Points outside the feasible region violate at least one requirement and are not designs at all.">Anywhere outside the feasible region, as long as it is close to it</li>
+</ul>
+
+<p>Practical designs often keep a small margin to the constraint boundaries, because the underlying assumptions (C<sub>L,max</sub>, C<sub>D0</sub>, masses) are still uncertain at this stage.</p>
+</article>
+
+
+<article data-id="12" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 / Ch. 9">
+<h1>During wing design it turns out that the assumed C<sub>L,max,Landing</sub> cannot be achieved with the chosen high-lift system. What is the consequence for the sizing?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The landing constraint moves to a lower wing loading, so the wing has to become larger
+  <span class="begruendung">W/S at landing is proportional to C<sub>L,max,L</sub>. Less maximum lift means less permissible wing loading.</span></li>
+<li data-richtig>The preliminary sizing has to be repeated with the lower lift coefficients
+  <span class="begruendung">Exactly the feedback loop described in the lecture: sizing assumptions must be confirmed by the high-lift design, otherwise the loop is closed again.</span></li>
+<li data-richtig>The required take-off thrust may increase
+  <span class="begruendung">A reduced C<sub>L,max,T-O</sub> shifts the take-off constraint upwards, demanding more thrust for the same field length.</span></li>
+<li data-begruendung="The opposite: a smaller C<sub>L,max</sub> forces a lower wing loading, i.e. a bigger wing.">The wing can be made smaller</li>
+</ul>
+
+<p>This is why Chapter 9 explicitly checks whether the high-lift system can deliver <span class="fx">&Delta;C<sub>L,max</sub> = C<sub>L,max,T-O/L</sub> &minus; C<sub>L,max,clean</sub></span>.</p>
+</article>
+
+
+<article data-id="13" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5">
+<h1>Breguet's range equation for a jet aircraft reads R = (V/c)&middot;(L/D)&middot;ln(W<sub>1</sub>/W<sub>2</sub>). Which measures increase the range?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Reducing the thrust specific fuel consumption c
+  <span class="begruendung">Range is inversely proportional to c — engine efficiency enters linearly.</span></li>
+<li data-richtig>Increasing the aerodynamic efficiency L/D
+  <span class="begruendung">L/D enters linearly, which is why drag reduction and high aspect ratios pay off directly in range.</span></li>
+<li data-richtig>Increasing the fuel mass fraction, i.e. the ratio W<sub>1</sub>/W<sub>2</sub>
+  <span class="begruendung">More fuel relative to the landing weight increases the logarithm — but only logarithmically, so doubling the fuel does not double the range.</span></li>
+<li data-begruendung="Increasing the empty weight for the same take-off weight reduces the fuel available and therefore the weight ratio.">Increasing the operating empty weight at constant take-off weight</li>
+<li data-begruendung="Zero-lift drag reduces L/D and therefore reduces range.">Increasing C<sub>D0</sub></li>
+</ul>
+
+<p>For a propeller aircraft the equivalent form is <span class="fx">R = (&eta;<sub>P</sub>/c<sub>P</sub>) &middot; (L/D) &middot; ln(W<sub>1</sub>/W<sub>2</sub>)</span> &mdash; the speed V drops out and the propeller efficiency takes its place.</p>
+</article>
+
+
+<article data-id="14" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5 / Ch. 12">
+<h1>Which flight condition gives the maximum range of a <em>propeller</em>-driven aircraft (Breguet, constant altitude)?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Flight at maximum L/D
+  <span class="begruendung">For a propeller the range equation contains L/D directly, so best range coincides with (L/D)<sub>max</sub>.</span></li>
+<li data-begruendung="Max C<sub>L</sub>^1.5/C<sub>D</sub> gives minimum power required, i.e. maximum endurance for a propeller aircraft.">Flight at maximum C<sub>L</sub><sup>3/2</sup>/C<sub>D</sub></li>
+<li data-begruendung="This is the best-range condition for a jet, where the speed V appears in the numerator.">Flight at maximum C<sub>L</sub><sup>1/2</sup>/C<sub>D</sub></li>
+<li data-begruendung="C<sub>L,max</sub> is the stall condition — a very poor L/D and a very inefficient flight state.">Flight at C<sub>L,max</sub></li>
+</ul>
+
+<p>Summary: propeller &rarr; best range at (L/D)<sub>max</sub>, best endurance at max C<sub>L</sub><sup>3/2</sup>/C<sub>D</sub>. Jet &rarr; best range at max C<sub>L</sub><sup>1/2</sup>/C<sub>D</sub>, best endurance at (L/D)<sub>max</sub>.</p>
+</article>
+
+
+<article data-id="15" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 5">
+<h1>The designer increases the aspect ratio of the wing while keeping the wing area and the mission constant. Which effects on the sizing result are to be expected?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>L/D<sub>max</sub> increases, so less fuel is needed for the same range
+  <span class="begruendung">Induced drag falls with 1/A, which raises the maximum aerodynamic efficiency.</span></li>
+<li data-richtig>The wing structural weight increases
+  <span class="begruendung">Larger span means larger bending moments and a heavier wing box — this counteracts the fuel saving.</span></li>
+<li data-richtig>A trade study is required to find the optimum, because the two effects work against each other
+  <span class="begruendung">This is the classical aspect ratio trade: aerodynamic gain versus structural penalty.</span></li>
+<li data-begruendung="The lift curve slope increases with aspect ratio, it does not decrease.">The lift curve slope C<sub>L,&alpha;</sub> decreases</li>
+<li data-begruendung="Higher aspect ratio wings stall at a lower angle of attack, not a higher one.">The stall angle of attack increases</li>
+</ul>
+
+<p>Effects of a <em>reduced</em> aspect ratio, for comparison: lower lift curve slope, higher stall angle of attack, lower C<sub>L,max</sub>, more induced drag, lighter structure.</p>
+</article>
+
+
+<article data-id="16" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 2 / Ch. 5">
+<h1>Why is an accurate mass prediction so critical in the early design phase?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Mass directly drives aircraft size, engine thrust and therefore acquisition and operating cost
+  <span class="begruendung">The whole sizing loop is anchored on the take-off mass — an error propagates into every subsequent result.</span></li>
+<li data-richtig>Weight growth in late design stages severely degrades performance and is expensive to fix
+  <span class="begruendung">The Boeing 787 was about 8 % overweight in the early versions, which cost roughly 15 % of range.</span></li>
+<li data-richtig>The decision about the feasibility of a project is taken before the costly detail design starts
+  <span class="begruendung">A wrong mass estimate can lead to a project that is only recognised as unfeasible when large sums have already been spent — see the Boeing 2707 SST.</span></li>
+<li data-begruendung="The opposite is true: the mass distribution determines the c.g. and therefore drives stability, empennage sizing and wing position.">Mass distribution is irrelevant as long as the total mass is right</li>
+</ul>
+
+<p>Component masses are needed to find the overall c.g., to place the wing and heavy systems, and as target values for the system designers.</p>
+</article>
+
+
+<article data-id="17" data-kapitel="Preliminary Sizing" data-quelle="Lecture Notes" data-ref="Ch. 2">
+<h1>What distinguishes Class I from Class II mass estimation methods?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Class I uses simple statistical fractions or factors derived from historical aircraft data
+  <span class="begruendung">Typically a component mass is expressed as a fixed percentage of MTOM or as a factor times a reference area.</span></li>
+<li data-richtig>Class II uses refined regression formulas including geometric and load parameters
+  <span class="begruendung">Class II formulas contain things like S, A, sweep, t/c, ultimate load factor and design speed.</span></li>
+<li data-richtig>Both are only valid for the aircraft class they were derived from
+  <span class="begruendung">Applying a transport-aircraft formula to a sailplane-like aspect ratio produces nonsense. The methods are not interchangeable.</span></li>
+<li data-begruendung="Many published formulas use imperial units — using SI values without conversion is one of the most common errors.">Both methods are unit-independent</li>
+</ul>
+
+<div class="note">Always cross-check a mass estimate with a second method, and use real component masses whenever they are available.</div>
+</article>
+
+
+<!-- ############ 3 — WING DESIGN ############ -->
+
+<article data-id="18" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which parameters still have to be determined during wing design, after preliminary sizing has already delivered the wing area?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Sweep angle and taper ratio
+  <span class="begruendung">Both are planform parameters fixed in Chapter 8.</span></li>
+<li data-richtig>Airfoil, twist and incidence angle
+  <span class="begruendung">The "wing design" group of parameters, as opposed to the planform group.</span></li>
+<li data-richtig>Dihedral angle and the location and size of aileron and spoiler
+  <span class="begruendung">Dihedral drives lateral stability; aileron size drives roll control power and constrains the space available for trailing-edge flaps.</span></li>
+<li data-begruendung="The wing reference area is already an output of the preliminary sizing (from the matching diagram); it is only refined here.">The wing reference area S<sub>ref</sub>, which is not known before</li>
+</ul>
+
+<p>The aspect ratio has usually been estimated already in preliminary sizing (via the assumed L/D<sub>max</sub>), but it is revisited and iterated in wing design.</p>
+</article>
+
+
+<article data-id="19" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which statements about the effect of the aspect ratio A are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Increasing A reduces the induced drag
+  <span class="begruendung">C<sub>D,i</sub> = C<sub>L</sub>²/(π A e) — the induced drag falls inversely with A.</span></li>
+<li data-richtig>Increasing A increases the wing structural weight
+  <span class="begruendung">The larger span raises the root bending moment.</span></li>
+<li data-richtig>Reducing A increases the stall angle of attack
+  <span class="begruendung">Low aspect ratio wings stall late and gently — this is why stabilizers are given low aspect ratios.</span></li>
+<li data-richtig>Reducing A reduces C<sub>L,max</sub>
+  <span class="begruendung">Together with the reduced lift curve slope this is one reason why low-A wings need large angles of attack.</span></li>
+<li data-begruendung="A reduction of the aspect ratio reduces the lift curve slope; it does not increase it.">Reducing A increases the lift curve slope</li>
+</ul>
+
+<p><span class="fx">A = b² / S<sub>ref</sub></span> &nbsp; and &nbsp; <span class="fx">C<sub>D,i</sub> = C<sub>L</sub>² / (&pi; A e)</span></p>
+</article>
+
+
+<article data-id="20" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>What are the two legitimate reasons to sweep a wing?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>To delay the onset of shock waves and thus the wave drag rise
+  <span class="begruendung">Sweep reduces the effective Mach number normal to the quarter chord: Ma<sub>eff</sub> = Ma · cos(Λ<sub>c/4</sub>).</span></li>
+<li data-richtig>To fix a centre-of-gravity problem
+  <span class="begruendung">Classic example: the DC-3 used sweep to cure an aft-c.g. problem; canard or aft-engine layouts may also need it.</span></li>
+<li data-begruendung="Sweep makes the wing aerodynamically less efficient and structurally worse (discontinuous spar) — it should be avoided unless necessary.">To improve the aerodynamic efficiency at low speed</li>
+<li data-begruendung="Aft sweep worsens the stall behaviour by promoting tip stall.">To improve the stall behaviour of an aft-swept wing</li>
+<li data-begruendung="Sweep produces a structural penalty, especially for forward-swept wings (static divergence).">To reduce the wing structural weight</li>
+</ul>
+
+<div class="note">Regarding the critical Mach number it makes <em>no</em> difference whether the sweep is positive or negative &mdash; only <span class="fx">|cos&Lambda;|</span> matters.</div>
+</article>
+
+
+<article data-id="21" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>A wing has a quarter-chord sweep of 30&deg; and an unswept maximum lift coefficient of 1.5. Which value should be used as a first approximation for the swept wing?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 1.3
+  <span class="begruendung">c<sub>L,max,swept</sub> ≈ c<sub>L,max,unswept</sub> · cos(Λ<sub>c/4</sub>) = 1.5 · cos30° ≈ 1.30.</span></li>
+<li data-begruendung="Sweep reduces the maximum lift coefficient, it does not leave it unchanged.">1.5, unchanged</li>
+<li data-begruendung="Sweep never increases C<sub>L,max</sub>.">&asymp; 1.7</li>
+<li data-begruendung="That would correspond to a factor cos²Λ, which is not the first approximation used here.">&asymp; 1.1</li>
+</ul>
+
+<p>Sweep also reduces the lift curve slope and shifts C<sub>L,max</sub> to a higher angle of attack.</p>
+</article>
+
+
+<article data-id="22" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Why do aft-swept wings tend to "pitch up" at the stall?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The tip stalls first, and the tip is located behind the c.g.
+  <span class="begruendung">Losing lift behind the c.g. removes a nose-down contribution.</span></li>
+<li data-richtig>The still-attached inboard wing forward of the c.g. keeps lifting and produces a nose-up moment
+  <span class="begruendung">The result is a strong nose-up moment that drives the aircraft deeper into the stall — a self-aggravating and dangerous behaviour.</span></li>
+<li data-begruendung="Forward-swept wings do suffer from pitch-up as well, though less severely, because the inboard section stalls first and lies aft of the c.g.">Forward-swept wings are completely free of pitch-up</li>
+<li data-begruendung="The opposite: on a forward-swept wing the root stalls first, so the ailerons stay effective at the beginning of the stall.">Forward-swept wings lose aileron control first</li>
+</ul>
+
+<p>Counter-measures on aft-swept wings: wash-out, spanwise change of airfoil (aerodynamic twist), fences, vortilons, and a careful choice of taper ratio.</p>
+</article>
+
+
+<article data-id="23" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which effects does a <em>decreasing</em> taper ratio &lambda; = c<sub>tip</sub>/c<sub>root</sub> have?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The structural weight can be reduced
+  <span class="begruendung">The centre of pressure shifts inboard, reducing the wing bending moments.</span></li>
+<li data-richtig>The available fuel volume is reduced
+  <span class="begruendung">The outboard wing becomes thin and small, so tank volume is lost.</span></li>
+<li data-richtig>The lift and lift-coefficient distribution over the span changes, affecting induced drag and stall behaviour
+  <span class="begruendung">Taper is the main planform tool to approach an elliptical lift distribution — but too small a taper ratio triggers tip stall.</span></li>
+<li data-begruendung="The lower limit of the taper ratio comes exactly from these constraints: space for the aileron and its control mechanism, and stall characteristics.">There is no practical lower limit for the taper ratio</li>
+</ul>
+
+<p>Additional effect: the low local Reynolds number at a small tip chord further promotes the tendency towards tip stall.</p>
+</article>
+
+
+<article data-id="24" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which statements about the airfoil thickness ratio t/c are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Wing structural weight varies approximately inversely with the square root of t/c
+  <span class="begruendung">W<sub>wing</sub> ~ 1/√(t/c). Halving the thickness ratio therefore increases the wing weight by about 41 %.</span></li>
+<li data-richtig>In subsonic conditions the maximum lift is usually achieved around t/c = 12 &hellip; 16 %
+  <span class="begruendung">Both thinner and much thicker airfoils give lower c<sub>l,max</sub>.</span></li>
+<li data-richtig>A larger t/c lowers the critical Mach number
+  <span class="begruendung">A thicker airfoil accelerates the flow more strongly, so sonic conditions are reached at a lower free-stream Mach number.</span></li>
+<li data-richtig>t/c influences the available volume for structure, fuel and landing gear
+  <span class="begruendung">A practical constraint that often dominates over the pure aerodynamic optimum.</span></li>
+<li data-begruendung="Thickness ratio has a strong effect on drag — both on profile drag and, through the critical Mach number, on wave drag.">t/c has practically no influence on drag</li>
+</ul>
+</article>
+
+
+<article data-id="25" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which stall tendency belongs to which airfoil thickness class?</h1>
+
+<ul class="mc">
+<li data-richtig>t/c &gt; 14 % ("fat"): trailing edge separation, gradual loss of lift, small change of pitching moment
+  <span class="begruendung">The gentle behaviour comes at a price: control power in the flapped section is lost early.</span></li>
+<li data-richtig>t/c = 6 &hellip; 13 % ("normal"): leading edge separation, sudden loss of lift and sudden change of pitching moment
+  <span class="begruendung">Control power is however maintained up to higher angles of attack.</span></li>
+<li data-richtig>t/c &lt; 6 % ("thin"): leading edge separation, gradual loss of lift but significant change of pitching moment
+  <span class="begruendung">Control power is also maintained to high α.</span></li>
+<li data-begruendung="Thin airfoils separate at the leading edge, not at the trailing edge.">t/c &lt; 6 %: trailing edge separation with a very gentle stall</li>
+</ul>
+
+<p>For wings with low or medium aspect ratio and/or high sweep, the stall behaviour is dominated by twist and sweep &mdash; in that case the 2D stall type can be ignored during airfoil selection.</p>
+</article>
+
+
+<article data-id="26" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>What does the designation NACA 23012 mean?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Design lift coefficient 0.3, maximum camber at 15 % chord, normal camber line, 12 % thick
+  <span class="begruendung">5-digit series: 1st digit × 3/20 = design C<sub>l</sub>; 2nd digit × 5 = camber position in %; 3rd digit 0 = normal, 1 = reflexed; last two digits = thickness in %.</span></li>
+<li data-begruendung="That would be the reading rule of the 4-digit series (e.g. NACA 2301 does not exist in that form).">2 % camber at 30 % chord, 12 % thick</li>
+<li data-begruendung="That is the 6-series rule (laminar flow extent, then design C<sub>l</sub>).">Laminar flow to 23 % chord, design C<sub>l</sub> = 0.1, 2 % thick</li>
+<li data-begruendung="Supercritical airfoils use the SC(x)-xxxx designation, not a five-digit NACA number.">A second-phase supercritical airfoil</li>
+</ul>
+
+<p>The 5-digit series was designed for superior maximum lift and low pitching moments &mdash; but it has a harsh stall behaviour.</p>
+</article>
+
+
+<article data-id="27" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Match the airfoil designations to their meaning.</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>NACA 2414: 2 % camber at 40 % chord, 14 % thick
+  <span class="begruendung">4-digit series — good stall behaviour, well suited for general aviation.</span></li>
+<li data-richtig>NACA 63-314: laminar flow over 30 % of the chord, design C<sub>l</sub> = 0.3, 14 % thick
+  <span class="begruendung">6-series — emphasis on laminar flow. The 2nd digit gives the minimum-pressure point in tens of percent.</span></li>
+<li data-richtig>SC(2)-0714: second-phase supercritical airfoil, design C<sub>l</sub> = 0.7, 14 % thick
+  <span class="begruendung">NASA SC-series — good transonic behaviour while retaining decent low-speed characteristics.</span></li>
+<li data-begruendung="The subscript before the dash in the 6-series (e.g. 65₁-412) indicates the extent of the low-drag bucket, not the thickness.">NACA 65<sub>1</sub>-412: the subscript 1 means 1 % thickness</li>
+</ul>
+
+<p>An "A" after the second digit of a 6-series airfoil means the trailing edge cusp has been removed for easier manufacturing.</p>
+</article>
+
+
+<article data-id="28" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which statements about wing twist are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Geometric twist rotates the same airfoil section along the span
+  <span class="begruendung">α<sub>tip</sub> &lt; α<sub>root</sub> for wash-out.</span></li>
+<li data-richtig>Aerodynamic twist uses different airfoils along the span
+  <span class="begruendung">α<sub>zero-lift,tip</sub> &lt; α<sub>zero-lift,root</sub>. In practice both types are usually combined.</span></li>
+<li data-richtig>Twist can be used to approach an elliptical lift distribution and thus minimum induced drag
+  <span class="begruendung">But only for the single angle of attack for which it was optimised.</span></li>
+<li data-richtig>The main purpose of wash-out is to prevent tip stall
+  <span class="begruendung">Unloading the tip makes the root stall first, which preserves aileron authority and gives a gentler stall.</span></li>
+<li data-begruendung="The more twist is applied to optimise one condition, the worse the wing performs at all other angles of attack.">A strongly twisted wing performs well at every angle of attack</li>
+</ul>
+</article>
+
+
+<article data-id="29" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which measures produce the same effect as an increase of the geometric dihedral angle?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Moving the wing from a low to a mid or from a mid to a high position (&asymp; +3.5&deg; each)
+  <span class="begruendung">Wing position contributes strongly to the effective dihedral — which is why low-wing aircraft need noticeably more geometric dihedral than high-wing aircraft.</span></li>
+<li data-richtig>Adding aft sweep (+10&deg; of sweep &asymp; +1&deg; of dihedral)
+  <span class="begruendung">In sideslip the leading wing presents a smaller effective sweep and generates more lift.</span></li>
+<li data-richtig>Adding winglets or cranked wing tips
+  <span class="begruendung">Their primary purpose is vortex drag reduction, but they also add roll stability — sometimes used as a design fix.</span></li>
+<li data-begruendung="Anhedral reduces the effective dihedral. Many high-wing, swept aircraft need it to avoid excessive roll stability.">Adding anhedral</li>
+</ul>
+
+<p>Flight-mechanical consequence of positive effective dihedral: the spiral mode is stabilised, but the Dutch roll mode is destabilised.</p>
+</article>
+
+
+<article data-id="30" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>How does a positive dihedral angle generate its stabilizing rolling moment?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The bank angle causes a sideslip, which increases the angle of attack of the lowered wing and thus its lift
+  <span class="begruendung">The aircraft "slides" towards the lowered wing; the resulting rolling moment tends to level the aircraft again.</span></li>
+<li data-begruendung="The rolling moment is not created by a difference in wing area but by a difference in local angle of attack during sideslip.">The lowered wing has more effective area</li>
+<li data-begruendung="Dihedral acts through the sideslip; without sideslip there is no dihedral effect.">It acts immediately, without any sideslip</li>
+<li data-begruendung="This describes the effect of the vertical stabilizer on directional (yaw) stability, not the dihedral effect.">The vertical tail is pushed sideways and yaws the aircraft level</li>
+</ul>
+</article>
+
+
+<article data-id="31" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which flight situations size the ailerons?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Situations with low dynamic pressure, i.e. slow flight
+  <span class="begruendung">The rolling moment scales with q; the slowest required manoeuvre is therefore the critical one.</span></li>
+<li data-richtig>Situations requiring high roll accelerations about the longitudinal axis
+  <span class="begruendung">Typically crosswind landing corrections or, for military aircraft, manoeuvre requirements.</span></li>
+<li data-begruendung="High-speed cruise gives high dynamic pressure and is therefore uncritical for roll authority — there the concern is aileron reversal, not lack of power.">High-speed cruise at high altitude</li>
+<li data-begruendung="Aileron effectiveness depends on chord, span, position and deflection angle; all of these are design variables.">Only the deflection angle matters, position and size are irrelevant</li>
+</ul>
+
+<p>Important coupling: the span taken by the ailerons is not available for trailing-edge high-lift devices &mdash; and vice versa.</p>
+</article>
+
+
+<article data-id="32" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>What are spoilers used for?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Reducing lift after touchdown or during a rejected take-off
+  <span class="begruendung">Dumping the lift puts weight on the wheels and makes the brakes effective — a major contribution to the braking distance.</span></li>
+<li data-richtig>Increasing drag as an air brake
+  <span class="begruendung">Used for descent and speed control.</span></li>
+<li data-richtig>Roll control by differential deflection
+  <span class="begruendung">Roll spoilers are common on transport jets to augment roll power, especially at low speed.</span></li>
+<li data-begruendung="Spoilers reduce lift; they do not increase it. That is the task of the high-lift system.">Increasing the maximum lift coefficient for landing</li>
+</ul>
+
+<p>They sit on the upper surface, forward of the flaps and typically aft of the maximum thickness position. A first guess for the design is a position at about 60 % chord.</p>
+</article>
+
+
+<article data-id="33" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>An aircraft has m<sub>TO</sub> = 5000 kg, m<sub>Landing</sub> = 4000 kg, S<sub>ref</sub> = 25 m&sup2; and cruises at 90 m/s at &rho; = 0.9 kg/m&sup3;. Which design lift coefficient results?</h1>
+<p class="hinweis">c<sub>l,design</sub> = m<sub>design</sub>&middot;g / (0.5&middot;&rho;&middot;v&sup2;&middot;S<sub>ref</sub>), with m<sub>design</sub> as the average mission mass.</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>&asymp; 0.48
+  <span class="begruendung">m<sub>design</sub> = (5000+4000)/2 = 4500 kg → L = 44 145 N. Dynamic pressure q = 0.5·0.9·90² = 3645 Pa, q·S<sub>ref</sub> = 91 125 N. c<sub>l</sub> = 44 145/91 125 ≈ 0.48.</span></li>
+<li data-begruendung="This would use the take-off mass instead of the average mission mass and is therefore too high.">&asymp; 0.54, using m<sub>TO</sub></li>
+<li data-begruendung="Far too high for a cruise condition; that is closer to a climb or loiter lift coefficient.">&asymp; 1.2</li>
+<li data-begruendung="Too low; this would correspond to a much higher cruise speed.">&asymp; 0.05</li>
+</ul>
+
+<p>The design lift coefficient is the C<sub>L</sub> the aircraft flies at for most of its mission &mdash; the airfoil should have its best L/D exactly there, not just a high L/D somewhere else.</p>
+</article>
+
+
+<article data-id="34" data-kapitel="Wing Design" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Which statements about high-wing versus low-wing configurations are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>A high wing gives good downward visibility and an easy, light wing attachment
+  <span class="begruendung">No carry-through structure through the cabin, and the wing box does not eat into the payload volume near the c.g.</span></li>
+<li data-richtig>A low wing shortens the required landing gear length
+  <span class="begruendung">The gear can be attached to the wing close to the ground — one reason why most transport jets are low-wing.</span></li>
+<li data-richtig>A mid wing gives the lowest interference drag
+  <span class="begruendung">The wing-fuselage junction is aerodynamically cleanest — but the carry-through structure sits right where the payload should be.</span></li>
+<li data-richtig>A high wing augments the effective dihedral, a low wing works against it
+  <span class="begruendung">Therefore low-wing aircraft need more geometric dihedral for the same roll stability.</span></li>
+<li data-begruendung="Braced wings create very high drag; that is the price for their light and simple structure.">A strut-braced wing has particularly low drag</li>
+</ul>
+</article>
+
+
+<!-- ############ 4 — HIGH LIFT DEVICES ############ -->
+
+<article data-id="35" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Which functional principles do high-lift devices use?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Increase of wing camber
+  <span class="begruendung">The basic effect of any flap: shifting the c<sub>l</sub>-α curve upwards.</span></li>
+<li data-richtig>Increase of wing area
+  <span class="begruendung">Fowler motion — the flap translates aft before deflecting.</span></li>
+<li data-richtig>Boundary layer control through improved pressure distribution or momentum supply
+  <span class="begruendung">Slots feed high-energy air onto the upper surface; active systems blow or suck.</span></li>
+<li data-richtig>Removal of the "spoiled" boundary layer
+  <span class="begruendung">Also a boundary-layer control mechanism, mainly used in active systems.</span></li>
+<li data-begruendung="Reducing the wing area would reduce the lift — the opposite of what a high-lift system is for.">Reduction of wing area to increase the wing loading</li>
+</ul>
+
+<p>Passive devices (surfaces placed into the flow) are widely used; active devices (suction or blowing) remain rare.</p>
+</article>
+
+
+<article data-id="36" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Why are leading-edge devices such as slats usually combined with powerful trailing-edge flaps?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Trailing-edge flaps shift the stall to a lower angle of attack; the leading-edge device compensates this shift
+  <span class="begruendung">A plain or slotted flap raises c<sub>l</sub> but reduces α<sub>stall</sub>. A slat delays separation and restores (or increases) the stall angle.</span></li>
+<li data-richtig>The combination delivers a considerably higher usable C<sub>L,max</sub> than either device alone
+  <span class="begruendung">The full benefit of the trailing-edge device can only be exploited if the wing does not stall before the flap's lift increment is reached.</span></li>
+<li data-begruendung="A slat mainly delays separation; the camber increase is the job of the trailing-edge flap.">Because slats alone produce the largest camber increase</li>
+<li data-begruendung="Leading-edge devices add drag as well; low drag is not their purpose.">Because leading-edge devices reduce the drag of the flapped wing</li>
+</ul>
+
+<p>Careful with the diagrams: the sketched c<sub>l</sub>-α curves are 2D airfoil data referred to the clean wing chord line and the clean reference area &mdash; they must still be corrected for a swept 3D wing.</p>
+</article>
+
+
+<article data-id="37" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Raymer's method estimates the maximum lift of a partially flapped wing. Which statements are correct?</h1>
+<p class="hinweis">C<sub>L,max</sub> &asymp; 0.9 &middot; [ c<sub>l,max,flapped</sub>&middot;(S<sub>flapped</sub>/S<sub>ref</sub>) + c<sub>l,max,unflapped</sub>&middot;(S<sub>unflapped</sub>/S<sub>ref</sub>) ]</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The 2D section values are weighted with their respective area shares
+  <span class="begruendung">This is the core idea: the wing is split into strips, each with its own maximum lift.</span></li>
+<li data-richtig>The factor 0.9 is a crude correction for 3D effects
+  <span class="begruendung">It accounts for the fact that a 3D wing never reaches the 2D value.</span></li>
+<li data-richtig>For a swept wing an additional factor cos(&Lambda;<sub>c/4</sub>) is applied
+  <span class="begruendung">C<sub>L,max</sub> ≈ 0.9·cos(Λ<sub>c/4</sub>)·Σ c<sub>l,max,i</sub>·S<sub>i</sub>/S<sub>ref</sub>.</span></li>
+<li data-richtig>The lift increment is only obtained on the flapped part of the wing
+  <span class="begruendung">A frequent mistake in exercises is to apply Δc<sub>l</sub> to the whole wing.</span></li>
+<li data-begruendung="It is explicitly a crude approximation for the initial design stages; better values require test data or DATCOM methods.">The method is accurate enough to replace wind tunnel tests</li>
+</ul>
+
+<p>Watch the reference area when symmetry is exploited: if only the half wing is discretised, the strips must sum to <span class="fx">S<sub>ref</sub>/2</span>.</p>
+</article>
+
+
+<article data-id="38" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Which considerations limit the size of the flapped area?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Sufficient span must remain for the ailerons to guarantee roll control
+  <span class="begruendung">The classic conflict between the high-lift group and the flight-mechanics group.</span></li>
+<li data-richtig>Thrust gates interrupt the flap system and reduce its effectiveness
+  <span class="begruendung">High-lift devices work best when they are continuous; engine exhaust cut-outs break them up.</span></li>
+<li data-begruendung="The opposite: the high-lift group wants to maximise the flapped area.">The flapped area should be kept as small as possible for aerodynamic reasons</li>
+<li data-begruendung="Blown flaps require reinforced structure and can suffer from buffeting — they are not a free solution.">Blown flaps solve all layout constraints without penalty</li>
+</ul>
+</article>
+
+
+<article data-id="39" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Which typical flap deflection angles are used?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>20&deg; &ndash; 40&deg; for take-off
+  <span class="begruendung">A compromise: enough lift for the field length, but not so much drag that the climb gradient is lost.</span></li>
+<li data-richtig>60&deg; &ndash; 70&deg; for landing
+  <span class="begruendung">Here the extra drag is welcome, because it steepens the approach and shortens the landing roll.</span></li>
+<li data-richtig>Light aircraft often use no flaps at all for take-off
+  <span class="begruendung">Their field performance is usually not flap-limited and the drag penalty would hurt the climb.</span></li>
+<li data-begruendung="Maximum lift for a plain flap is reached around 75° deflection with an 18 % chord flap — but such a setting is far from the optimum L/D and is not used for take-off.">75&deg; is the standard take-off setting because it gives maximum lift</li>
+</ul>
+</article>
+
+
+<article data-id="40" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Raymer gives &Delta;C<sub>D0,flap</sub> = F<sub>flap</sub>&middot;(c<sub>flap</sub>/c)&middot;(S<sub>flapped</sub>/S<sub>ref</sub>)&middot;(&delta;<sub>flap</sub> &minus; 10&deg;). Which statements are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>F<sub>flap</sub> = 0.0144 for plain flaps and 0.0074 for slotted flaps
+  <span class="begruendung">Slotted flaps produce roughly half the parasite drag increment of a plain flap at the same setting.</span></li>
+<li data-richtig>The induced drag increment follows &Delta;C<sub>Di,flap</sub> = k<sub>flap</sub>&sup2;&middot;(&Delta;C<sub>L,flap</sub>)&sup2;&middot;cos(&Lambda;<sub>c/4</sub>)
+  <span class="begruendung">With k<sub>flap</sub> = 0.14 for full-span and 0.28 for half-span flaps: a partial-span flap creates a much more distorted lift distribution and therefore more induced drag.</span></li>
+<li data-richtig>The formula is intended for trailing-edge flaps deflected by more than about 20&deg;
+  <span class="begruendung">Below that the linear fit is not valid.</span></li>
+<li data-begruendung="High-lift devices affect both the parasite and the induced drag — that is why two separate formulas are given.">High-lift devices only affect the parasite drag</li>
+</ul>
+
+<p>The missed-approach and second-segment climb cases are exactly where these increments matter, because there the aircraft is heavy, slow, and configured.</p>
+</article>
+
+
+<article data-id="41" data-kapitel="High Lift Devices" data-quelle="Lecture Notes" data-ref="Ch. 9">
+<h1>Which statement best describes the "classic compromise" of wing design that makes high-lift devices necessary?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Wings are oversized for cruise but undersized for take-off and landing
+  <span class="begruendung">The wing is sized by the cruise or field-length constraint; without flaps the low-speed lift would demand a far larger wing, which would then be inefficient in cruise.</span></li>
+<li data-begruendung="Exactly the other way round.">Wings are undersized for cruise but oversized for take-off and landing</li>
+<li data-begruendung="If one wing could satisfy both, no high-lift system would be needed at all.">A single fixed wing geometry is optimal for both cruise and low speed</li>
+<li data-begruendung="Their weight is real, but in early design it is usually simply included in the wing weight — the argument for flaps is performance, not weight.">High-lift devices are used mainly because they reduce wing weight</li>
+</ul>
+
+<p>For first estimates, assume that the flap weight is contained in the wing weight.</p>
+</article>
+
+
+<!-- ############ 5 — LANDING GEAR ############ -->
+
+<article data-id="42" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>Which load share should the nose gear of a tricycle landing gear carry?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>8 &ndash; 15 % of the aircraft weight
+  <span class="begruendung">Too little load means poor nose wheel steering and braking authority; too much load makes the nose gear heavy and rotation difficult.</span></li>
+<li data-begruendung="That is the share carried by the main gears of a taildragger, not by a nose gear.">80 &ndash; 90 %</li>
+<li data-begruendung="Far too much: rotation for take-off would become impossible and the nose gear would be extremely heavy.">40 &ndash; 50 %</li>
+<li data-begruendung="Too little: the nose wheel would lose steering authority and the aircraft could tip back on its tail.">1 &ndash; 3 %</li>
+</ul>
+
+<p>For comparison: on a taildragger the two main gears sit slightly ahead of the c.g. and carry 80 &ndash; 90 % of the weight.</p>
+</article>
+
+
+<article data-id="43" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>Which are genuine advantages of a tricycle landing gear over a taildragger?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Directional stability on the ground
+  <span class="begruendung">A disturbance produces a restoring reaction; on a taildragger the same disturbance tightens the turn — the classic ground loop.</span></li>
+<li data-richtig>Better view from the cockpit and more comfort for passengers
+  <span class="begruendung">The fuselage sits horizontally on the ground.</span></li>
+<li data-richtig>Good behaviour in crosswind landings and stable two-point landings at high angle of attack
+  <span class="begruendung">No tendency to "jump" as with a taildragger two-point landing.</span></li>
+<li data-begruendung="A taildragger is lighter — that is one of its main advantages.">Lower landing gear weight</li>
+<li data-begruendung="A fixed taildragger gear generally has less drag; the taildragger also offers more propeller clearance.">Lower drag for a fixed gear</li>
+</ul>
+
+<p>Disadvantage of the tricycle gear: a complex design (steering, dampers) and a large, heavy and expensive nose gear.</p>
+</article>
+
+
+<article data-id="44" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>Which landing gear configuration fits which application?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Single main gear &rarr; sailplanes and some high-altitude reconnaissance aircraft
+  <span class="begruendung">Very simple, light and easy to retract into the fuselage — at the price of poor ground stability and control.</span></li>
+<li data-richtig>Bicycle gear &rarr; rarely used, mainly military and VTOL aircraft
+  <span class="begruendung">Two main gears on the symmetry axis at roughly equal distance from the c.g., plus outriggers.</span></li>
+<li data-richtig>Quadricycle gear &rarr; very heavy cargo or bomber aircraft
+  <span class="begruendung">Allows a low cabin floor for easy loading and needs no cut-outs in the wing.</span></li>
+<li data-richtig>Multi-bogey gear &rarr; large transport aircraft
+  <span class="begruendung">Spreads the load over the pavement and adds redundancy.</span></li>
+<li data-begruendung="Taildragger gear is typical for general aviation, agricultural and bush aircraft, and for aircraft designed before about 1950.">Taildragger gear &rarr; modern large transport jets</li>
+</ul>
+
+<p>Single main gear, bicycle and quadricycle share one drawback: rotation is limited, so take-off happens at low α and the take-off run becomes longer.</p>
+</article>
+
+
+<article data-id="45" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>Why does CS-25 require at least two wheels per main landing gear strut?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Redundancy in case of a tyre failure
+  <span class="begruendung">The bogey arrangement enhances safety by providing redundancy — a burst tyre must not end the landing.</span></li>
+<li data-richtig>Distribution of the load over a larger pavement area
+  <span class="begruendung">This is the general reason for multi-bogey gears on large aircraft: the airport pavement classification limits the load per wheel.</span></li>
+<li data-begruendung="Drag is not a driver here; a bogey is aerodynamically worse than a single wheel.">To reduce the aerodynamic drag of the gear</li>
+<li data-begruendung="A bogey is heavier than a single wheel of the same total capacity.">To reduce the landing gear weight</li>
+</ul>
+</article>
+
+
+<article data-id="46" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>Which statements about shock absorption are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The energy of the vertical velocity is absorbed by the shock absorber, the energy of the horizontal velocity by the brakes
+  <span class="begruendung">Two separate energy paths — sizing the gear means sizing both.</span></li>
+<li data-richtig>The oleo shock strut is the most common absorber type
+  <span class="begruendung">An oil-gas strut: the gas acts as spring, the metered orifice as damper.</span></li>
+<li data-richtig>A rigid axle relies solely on the tyre to absorb the shock
+  <span class="begruendung">Used on light sailplanes, where landing energies are small.</span></li>
+<li data-richtig>Solid spring, levered bungee and triangulated gears all tend to cause tyre scrubbing
+  <span class="begruendung">The wheel moves sideways or fore-aft during deflection, which wears the tyres.</span></li>
+<li data-begruendung="A trailing link gear lets the wheel travel aft and is particularly suited to rough field operations.">A trailing link gear is unsuitable for rough field operations</li>
+</ul>
+</article>
+
+
+<article data-id="47" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>The landing gear weight is to be distributed between nose and main gear. Which shares are typical?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>General aviation: 75 &ndash; 80 % main gear, 20 &ndash; 25 % nose gear
+  <span class="begruendung">Small aircraft have a relatively heavier nose gear share.</span></li>
+<li data-richtig>Large transport: 85 &ndash; 92 % main gear, 8 &ndash; 15 % nose gear
+  <span class="begruendung">Same trend as the load distribution: the bigger the aircraft, the more dominant the main gear.</span></li>
+<li data-begruendung="Fighters lie around 80–82 % main / 18–20 % nose — not an even split.">Fighters: 50 % main gear, 50 % nose gear</li>
+<li data-begruendung="Military transports and bombers behave like large transports: 85–92 % main gear.">Military transports: 60 % main gear, 40 % nose gear</li>
+</ul>
+
+<p>The split matters because most Class I and Class II methods only deliver the <em>total</em> gear weight, while the c.g. calculation needs the individual positions.</p>
+</article>
+
+
+<article data-id="48" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10">
+<h1>Gear drag is estimated from frontal area times a drag coefficient. Which values are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Regular wheel and tyre: C<sub>D</sub> &asymp; 0.25
+  <span class="begruendung">The baseline value; a second wheel in tandem only adds about 0.15 because it sits in the wake of the first.</span></li>
+<li data-richtig>Wheel and tyre with fairing: C<sub>D</sub> &asymp; 0.13
+  <span class="begruendung">Roughly half the drag of the bare wheel — which is why fixed-gear aircraft use wheel pants.</span></li>
+<li data-richtig>Flat spring gear leg: C<sub>D</sub> &asymp; 1.4
+  <span class="begruendung">A bluff body in cross-flow — one of the worst offenders, comparable to a fork or bogey fitting.</span></li>
+<li data-richtig>Streamline strut: C<sub>D</sub> &asymp; 0.05
+  <span class="begruendung">Compared with about 0.30 for a round strut or wire — a factor of six for the same structural job.</span></li>
+<li data-begruendung="A round strut or wire has about 0.30, roughly six times the drag of a streamlined strut.">Round strut or wire: C<sub>D</sub> &asymp; 0.02</li>
+</ul>
+
+<p>Gear drag matters most for the missed-approach L/D of a retractable-gear aircraft and for the whole cruise of a fixed-gear aircraft.</p>
+</article>
+
+
+<article data-id="49" data-kapitel="Landing Gear" data-quelle="Lecture Notes" data-ref="Ch. 10 / Ch. 11">
+<h1>At which point of the design process can the "final" position of the landing gear be determined?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Only after the empennage layout and sizing (Chapter 11) is complete
+  <span class="begruendung">The gear position depends on the c.g. — and the c.g. position (and the wing position relative to the fuselage) is only fixed by the stability and control analysis.</span></li>
+<li data-begruendung="In the conceptual phase only the general arrangement and an approximate location are fixed, based on design rules and assumed c.g. positions.">Immediately in Chapter 10, since the design rules are purely geometric</li>
+<li data-begruendung="The configuration decision has to be taken early because the gear influences the overall configuration, structure and aerodynamics.">Right at the end of the whole design process, after the three-view</li>
+<li data-begruendung="Preliminary sizing does not deliver any c.g. information.">Already during preliminary sizing (Chapter 5)</li>
+</ul>
+
+<p>Because the gear is one of the heaviest single systems, shifting it has a large effect on the c.g. &mdash; which is why gear position and c.g. must be iterated together.</p>
+</article>
+
+
+
+<!-- ############ 6 — EMPENNAGE SIZING ############ -->
+
+<article data-id="50" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>What is the purpose of the empennage and its control surfaces?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>To provide trim
+  <span class="begruendung">Equilibrium of moments about the c.g. must be achievable for every permissible combination of c.g. position, flap setting, speed and engine condition.</span></li>
+<li data-richtig>To provide stability
+  <span class="begruendung">The tendency to return to the original flight state after a disturbance.</span></li>
+<li data-richtig>To provide control
+  <span class="begruendung">Enough control power for the required manoeuvrability, without excessive control forces.</span></li>
+<li data-begruendung="Lift is the job of the wing. The horizontal tail of a conventional aircraft often produces a download rather than lift.">To generate the main part of the lift</li>
+</ul>
+
+<p>All three tasks are realised by generating aerodynamic moments about the total centre of gravity.</p>
+</article>
+
+
+<article data-id="51" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>How are the tail volume coefficients defined?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>H</sub> = (S<sub>H</sub>/S<sub>W</sub>) &middot; (l<sub>H</sub>/c<sub>MAC</sub>)
+  <span class="begruendung">The horizontal tail is referenced to the mean aerodynamic chord, because it works about the pitch axis.</span></li>
+<li data-richtig>C<sub>V</sub> = (S<sub>V</sub>/S<sub>W</sub>) &middot; (l<sub>V</sub>/b)
+  <span class="begruendung">The vertical tail is referenced to the wing span, because it works about the yaw axis.</span></li>
+<li data-begruendung="Swapping the reference lengths is a classic mistake: c<sub>MAC</sub> belongs to the horizontal tail, b to the vertical tail.">C<sub>H</sub> = (S<sub>H</sub>/S<sub>W</sub>) &middot; (l<sub>H</sub>/b)</li>
+<li data-begruendung="The tail volume is a ratio of areas times a ratio of lengths — it is dimensionless.">C<sub>V</sub> = S<sub>V</sub> &middot; l<sub>V</sub>, with the dimension of a volume</li>
+</ul>
+
+<p>l<sub>H</sub> and l<sub>V</sub> are the distances from the neutral point of the respective stabilizer to the total aircraft c.g. The tail volume is a measure of the effectiveness of a stabilizer with respect to both its size and its position.</p>
+</article>
+
+
+<article data-id="52" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Two designs have the same horizontal tail volume coefficient, but design B has a 20 % longer tail lever arm. What follows?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Design B needs a roughly 17 % smaller horizontal tail area
+  <span class="begruendung">S<sub>H</sub> ~ 1/l<sub>H</sub> for constant C<sub>H</sub>: a factor 1/1.2 ≈ 0.83.</span></li>
+<li data-richtig>Design B saves structural weight and drag in the tail
+  <span class="begruendung">Exactly the reason for the design rule "extend the lever arms as far as the available fuselage allows".</span></li>
+<li data-begruendung="The tail volume, not the tail area, is the measure of effectiveness — the same C<sub>H</sub> means comparable effectiveness.">Design B has a much less effective tail</li>
+<li data-begruendung="A longer fuselage tail cone does add some weight, but the reduction of stabilizer area normally more than compensates it — that is why the design rule exists.">The longer lever arm always makes the aircraft heavier overall</li>
+</ul>
+
+<p>The limit is the available fuselage length and the resulting structural and c.g. consequences.</p>
+</article>
+
+
+<article data-id="53" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which design rules apply to stabilizer surfaces?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Use symmetric airfoils to keep trim changes with speed small
+  <span class="begruendung">A cambered stabilizer would produce a speed-dependent moment that constantly needs re-trimming.</span></li>
+<li data-richtig>Avoid placing the stabilizer in the propeller or jet stream
+  <span class="begruendung">Reasons: induced vibrations and structural fatigue, cabin noise, trim changes with engine setting, and hot jet plumes damaging the structure.</span></li>
+<li data-richtig>The stabilizer must stall well after the main wing
+  <span class="begruendung">Controllability must be ensured at all times — achieved by low aspect ratio, a gently stalling airfoil, and a higher critical Mach number.</span></li>
+<li data-richtig>For transonic aircraft: sweep about 5&deg; higher and t/c about 10 % lower than the outboard wing
+  <span class="begruendung">This raises the critical Mach number of the tail by roughly ΔMa<sub>crit</sub> = 0.05 relative to the wing.</span></li>
+<li data-begruendung="Some small and multi-engine propeller aircraft place the tail deliberately in the slipstream to increase its effectiveness — the rule has exceptions.">The rule about the propeller stream has no exceptions</li>
+</ul>
+</article>
+
+
+<article data-id="54" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which sequence describes the typical empennage design procedure?</h1>
+<p class="hinweis">The answers refer to the order of the steps, so they are not shuffled.</p>
+
+<ol class="mc">
+<li data-richtig>Configuration decision &rarr; sizing via tail volume coefficients &rarr; initial wing position guess &rarr; final sizing from trim and stability &rarr; iterate if the deviation exceeds 10 %
+  <span class="begruendung">The statistical estimate provides the starting point; the stability and control analysis provides the real answer; the loop is closed if they disagree by more than about 10 %.</span></li>
+<li data-begruendung="Trim and stability analysis cannot be done before a c.g. position and therefore a wing position exist.">Trim and stability analysis first, then the wing position, then the tail volume estimate</li>
+<li data-begruendung="Tail volume coefficients alone are insufficient and, according to the lecture, even dangerous — a detailed analysis must follow.">Tail volume coefficients only; a further analysis is unnecessary</li>
+<li data-begruendung="A deviation of more than 10 % triggers the iteration; it is not accepted as final.">Accept the result of the trim and stability analysis regardless of how far it deviates from the statistical estimate</li>
+</ol>
+
+<p>If the calculated tail areas come out considerably <em>smaller</em> than the statistical values, be suspicious: dynamic stability, which is not analysed in conceptual design, may well be driving the real tail size.</p>
+</article>
+
+
+<article data-id="55" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which flight states are critical for the sizing of the <em>horizontal</em> stabilizer?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The critical combination of c.g. position, flap setting and speed
+  <span class="begruendung">Typically the most forward c.g. with maximum flap deflection in the landing configuration.</span></li>
+<li data-richtig>Take-off rotation
+  <span class="begruendung">The tail must be able to rotate the aircraft about the main gear at V<sub>R</sub>.</span></li>
+<li data-begruendung="Engine failure is the critical case for the vertical stabilizer, not the horizontal one.">One engine inoperative on a multi-engine aircraft</li>
+<li data-begruendung="Spin recovery is a vertical-tail/rudder concern.">Spin recovery</li>
+</ul>
+
+<p>Depending on the engine position, the sizing case differs: for engines <em>below</em> the c.g. the flare in landing configuration with the most forward c.g. is critical; for engines <em>above</em> the c.g. it is the go-around.</p>
+</article>
+
+
+<article data-id="56" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which flight states are critical for the sizing of the <em>vertical</em> stabilizer?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Engine failure on a multi-engine aircraft
+  <span class="begruendung">Usually the design case: the yawing moment from the asymmetric thrust plus the drag of the dead engine must be balanced down to V<sub>MC</sub>.</span></li>
+<li data-richtig>Take-off and landing in crosswind
+  <span class="begruendung">The rudder must be able to align the aircraft with the runway.</span></li>
+<li data-richtig>Spin recovery
+  <span class="begruendung">Requires unblanketed rudder area — at least about one third of the rudder should stay in clean flow.</span></li>
+<li data-begruendung="Cruise is uncritical for the fin, because the dynamic pressure is high and the aircraft is symmetric.">Symmetric cruise flight at maximum speed</li>
+</ul>
+</article>
+
+
+<article data-id="57" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>The vertical stabilizer is sized for one engine inoperative. Which contributions make up the yawing moment to be balanced?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The thrust moment of the operating engine, N<sub>E</sub> = T<sub>take-off</sub> &middot; y<sub>E</sub>
+  <span class="begruendung">Asymmetric thrust times the lateral engine offset.</span></li>
+<li data-richtig>The drag moment of the failed engine, N<sub>D</sub>
+  <span class="begruendung">Depends strongly on the engine type: windmilling fixed-pitch propeller ≈ 0.8·blade area·y<sub>E</sub>·q, feathered variable-pitch propeller ≈ 0.1·blade area·y<sub>E</sub>·q, jet engine ≈ 0.3·frontal area·y<sub>E</sub>·q.</span></li>
+<li data-begruendung="Bank angle is a means of reducing the required rudder deflection in practice, but the sizing case is formulated as a moment balance about the yaw axis.">The rolling moment due to the bank angle</li>
+<li data-begruendung="The certification requirement is that yaw can be balanced down to V<sub>MC</sub>, which is usually taken as 1.2·V<sub>S</sub> — a low speed, i.e. low dynamic pressure. That is what makes the case critical.">The case is uncritical because it occurs at high speed</li>
+</ul>
+
+<p><span class="fx">S<sub>V</sub> = (N<sub>E</sub> + N<sub>D</sub>) / (&frac12;&middot;&rho;&middot;v<sub>MC</sub>&sup2;&middot;l<sub>V</sub>&middot;c<sub>Y,V</sub>)</span>, where c<sub>Y,V</sub> is the maximum side force coefficient including rudder deflection.</p>
+<div class="note">A feathered propeller produces roughly an eighth of the drag moment of a windmilling one &mdash; which is why feathering is such a decisive safety feature.</div>
+</article>
+
+
+<article data-id="58" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>What are dorsal and ventral fins used for?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>A dorsal fin increases directional stability at high sideslip angles
+  <span class="begruendung">The vortex forming on the fin delays the fin stall, and the added area helps spin prevention and recovery.</span></li>
+<li data-richtig>A ventral fin increases directional stability at high angles of attack
+  <span class="begruendung">When the vertical tail is blanketed by the fuselage, the ventral fin still sees clean airflow — very useful for spin prevention and recovery.</span></li>
+<li data-begruendung="Both are added to increase directional stability, not to reduce it.">Both are used to deliberately reduce directional stability</li>
+<li data-begruendung="They are lateral-directional devices; roll stability is influenced by dihedral, wing position and sweep.">Both mainly increase roll stability</li>
+</ul>
+</article>
+
+
+<article data-id="59" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which statements about the position of the horizontal tail relative to the wing wake are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>At high angles of attack, but before the stall, the wake hitting the tail is desirable as a natural stall warning
+  <span class="begruendung">The resulting buffet and stick shake tells the pilot that the stall is approaching.</span></li>
+<li data-richtig>In the fully stalled condition the tail must not be immersed in the wing wake
+  <span class="begruendung">Otherwise the stabilizer loses effectiveness exactly when it is needed, which can lead to an unrecoverable pitch-up — the deep stall.</span></li>
+<li data-richtig>The position of the horizontal tail relative to the vertical tail matters for spin recovery
+  <span class="begruendung">The horizontal tail must not blanket the rudder; at least about one third of the rudder area should remain in clean flow.</span></li>
+<li data-begruendung="Distorted flow behind wing and fuselage at high α can drastically reduce stabilizer efficiency — the effect is anything but negligible.">The wing wake has no relevant effect on stabilizer efficiency</li>
+</ul>
+</article>
+
+
+<article data-id="60" data-kapitel="Empennage" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which guidelines apply to elevator and rudder sizing in conceptual design?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>They usually extend from close to the root over about 90 &ndash; 100 % of the stabilizer half span
+  <span class="begruendung">Unlike ailerons, control surfaces on the empennage normally use nearly the whole span.</span></li>
+<li data-richtig>The chord ratio is chosen from statistical guidelines at this stage
+  <span class="begruendung">The exact chord follows only from a detailed flight-mechanical analysis in later phases.</span></li>
+<li data-begruendung="Statistical sizing of the empennage alone is described in the lecture as insufficient and even dangerous — the designer has to prove stability and controllability.">Statistical values are sufficient; no further analysis is required</li>
+<li data-begruendung="Larger aircraft typically use all-moving tails or trimmable horizontal stabilizers for trim; trim tabs are typical for smaller aircraft.">Large aircraft trim exclusively with trim tabs</li>
+</ul>
+</article>
+
+
+<!-- ############ 7 — SCISSOR DIAGRAM ############ -->
+
+<article data-id="61" data-kapitel="Scissor Diagram" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>What is plotted in a "scissor" diagram?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The stabilizer area ratio S<sub>H</sub>/S<sub>W</sub> over the c.g. position (relative to the wing aerodynamic centre)
+  <span class="begruendung">Both the trim condition and the static stability condition can be expressed as lines in this plane — their shape gives the diagram its name.</span></li>
+<li data-begruendung="That is the matching diagram from preliminary sizing.">Thrust-to-weight ratio over wing loading</li>
+<li data-begruendung="That is the payload-range diagram.">Payload over range</li>
+<li data-begruendung="That is a drag polar.">Lift coefficient over drag coefficient</li>
+</ul>
+
+<p>It answers two questions simultaneously: how large must the horizontal tail be, and which c.g. range is permissible for a given tail size.</p>
+</article>
+
+
+<article data-id="62" data-kapitel="Scissor Diagram" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which line in the scissor diagram comes from which requirement?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The static stability condition gives a straight line through the origin, S<sub>H</sub>/S<sub>W</sub> &asymp; a &middot; x<sub>CG-AC</sub>
+  <span class="begruendung">It follows from setting C<sub>M,α,CG</sub> = 0 and defines the <em>aft</em> c.g. limit: the further aft the c.g., the more tail area is needed.</span></li>
+<li data-richtig>The trim condition gives a line with an additional constant term from C<sub>M,W</sub> and C<sub>M,E</sub>
+  <span class="begruendung">S<sub>H</sub>/S<sub>W</sub> = C<sub>L,W</sub>/(C<sub>L,H</sub>·η<sub>H</sub>·l<sub>H</sub>/c<sub>MAC</sub>)·x<sub>CG-AC</sub> + (C<sub>M,W</sub>+C<sub>M,E</sub>)/(C<sub>L,H</sub>·η<sub>H</sub>·l<sub>H</sub>/c<sub>MAC</sub>). It defines the <em>forward</em> c.g. limit.</span></li>
+<li data-richtig>The two lines together enclose the permissible combinations of tail area and c.g. position
+  <span class="begruendung">For a chosen S<sub>H</sub>/S<sub>W</sub> the horizontal cut between the two lines gives the allowable c.g. range.</span></li>
+<li data-begruendung="Both conditions have to be satisfied simultaneously — neither alone is sufficient.">Only the stability line has to be respected; the trim line is optional</li>
+</ul>
+
+<p>The intersection of the two lines marks the smallest theoretically possible horizontal tail area &mdash; at which, however, the permissible c.g. range shrinks to a single point.</p>
+</article>
+
+
+<article data-id="63" data-kapitel="Scissor Diagram" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>The slope of the stability line is a = C<sub>L,&alpha;,W</sub> / [ C<sub>L,&alpha;,H</sub> &middot; &eta;<sub>H</sub> &middot; (1 &minus; d&epsilon;/d&alpha;) &middot; l<sub>H</sub>/c<sub>MAC</sub> ]. Which parameters therefore influence the scissor diagram?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The tail lever arm l<sub>H</sub> and the mean aerodynamic chord c<sub>MAC</sub>
+  <span class="begruendung">A longer lever arm flattens the stability line, so less tail area is needed for the same c.g. position.</span></li>
+<li data-richtig>The downwash gradient d&epsilon;/d&alpha;
+  <span class="begruendung">A strong downwash gradient reduces the effective angle-of-attack change at the tail and therefore its stabilizing contribution — the required area grows.</span></li>
+<li data-richtig>The dynamic pressure ratio &eta;<sub>H</sub>
+  <span class="begruendung">A tail in a strongly disturbed flow is less effective and needs more area.</span></li>
+<li data-richtig>The ratio of the lift curve slopes of wing and tail
+  <span class="begruendung">A wing with a high C<sub>L,α</sub> is more destabilising for an aft c.g., a tail with a high C<sub>L,α</sub> is more effective.</span></li>
+<li data-begruendung="Wing loading is a sizing parameter from Chapter 5; it does not enter the slope of the stability line.">The wing loading W/S</li>
+</ul>
+
+<p>Additional parameters entering the <em>trim</em> line: the zero-lift pitching moment of the wing C<sub>M,W</sub> (and hence the airfoil camber and flap setting), the engine moment C<sub>M,E</sub>, and the maximum usable tail lift coefficient C<sub>L,H</sub>.</p>
+</article>
+
+
+<article data-id="64" data-kapitel="Scissor Diagram" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>A required static margin is introduced instead of using the neutral point directly. What happens in the scissor diagram?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The stability line shifts, so that a given tail area allows a c.g. only further forward
+  <span class="begruendung">C<sub>M,α,CG</sub> = −C<sub>L,α</sub>·(static margin): demanding a genuinely negative C<sub>M,α</sub> instead of just zero moves the aft c.g. limit forward.</span></li>
+<li data-richtig>For an unchanged c.g. range, a larger horizontal tail is required
+  <span class="begruendung">Stability margin has to be paid for with tail area, weight and drag.</span></li>
+<li data-begruendung="C<sub>M,α,CG</sub> = 0 defines the stability border (neutral point), not a safe design condition.">The condition C<sub>M,&alpha;,CG</sub> = 0 is the design goal for a stable aircraft</li>
+<li data-begruendung="It is exactly the aft c.g. that is critical for stability; the forward c.g. is critical for trim and control.">The static margin only affects the forward c.g. limit</li>
+</ul>
+
+<p>Modern fighters deliberately go the other way: relaxed static stability with a c.g. behind the neutral point, made flyable by a computerised flight control system, and rewarded with a much smaller tail and less trim drag.</p>
+</article>
+
+
+<article data-id="65" data-kapitel="Scissor Diagram" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>During the design the flap deflection for landing is increased, which makes the wing pitching moment C<sub>M,W</sub> considerably more negative. What is the effect?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The trim line shifts, and a larger horizontal tail is required for the same forward c.g.
+  <span class="begruendung">The nose-down moment of the flapped wing has to be balanced by a larger tail download — the trim case, not the stability case, becomes more demanding.</span></li>
+<li data-richtig>The permissible forward c.g. limit moves aft for an unchanged tail area
+  <span class="begruendung">The trim line is the forward boundary of the usable c.g. range.</span></li>
+<li data-begruendung="The slope of the stability line does not contain C<sub>M,W</sub> — the pitching moment only enters the trim line.">The slope of the stability line changes</li>
+<li data-begruendung="This is exactly why the critical trim case is defined with maximum flap setting and most forward c.g.">Flap setting is irrelevant for empennage sizing</li>
+</ul>
+
+<p>This coupling is one reason why high-lift design (Chapter 9) and empennage sizing (Chapter 11) have to be iterated together.</p>
+</article>
+
+
+<!-- ############ 8 — STATIC STABILITY ############ -->
+
+<article data-id="66" data-kapitel="Static Stability" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which condition describes longitudinal static stability?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>M,&alpha;,CG</sub> = &part;C<sub>M,CG</sub>/&part;&alpha; &lt; 0
+  <span class="begruendung">An increase in angle of attack must produce a nose-down moment, which drives the aircraft back to its original state.</span></li>
+<li data-begruendung="A positive derivative means the disturbance is amplified — that is static instability.">&part;C<sub>M,CG</sub>/&part;&alpha; &gt; 0</li>
+<li data-begruendung="Zero is the stability border, i.e. the neutral point — neutrally stable, not stable.">&part;C<sub>M,CG</sub>/&part;&alpha; = 0</li>
+<li data-begruendung="For trim at a useful positive angle of attack C<sub>M,0</sub> should be positive, but that is the trim condition, not the stability condition.">C<sub>M,CG</sub> = 0 at every angle of attack</li>
+</ul>
+
+<p>Static stability means all moments generated in the disturbed position tend to restore the original flight state. Dynamic stability additionally requires that the resulting oscillation is damped.</p>
+<div class="note">Static stability is only a <em>necessary</em>, not a sufficient condition for dynamic stability.</div>
+</article>
+
+
+<article data-id="67" data-kapitel="Static Stability" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>How do the individual contributions to longitudinal stability act?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The wing is destabilising when the c.g. lies behind the aerodynamic centre
+  <span class="begruendung">The term C<sub>L,α,W</sub>·x<sub>CG-AC</sub> is positive for an aft c.g., pushing C<sub>M,α</sub> towards instability.</span></li>
+<li data-richtig>The horizontal stabilizer is stabilising
+  <span class="begruendung">Its lift increment acts at a long lever arm behind the c.g. and produces a nose-down moment when α increases.</span></li>
+<li data-richtig>The downwash of the wing reduces the tail contribution by the factor (1 &minus; d&epsilon;/d&alpha;)
+  <span class="begruendung">The tail only feels part of the free-stream angle-of-attack change.</span></li>
+<li data-begruendung="The fuselage contribution is normally destabilising, both in pitch and in yaw.">The fuselage is strongly stabilising in pitch</li>
+</ul>
+
+<p>Full expression: <span class="fx">C<sub>M,&alpha;,CG</sub> = C<sub>L,&alpha;,W</sub>&middot;x<sub>CG-AC</sub> &minus; C<sub>L,&alpha;,H</sub>&middot;&eta;<sub>H</sub>&middot;(S<sub>H</sub>/S<sub>W</sub>)&middot;(1 &minus; d&epsilon;/d&alpha;)&middot;(l<sub>H</sub>/c<sub>MAC</sub> &minus; x<sub>CG-AC</sub>)</span></p>
+</article>
+
+
+<article data-id="68" data-kapitel="Static Stability" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>Which statements about lateral-directional static stability are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Directional static stability requires that a positive sideslip angle &beta; produces a positive yawing moment about the c.g.
+  <span class="begruendung">C<sub>N,β</sub> &gt; 0 — the aircraft turns into the relative wind, like a weathervane.</span></li>
+<li data-richtig>The fuselage contribution is usually destabilising
+  <span class="begruendung">C<sub>N,β,F</sub> &lt; 0, which is precisely what the vertical stabilizer has to overcome.</span></li>
+<li data-richtig>The wing contribution can be neglected for small sideslip angles
+  <span class="begruendung">A simplification used in the conceptual sizing of the fin.</span></li>
+<li data-begruendung="The vertical stabilizer is the stabilising element; without it a conventional aircraft would be directionally unstable.">The vertical stabilizer contributes destabilising yawing moments</li>
+</ul>
+
+<p>Solving the moment balance for the fin area gives <span class="fx">S<sub>V</sub>/S<sub>W</sub> = [(C<sub>N,&beta;</sub> &minus; C<sub>N,&beta;,F</sub>)/(&minus;C<sub>Y,&beta;,V</sub>)] &middot; (b<sub>W</sub>/l<sub>V</sub>)</span>.</p>
+</article>
+
+
+<article data-id="69" data-kapitel="Static Stability" data-quelle="Lecture Notes" data-ref="Ch. 8 / Ch. 11">
+<h1>An aircraft has a strong effective dihedral (high wing plus aft sweep plus geometric dihedral). Which consequences follow?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The spiral mode is stabilised
+  <span class="begruendung">The strong roll-due-to-sideslip effect levels the aircraft again.</span></li>
+<li data-richtig>The Dutch roll mode is destabilised
+  <span class="begruendung">The same effect couples roll and yaw and reduces the damping of the Dutch roll oscillation.</span></li>
+<li data-richtig>Anhedral may be required as a design fix
+  <span class="begruendung">Which is exactly why many high-wing, swept transports (military airlifters) show noticeable anhedral.</span></li>
+<li data-begruendung="Effective dihedral is a lateral-directional effect and does not change the longitudinal static stability.">The longitudinal static stability is improved</li>
+</ul>
+
+<p>This is a good example of why "more stability" is not automatically better: the two lateral modes have opposite preferences.</p>
+</article>
+
+
+<article data-id="70" data-kapitel="Static Stability" data-quelle="Lecture Notes" data-ref="Ch. 11">
+<h1>What does the "loading envelope" describe and why does it matter?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The permissible combinations of take-off weight and c.g. position
+  <span class="begruendung">Depending on payload, fuel load and loading arrangement, the aircraft must operate safely over a whole range of weights and c.g. positions.</span></li>
+<li data-richtig>It defines the c.g. range that the empennage sizing must cover
+  <span class="begruendung">The tail must trim the most forward and remain stable at the most aft c.g. of the whole envelope, not just at one nominal point.</span></li>
+<li data-richtig>It later becomes the basis for the load and trim sheet of the operator
+  <span class="begruendung">The operational document that ensures each individual flight stays inside the certified envelope.</span></li>
+<li data-begruendung="A single design c.g. position is never sufficient; fuel burn alone moves the c.g. during a flight.">It is enough to size the empennage for a single design c.g. position</li>
+</ul>
+</article>
+
+
+<!-- ############ 9 — DRAG POLAR AND AERODYNAMIC PERFORMANCE ############ -->
+
+<article data-id="71" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2 / Ch. 12">
+<h1>The drag polar is written as C<sub>D</sub> = C<sub>D0</sub> + (C<sub>L</sub> &minus; C<sub>L0</sub>)&sup2;/(&pi;&middot;A&middot;e). Which statements are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>C<sub>D0</sub> is the lift-independent (zero-lift) drag
+  <span class="begruendung">Skin friction plus form drag plus miscellaneous contributions.</span></li>
+<li data-richtig>The second term is the lift-dependent (induced) drag
+  <span class="begruendung">It grows with the square of the lift coefficient — which is why induced drag dominates at low speed and parasite drag at high speed.</span></li>
+<li data-richtig>A cambered airfoil shifts the minimum of the polar to C<sub>L0</sub> &ne; 0
+  <span class="begruendung">The polar is no longer symmetric about C<sub>L</sub> = 0; the aircraft has minimum drag at a positive lift coefficient.</span></li>
+<li data-richtig>Increasing the aspect ratio A reduces the induced drag at a given C<sub>L</sub>
+  <span class="begruendung">A appears in the denominator.</span></li>
+<li data-begruendung="e is the Oswald efficiency factor, a measure of how close the lift distribution is to elliptical. It is smaller than 1 for real aircraft and is not a constant of nature.">e is always exactly 1</li>
+</ul>
+</article>
+
+
+<article data-id="72" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 12">
+<h1>Which condition holds at the point of maximum aerodynamic efficiency (L/D)<sub>max</sub>?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>The induced drag equals the zero-lift drag
+  <span class="begruendung">Setting d(C<sub>D</sub>/C<sub>L</sub>)/dC<sub>L</sub> = 0 gives C<sub>Di</sub> = C<sub>D0</sub> — half of the total drag is induced, half is parasite.</span></li>
+<li data-richtig>The corresponding lift coefficient is C<sub>L</sub> = &radic;(&pi;&middot;A&middot;e&middot;C<sub>D0</sub>)
+  <span class="begruendung">Directly from equating the two drag contributions.</span></li>
+<li data-richtig>The maximum efficiency is (L/D)<sub>max</sub> = &frac12;&middot;&radic;(&pi;&middot;A&middot;e/C<sub>D0</sub>)
+  <span class="begruendung">This single formula shows the two levers: increase the aspect ratio, or reduce the zero-lift drag.</span></li>
+<li data-begruendung="At C<sub>L,max</sub> the aircraft is close to stall and the induced drag is enormous — the efficiency is poor.">It occurs at the maximum lift coefficient</li>
+<li data-begruendung="Zero lift means no flight; at C<sub>L</sub> = 0 the efficiency L/D is zero.">It occurs at zero lift, where the drag is smallest</li>
+</ul>
+
+<p>Geometrically, (L/D)<sub>max</sub> is the point where a straight line from the origin is tangent to the drag polar.</p>
+</article>
+
+
+<article data-id="73" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2">
+<h1>How does the component build-up method determine the zero-lift drag?</h1>
+<p class="hinweis">C<sub>D0</sub> = &Sigma; (C<sub>f,i</sub> &middot; FF<sub>i</sub> &middot; Q<sub>i</sub> &middot; S<sub>wet,i</sub>) / S<sub>ref</sub> + C<sub>D,misc</sub></p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Each component is represented by a flat plate with the same wetted area and Reynolds number
+  <span class="begruendung">This gives the flat-plate skin friction coefficient C<sub>f</sub>.</span></li>
+<li data-richtig>The form factor FF accounts for the drag due to the actual shape
+  <span class="begruendung">Pressure drag caused by thickness — it depends on t/c or fineness ratio and on Mach number.</span></li>
+<li data-richtig>The factor Q accounts for interference drag
+  <span class="begruendung">The mutual influence of touching bodies; it is highly complex and is therefore approximated statistically.</span></li>
+<li data-richtig>Miscellaneous drag must be added separately for flaps, gear, engine installation and cooling
+  <span class="begruendung">Engine installation and cooling drag, for instance, may be estimated at around 10 % of the total C<sub>D0</sub>.</span></li>
+<li data-begruendung="No component may be neglected. Under-predicting drag has the same consequences as under-predicting weight.">Small components can be neglected without consequence</li>
+</ul>
+</article>
+
+
+<article data-id="74" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2">
+<h1>Which aerodynamic analysis methods are suitable for drag estimation in conceptual design?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Handbook (build-up) methods such as DATCOM
+  <span class="begruendung">Quick, reasonably accurate, easily implemented in a spreadsheet — and still the method of choice for drag polars in early design.</span></li>
+<li data-richtig>RANS methods
+  <span class="begruendung">Suited for drag, but with computation times of hours per case they are used for spot-checks rather than for design sweeps.</span></li>
+<li data-richtig>DES / LES methods
+  <span class="begruendung">Physically suitable, but days to weeks of computing time make them impractical in conceptual design.</span></li>
+<li data-begruendung="Potential methods (vortex lattice, doublet lattice, full potential) assume frictionless flow — they cannot capture skin friction, which is the dominant part of C<sub>D0</sub>.">Vortex lattice / full potential methods</li>
+<li data-begruendung="Euler methods are also frictionless and therefore not suited for drag estimation.">Euler methods</li>
+</ul>
+
+<p>The general trade-off is between accuracy and computation time. Because shear forces on the wetted surfaces and locally confined flow features dominate the drag build-up, handbook methods remain competitive.</p>
+</article>
+
+
+<article data-id="75" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2 / Ch. 8">
+<h1>Which measures actually improve the aerodynamic performance (L/D) of an aircraft?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Increasing the aspect ratio
+  <span class="begruendung">Reduces induced drag; the price is structural weight, so a trade study is needed.</span></li>
+<li data-richtig>Reducing the wetted area relative to the reference area
+  <span class="begruendung">C<sub>D0</sub> scales directly with S<sub>wet</sub>/S<sub>ref</sub> — this is the fundamental argument behind blended and flying-wing configurations.</span></li>
+<li data-richtig>Winglets or well-designed wing tips
+  <span class="begruendung">They primarily reduce vortex drag; as a side effect they add roll stability.</span></li>
+<li data-richtig>Promoting laminar flow, e.g. with 6-series or natural laminar flow airfoils
+  <span class="begruendung">A laminar boundary layer produces far less skin friction — but the benefit is fragile (surface quality, contamination, Reynolds number).</span></li>
+<li data-richtig>Reducing interference drag at wing-fuselage and tail-fuselage junctions
+  <span class="begruendung">Fairings and fillets attack the Q factor of the build-up method.</span></li>
+<li data-begruendung="Placing the wing in a strongly interfering position increases drag; a mid-wing arrangement gives the lowest interference drag.">Choosing the wing position with the highest interference drag</li>
+</ul>
+
+<div class="note">Be sceptical about unproven drag-saving technology &mdash; new winglets, laminar flow control and similar promises have disappointed even experienced companies.</div>
+</article>
+
+
+<article data-id="76" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2 / Ch. 8">
+<h1>Which statements about the critical Mach number and the drag divergence Mach number are correct?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>At Ma* the local flow first reaches Ma = 1 somewhere on the airfoil
+  <span class="begruendung">This is the definition of the critical Mach number; from there on regions of supersonic flow develop.</span></li>
+<li data-richtig>Ma<sub>DD</sub> &gt; Ma*
+  <span class="begruendung">The strong drag rise does not start at Ma* but somewhat above it, once the shocks have become strong enough.</span></li>
+<li data-richtig>Ma* depends on airfoil shape, thickness ratio and sweep angle
+  <span class="begruendung">The three main design levers for transonic wing design.</span></li>
+<li data-richtig>Supercritical airfoils are used to increase Ma*
+  <span class="begruendung">They spread the suction over the upper surface so that a higher free-stream Mach number can be flown before strong shocks form.</span></li>
+<li data-begruendung="The drag rises because of wave drag from shocks; it does not fall.">Above Ma<sub>DD</sub> the drag decreases again</li>
+</ul>
+
+<p>A further transonic problem is buffet: shock oscillations that excite the structure (buffeting) and cause fatigue.</p>
+</article>
+
+
+<article data-id="77" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2">
+<h1>What does the area rule state?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>At transonic and supersonic speeds the wave drag of a wing-body combination is similar to that of a body of revolution with the same cross-sectional area distribution
+  <span class="begruendung">Hence the "coke-bottle" fuselage waisting where the wing joins.</span></li>
+<li data-richtig>The minimum wave drag is achieved for a shape as close as possible to the Sears-Haack body
+  <span class="begruendung">The smooth area distribution of the Sears-Haack body is the theoretical optimum.</span></li>
+<li data-begruendung="The area rule concerns wave drag; skin friction depends on wetted area and Reynolds number and is unaffected.">The area rule minimises the skin friction drag</li>
+<li data-begruendung="Wave drag is notoriously hard to predict accurately; numerical codes (e.g. the Harris wave drag code, also in OpenVSP) are used, and high-fidelity RANS is needed to capture the shock effects on lift and moment.">Wave drag can be predicted very accurately with simple handbook formulas</li>
+</ul>
+</article>
+
+
+<article data-id="78" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2 / Ch. 11">
+<h1>Which drag contributions belong to which category?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Skin friction and form drag: lift-independent
+  <span class="begruendung">Together they make up the bulk of C<sub>D0</sub> in subsonic flight.</span></li>
+<li data-richtig>Induced (vortex) drag: lift-dependent, caused by 3D effects
+  <span class="begruendung">C<sub>Di</sub> = C<sub>L</sub>²/(πAe). It does not exist in 2D flow — which is why airfoils can reach L/D values above 100.</span></li>
+<li data-richtig>Trim drag: caused by the lift the tailplane must produce to trim the aircraft
+  <span class="begruendung">Partly induced drag, partly profile drag from the control surface deflection; it can only be determined together with the flight-mechanical analysis.</span></li>
+<li data-richtig>Interference drag: additional drag from the flow around touching bodies
+  <span class="begruendung">Treated statistically through the factor Q.</span></li>
+<li data-begruendung="Wave drag is caused by shocks and appears only in transonic and supersonic flow; it is not present at low subsonic speeds.">Wave drag: always present, even in low-speed flight</li>
+</ul>
+</article>
+
+
+<article data-id="79" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 8">
+<h1>Why can a 2D airfoil reach L/D values above 100, while a complete aircraft rarely exceeds about 20?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>There is no induced drag in 2D flow
+  <span class="begruendung">Induced drag is a consequence of the finite span and the resulting tip vortices — the dominant penalty of a real wing at high lift.</span></li>
+<li data-richtig>The complete aircraft adds fuselage, empennage, nacelles, gear and interference drag
+  <span class="begruendung">Every additional component adds wetted area and therefore parasite drag, without adding lift.</span></li>
+<li data-richtig>The parabolic shape of the 2D drag polar comes only from separation at higher angles of attack
+  <span class="begruendung">Not from induced drag, as is often wrongly assumed.</span></li>
+<li data-begruendung="Skin friction exists in both 2D and 3D; it is not the distinguishing factor here.">Because a 2D airfoil has no skin friction drag</li>
+</ul>
+
+<p>Consequence for design: the required 2D airfoil L/D depends heavily on the 3D wing geometry &mdash; determining it is not a trivial task.</p>
+</article>
+
+
+<article data-id="80" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2 / Ch. 12">
+<h1>Two designs for the same mission are compared. Design A has C<sub>D0</sub> = 0.020 and A&middot;e = 12; design B has C<sub>D0</sub> = 0.025 and A&middot;e = 16. Which statements are correct?</h1>
+<p class="hinweis">(L/D)<sub>max</sub> = &frac12;&middot;&radic;(&pi;&middot;A&middot;e/C<sub>D0</sub>)</p>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Design B has the higher maximum aerodynamic efficiency
+  <span class="begruendung">A: &frac12;&middot;&radic;(&pi;&middot;12/0.020) = &frac12;&middot;&radic;1885 &asymp; 21.7. B: &frac12;&middot;&radic;(&pi;&middot;16/0.025) = &frac12;&middot;&radic;2011 &asymp; 22.4.</span></li>
+<li data-richtig>A low C<sub>D0</sub> alone is not a measure of aerodynamic quality
+  <span class="begruendung">Only the combination of C<sub>D0</sub> and A&middot;e determines (L/D)<sub>max</sub>. Here the higher aspect ratio more than compensates the higher zero-lift drag.</span></li>
+<li data-begruendung="The difference is only about 3 % — small, but design B is clearly ahead.">Both designs have exactly the same (L/D)<sub>max</sub></li>
+<li data-begruendung="A lower zero-lift drag only wins if the aspect ratio is comparable, which it is not in this case.">Design A wins, because a lower C<sub>D0</sub> is always better</li>
+<li data-begruendung="The higher aspect ratio of design B normally means a heavier wing — which is exactly why the comparison of L/D alone is not sufficient.">The comparison of (L/D)<sub>max</sub> is sufficient to pick the better design</li>
+</ul>
+
+<p>Both effects also carry weight penalties in opposite directions, so the final choice still needs a full sizing loop.</p>
+</article>
+
+
+<article data-id="81" data-kapitel="Drag Polar" data-quelle="Lecture Notes" data-ref="Ch. 2">
+<h1>Which conclusions should be drawn from the "lessons learned" on weight and drag prediction?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Under-predicting drag has the same consequences as under-predicting weight
+  <span class="begruendung">Both destroy the performance guarantees on which the whole project was sold.</span></li>
+<li data-richtig>Claims about new, unproven technology deserve serious scepticism
+  <span class="begruendung">New winglets, laminar flow control, VTOL technology, composite structures, box-wing configurations — all classic sources of optimistic predictions.</span></li>
+<li data-richtig>Estimates should be cross-checked with a second, independent method
+  <span class="begruendung">Especially when the design deviates significantly from the reference aircraft the statistics were derived from.</span></li>
+<li data-begruendung="Experience is no protection: even large, experienced manufacturers have fallen victim to optimistic engineering predictions.">Experienced companies are immune to optimistic predictions</li>
+</ul>
+</article>
+
+
+</body>
+</html>
