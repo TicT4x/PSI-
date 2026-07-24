@@ -1,9 +1,9 @@
 /* =====================================================================
-   Karteikarten — Service Worker
+   Qard — Service Worker
    App-Shell fest im Cache, Fachdateien bevorzugt frisch aus dem Netz
    (damit neue Karten sofort ankommen), im Offline-Fall aus dem Cache.
    ===================================================================== */
-const VERSION = 'karten-2026-07-24-1';
+const VERSION = 'qard-2026-07-24-2';
 const SHELL   = 'shell-' + VERSION;
 const DATEN   = 'faecher-' + VERSION;
 const EXTERN  = 'extern-' + VERSION;
@@ -12,6 +12,7 @@ const SHELL_FILES = [
   './',
   './index.html',
   './manifest.webmanifest',
+  './icon.svg',
   './icon-192.png',
   './icon-512.png',
   './icon-maskable-512.png',

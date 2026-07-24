@@ -13,6 +13,7 @@ Läuft als PWA, speichert den Fortschritt lokal und gleicht ihn nach Anmeldung
 | `faecher/*.html` | die Karten, eine Datei je Fach |
 | `vorlage.html` | kommentierte Vorlage für ein neues Fach |
 | `sw.js` | Service Worker (Offline-Betrieb) |
+| `manifest.webmanifest`, `icon*.png`, `icon.svg` | Name und Symbole der PWA |
 
 Ein neues Fach: HTML-Datei nach `faecher/` legen und in `faecher/index.json`
 eine Zeile ergänzen.

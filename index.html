@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Karteikarten</title>
-<meta name="description" content="Karteikarten mit Leitner-Boxen. Fächer liegen als HTML-Dateien im Ordner faecher/.">
+<title>Qard</title>
+<meta name="description" content="Qard — Karteikarten mit Leitner-Boxen. Fächer liegen als HTML-Dateien im Ordner faecher/.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#dde3e8" id="metaTheme">
 
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Karteikarten">
+<meta name="apple-mobile-web-app-title" content="Qard">
 <meta name="mobile-web-app-capable" content="yes">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +24,7 @@
 <script>
 (function(){
   try{
-    var p = localStorage.getItem('psi-theme') || 'auto';
+    var p = localStorage.getItem('qard-theme') || localStorage.getItem('psi-theme') || 'auto';
     var d = p === 'dark' || (p === 'auto' && matchMedia('(prefers-color-scheme:dark)').matches);
     document.documentElement.setAttribute('data-theme', d ? 'dark' : 'light');
   }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
@@ -32,7 +33,7 @@
 
 <style>
 /* =====================================================================
-   Karteikarten — technische Zeichnung als Gestaltungsprinzip
+   Qard — technische Zeichnung als Gestaltungsprinzip
    ===================================================================== */
 :root{
   --bg:#dde3e8; --bg-grid:#cfd8de; --sheet:#fbfcfd; --sheet-2:#f0f3f6;
@@ -330,7 +331,7 @@ kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--rule);backgrou
   <div class="bar">
     <button class="fachbtn" id="btnFach" aria-label="Fach wechseln">
       <span class="k" id="fachK">…</span>
-      <span class="n" id="fachN">Karteikarten</span>
+      <span class="n" id="fachN">Qard</span>
       <span class="x" aria-hidden="true">▾</span>
     </button>
     <div class="bar-sp"></div>
@@ -395,14 +396,15 @@ kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--rule);backgrou
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* =======================================================================
-   Karteikarten — App-Logik
+   Qard — App-Logik
    Fächer liegen als HTML-Dateien in faecher/ und werden über
    faecher/index.json eingebunden. Lernstand wird je Fach getrennt geführt.
    ======================================================================= */
 
 /* ======================= Theme ======================= */
-const THEME_KEY = 'psi-theme';
-function themePref(){ try{ return localStorage.getItem(THEME_KEY) || 'auto'; }catch(e){ return 'auto'; } }
+const THEME_KEY = 'qard-theme';
+const THEME_ALT = 'psi-theme';   // Einstellung aus der Zeit vor der Umbenennung
+function themePref(){ try{ return localStorage.getItem(THEME_KEY) || localStorage.getItem(THEME_ALT) || 'auto'; }catch(e){ return 'auto'; } }
 function prefersDark(){
   try{ return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches); }
   catch(e){ return false; }
@@ -1000,7 +1002,7 @@ function openMenu(){
   el.className = 'scrim';
   el.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-label="Menü">
     <div class="sheet-head">
-      <div class="ttl">Karteikarten</div>
+      <div class="ttl">Qard</div>
       <div class="bar-sp"></div>
       <button class="ibtn" id="mClose" aria-label="Schließen"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>

@@ -1,7 +1,7 @@
 {
-  "name": "Karteikarten",
-  "short_name": "Karteikarten",
-  "description": "Karteikarten mit Leitner-Boxen. Fächer als HTML-Dateien im Ordner faecher/.",
+  "name": "Qard",
+  "short_name": "Qard",
+  "description": "Qard — Karteikarten mit Leitner-Boxen. Fächer als HTML-Dateien im Ordner faecher/.",
   "lang": "de",
   "dir": "ltr",
   "start_url": "./",
