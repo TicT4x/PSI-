@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Name des Fachs</title>
+
+<!-- ===================================================================
+     ANGABEN ZUM FACH
+     fach     Anzeigename in der Kopfzeile und in der Fächerauswahl
+     kuerzel  kurzes Kürzel, erscheint im Abzeichen links oben.
+              WICHTIG: Unter diesem Kürzel wird der Lernstand gespeichert.
+              Später nicht mehr ändern, sonst beginnt der Fortschritt neu.
+
+     Beides gilt nur, solange in faecher/index.json nichts dazu steht.
+     Trägst du dort "name" und "kuerzel" ein, gewinnen die Angaben aus
+     index.json — so stimmen Auswahlliste und Kopfzeile immer überein.
+     =================================================================== -->
+<meta name="fach" content="Name des Fachs">
+<meta name="kuerzel" content="XYZ">
+
+<!-- Nur für die Vorschau beim direkten Öffnen dieser Datei im Browser.
+     Die App ignoriert diesen Block. Du kannst ihn auch löschen. -->
+<style>
+body{max-width:52em;margin:2em auto;padding:0 1em;font:16px/1.6 system-ui,sans-serif}
+article{border:1px solid #ccc;padding:1em 1.5em;margin:1.5em 0}
+h1{font-size:1.3em;margin:0 0 .5em}
+svg{max-width:100%;height:auto}
+table{border-collapse:collapse}th,td{border:1px solid #ccc;padding:.3em .6em}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     EINE KARTE = EIN <article>
+
+     Attribute, alle optional:
+       data-id       Kartennummer, muss im Fach eindeutig sein.
+                     Fehlt sie, wird durchnummeriert. Der Lernstand
+                     hängt an dieser Nummer — nachträglich ändern
+                     setzt die Karte auf ungesehen zurück.
+       data-kapitel  Kapitel, danach kannst du in der App filtern
+       data-quelle   Herkunft, erscheint unten im Titelblock
+       data-ref      Fundstelle, z. B. Skriptkapitel
+
+     Die erste Überschrift (h1, h2 oder h3) ist die FRAGE.
+     Alles danach ist die ANTWORT — beliebiges HTML.
+     =================================================================== -->
+
+
+<!-- Beispiel 1: einfache Karte -->
+<article data-id="1" data-kapitel="Grundlagen" data-quelle="Vorlesung" data-ref="Kap. 2.3">
+<h1>Wie lautet der erste Hauptsatz der Thermodynamik für ein geschlossenes System?</h1>
+
+<h4>Formulierung</h4>
+<p>Die Änderung der inneren Energie entspricht der Summe aus zugeführter Wärme und verrichteter Arbeit:
+<span class="fx">dU = δQ + δW</span></p>
+
+<ul>
+<li><span class="fx">δQ</span> — über die Systemgrenze übertragene Wärme</li>
+<li><span class="fx">δW</span> — am System verrichtete Arbeit</li>
+</ul>
+
+<div class="note">Vorzeichen: Zufuhr ans System zählt positiv.</div>
+</article>
+
+
+<!-- Beispiel 2: mit Hinweis, Tabelle und Zeichnung.
+
+     <p class="hinweis"> direkt nach der Überschrift wird als kleiner
+     grauer Zusatz unter der Frage angezeigt, noch vor der Lösung.
+
+     Zeichnungen als <figure class="fig"> mit Inline-SVG. Die App macht
+     sie antippbar und zeigt sie dann bildschirmfüllend. Ein festes
+     viewBox setzen, keine feste width/height — dann skaliert es sauber.
+     Statt SVG geht auch <img src="bilder/skizze.png" alt="…">, dann den
+     Ordner bilder/ neben faecher/ anlegen. -->
+<article data-id="2" data-kapitel="Kreisprozesse" data-quelle="Übung B" data-ref="Kap. 4.1">
+<h1>Skizziere den Carnot-Prozess im T-s-Diagramm und benenne die vier Zustandsänderungen.</h1>
+<p class="hinweis">Zwei Isothermen, zwei Isentropen.</p>
+
+<figure class="fig">
+  <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#0e1a24" fill="none" stroke-width="1.4">
+      <path d="M90 320 L620 320"/>
+      <path d="M90 320 L90 60"/>
+      <rect x="180" y="120" width="320" height="150"/>
+    </g>
+    <g font-family="monospace" font-size="13" fill="#0e1a24">
+      <text x="600" y="342">s</text>
+      <text x="70" y="60">T</text>
+      <text x="300" y="110">1 → 2 isotherm</text>
+      <text x="300" y="290">3 → 4 isotherm</text>
+    </g>
+  </svg>
+  <figcaption>Bild 1 — Carnot-Prozess im T-s-Diagramm</figcaption>
+</figure>
+
+<h4>Die vier Schritte</h4>
+<table>
+<tr><th>Schritt</th><th>Zustandsänderung</th><th>Bilanz</th></tr>
+<tr><td>1 → 2</td><td>isotherme Expansion</td><td>Wärmezufuhr</td></tr>
+<tr><td>2 → 3</td><td>isentrope Expansion</td><td>Temperatur fällt</td></tr>
+<tr><td>3 → 4</td><td>isotherme Kompression</td><td>Wärmeabfuhr</td></tr>
+<tr><td>4 → 1</td><td>isentrope Kompression</td><td>Temperatur steigt</td></tr>
+</table>
+</article>
+
+
+<!-- Nutzbare Klassen in der Antwort:
+       <span class="fx">…</span>   Formel oder Größe in Festbreitenschrift
+       <div class="note">…</div>   Merksatz, rot abgesetzt
+       <figure class="fig">…       Zeichnung, antippbar
+       <h4>…</h4>                  Zwischenüberschrift
+     Listen und Tabellen brauchen keine Klasse. -->
+
+</body>
+</html>

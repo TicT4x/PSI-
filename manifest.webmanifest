@@ -1,7 +1,7 @@
 {
-  "name": "PSI Karteikarten — Propulsion System Integration",
-  "short_name": "PSI Karten",
-  "description": "Karteikarten zur Vorlesung Propulsion System Integration (FH Aachen) mit Leitner-Boxen. Offline nutzbar.",
+  "name": "Karteikarten",
+  "short_name": "Karteikarten",
+  "description": "Karteikarten mit Leitner-Boxen. Fächer als HTML-Dateien im Ordner faecher/.",
   "lang": "de",
   "dir": "ltr",
   "start_url": "./",
@@ -37,30 +37,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Wackelige Karten üben",
-      "short_name": "Wackelig",
-      "url": "./?mode=weak",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Ungesehene Karten",
-      "short_name": "Neu",
-      "url": "./?mode=new",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
     }
   ]
 }
