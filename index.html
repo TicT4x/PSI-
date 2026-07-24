@@ -751,21 +751,29 @@ function setzeFach(fach){
   $('fachK').textContent = fach.kuerzel;
   $('fachN').textContent = fach.name;
 
-  mode = 'prio'; cat = '*'; search = ''; filtersOpen = false;
+ mode = 'prio'; cat = '*'; search = ''; filtersOpen = false;
   if ($('q')) $('q').value = '';
+  
+  // 1. ZUERST auslesen: Bevor build() die Liste neu mischt und überschreibt!
+  let letzteId = null;
+  try {
+    letzteId = localStorage.getItem('qard-letzte-karte-' + fach.kuerzel);
+  } catch(e){}
+
+  // 2. Stapel neu aufbauen (hierbei wird der Speicher kurzzeitig überschrieben)
   build();
   
-  // NEU: Gespeicherte Karte auslesen und an diese Stelle in der Warteschlange springen
-  try {
-    const letzteId = localStorage.getItem('qard-letzte-karte-' + fach.kuerzel);
-    if (letzteId) {
-      const idx = queue.findIndex(c => c.id === letzteId);
-      if (idx >= 0) {
-        qi = idx;
-        neueKarte(); // Variablen für genau diese Karte neu setzen
-      }
+  // 3. Wenn wir eine gemerkte Karte hatten, holen wir sie ganz nach oben (Position 0)
+  if (letzteId) {
+    const idx = queue.findIndex(c => c.id === letzteId);
+    if (idx > 0) { // Falls idx 0 ist, liegt sie durch Zufall eh schon ganz oben
+      const gemerkteKarte = queue.splice(idx, 1)[0]; // Karte aus dem Stapel ziehen
+      queue.unshift(gemerkteKarte); // Karte ganz oben auflegen
+      
+      qi = 0; // Wir starten bei der ersten Karte
+      neueKarte(); // Variablen setzen und localStorage wieder auf die richtige Karte korrigieren
     }
-  } catch(e){}
+  }
 
   view = 'learn';
   render();
