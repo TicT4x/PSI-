@@ -177,6 +177,38 @@ html[data-theme="dark"] .meter::after{background:repeating-linear-gradient(90deg
 .block div:last-child{border-right:0}
 .block b{display:block;color:var(--ink);font-size:11px;letter-spacing:.02em;text-transform:none;font-weight:600;margin-top:1px;overflow-wrap:anywhere}
 
+/* ---------- Multiple Choice ---------- */
+.mc-lead{padding:10px var(--sp5) 0;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.mc-opts{padding:8px var(--sp5) var(--sp5);display:grid;gap:6px}
+.mc-opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:var(--sheet);border:1px solid var(--rule);border-radius:2px;padding:10px 12px;cursor:pointer;font-size:14.5px;line-height:1.45}
+.mc-opt:hover{border-color:var(--ink-3)}
+.mc-opt .kbd{font-family:var(--mono);font-size:11px;font-weight:600;line-height:1.4;color:var(--ink-3);border:1px solid var(--rule);border-radius:2px;padding:0 6px;flex:0 0 auto;margin-top:1px}
+.mc-opt .txt{flex:1;min-width:0}
+.mc-opt .mk{flex:0 0 auto;font-family:var(--mono);font-size:14px;line-height:1.3;color:var(--ink-3)}
+.mc-opt[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.mc-opt[aria-pressed="true"] .kbd{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.mc-opt[disabled]{cursor:default}
+.mc-opt[disabled]:hover{border-color:var(--rule)}
+.mc-opt.ist-ok{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.mc-opt.ist-ok .kbd{background:var(--ok);border-color:var(--ok);color:#fff}
+.mc-opt.ist-ok .mk{color:var(--ok)}
+.mc-opt.ist-no{border-color:var(--no);box-shadow:inset 0 0 0 1px var(--no)}
+.mc-opt.ist-no .kbd{background:var(--no);border-color:var(--no);color:#fff}
+.mc-opt.ist-no .mk{color:var(--no)}
+.mc-opt.fehlt{border-color:var(--ok);border-style:dashed}
+.mc-opt.fehlt .mk,.mc-opt.fehlt .kbd{color:var(--ok)}
+.mc-why{font-size:13px;line-height:1.55;color:var(--ink-2);border-left:2px solid var(--rule-2);padding:3px 0 3px 11px;margin:-1px 0 4px 34px}
+.mc-why.ok{border-left-color:var(--ok)}
+.mc-why.no{border-left-color:var(--no)}
+.mc-why p{margin:0 0 6px}
+.mc-why p:last-child{margin-bottom:0}
+.mc-why code,.mc-why .fx{font-family:var(--mono);font-size:12.5px;background:var(--sheet-2);padding:1px 5px;border-radius:2px;border:1px solid var(--rule-2)}
+.mc-res{margin:0 var(--sp5);padding:9px 12px;border:1px solid var(--rule);border-radius:2px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.mc-res.ok{border-color:var(--ok);color:var(--ok)}
+.mc-res.no{border-color:var(--no);color:var(--no)}
+.mc-res b{font-weight:600}
+.li-mc{font-family:var(--mono);font-size:9px;letter-spacing:.06em;border:1px solid var(--rule);border-radius:2px;padding:0 4px;color:var(--ink-3);flex:0 0 auto}
+
 /* ---------- Aktionen ---------- */
 .actionbar{position:sticky;bottom:0;z-index:20;margin:var(--sp4) 0 0;padding:var(--sp3) 0 calc(var(--sp3) + var(--safe-b));background:var(--sheet-a);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--rule)}
 .acts{display:flex;gap:var(--sp2)}
@@ -185,6 +217,9 @@ html[data-theme="dark"] .meter::after{background:repeating-linear-gradient(90deg
 .big.no{background:var(--no);border-color:var(--no);color:#fff}
 .big.ok{background:var(--ok);border-color:var(--ok);color:#fff}
 .big small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;opacity:.7;font-weight:400;margin-top:2px}
+.big.matt{background:var(--sheet);border-color:var(--rule);color:var(--ink-3);cursor:default}
+.big.matt:hover{opacity:1}
+.big.vor{outline:2px solid var(--ink);outline-offset:2px}
 .nudge{flex:0 0 46px;padding:0;background:var(--sheet);border:1px solid var(--rule);color:var(--ink-2);border-radius:2px;cursor:pointer;font-family:var(--mono);font-size:15px;min-height:52px}
 .nudge:hover{border-color:var(--ink-3);color:var(--ink)}
 .nudge[disabled]{opacity:.4;cursor:default}
@@ -267,6 +302,9 @@ kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--rule);backgrou
   .q{font-size:21px;padding:20px var(--sp4) 6px}
   .q-hint{padding:6px var(--sp4) 20px}
   .tap-hint,.a{padding-left:var(--sp4);padding-right:var(--sp4)}
+  .mc-lead,.mc-opts{padding-left:var(--sp4);padding-right:var(--sp4)}
+  .mc-res{margin-left:var(--sp4);margin-right:var(--sp4)}
+  .mc-why{margin-left:20px}
   .card-top{padding-left:var(--sp4);padding-right:var(--sp4)}
   .block{grid-template-columns:1fr 1fr}
   .block div:nth-child(1){grid-column:1/-1;border-right:0;border-bottom:1px solid var(--rule-2)}
@@ -475,6 +513,9 @@ try { TOTALS = JSON.parse(localStorage.getItem(KEY_TOTALS) || '{}'); } catch(e){
 
 let mode = 'prio', cat = '*', search = '';
 let queue = [], qi = 0, revealed = false;
+let picked = new Set();   // gewählte Antworten der aktuellen Auswahlfrage
+let checked = false;      // Auswahlfrage schon ausgewertet?
+let mcOrder = null;       // Reihenfolge der Antworten auf dieser Karte
 let view = 'fach', filtersOpen = false, saveTimer = null;
 
 const MODES = [['prio','Priorität'],['all','Alle gemischt'],['new','Nur ungesehene'],['weak','Nur wackelige']];
@@ -494,6 +535,49 @@ async function ladeRegister(){
   const j = await res.json();
   const arr = Array.isArray(j) ? j : (j.faecher || []);
   return arr.filter(f => f && f.datei);
+}
+
+/* ---------- Multiple Choice im Quelltext ----------
+   Eine Karte wird zur Auswahlfrage, sobald sie eine Liste mit
+   class="mc" (oder data-mc) enthält. Jedes <li> ist eine Option:
+     data-richtig            markiert eine richtige Antwort
+     class="begruendung"     Begründung als Element im <li>
+     data-begruendung="…"    Begründung als Attribut
+   An Liste oder <article>:
+     data-mehrfach           erzwingt Mehrfachauswahl
+     data-mischen            mischt die Antworten bei jedem Aufruf
+   Alles, was neben der Liste im <article> steht, bleibt die
+   allgemeine Begründung und erscheint nach dem Auswerten.       */
+const MC_MAX = 8;
+const MC_LABELS = ['A','B','C','D','E','F','G','H'];
+
+function leseMC(el, datei, id){
+  let liste = el.querySelector('ul.mc, ol.mc, ul[data-mc], ol[data-mc]');
+  if (!liste && /^mc/i.test(el.getAttribute('data-typ') || '')) liste = el.querySelector('ul, ol');
+  if (!liste) return null;
+
+  const opts = [...liste.children].filter(n => n.tagName === 'LI').map(li => {
+    const richtig = li.hasAttribute('data-richtig') || li.classList.contains('richtig');
+    let why = (li.getAttribute('data-begruendung') || '').trim();
+    const k = li.cloneNode(true);
+    const b = k.querySelector('.begruendung');
+    if (b){ why = b.innerHTML.trim(); b.remove(); }
+    return { text: k.innerHTML.trim(), why, richtig };
+  });
+
+  const wo = datei + ' — Karte ' + id;
+  if (opts.length < 2){ console.warn('Auswahlfrage mit weniger als zwei Antworten: ' + wo); return null; }
+  if (opts.length > MC_MAX) console.warn('Mehr als ' + MC_MAX + ' Antworten (' + opts.length + '): ' + wo);
+  if (!opts.some(o => o.richtig)) console.warn('Keine Antwort mit data-richtig markiert: ' + wo);
+
+  const flag = n => liste.hasAttribute(n) || el.hasAttribute(n);
+  const mc = {
+    opts,
+    mehrfach: flag('data-mehrfach') || opts.filter(o => o.richtig).length > 1,
+    mischen : flag('data-mischen')
+  };
+  liste.remove();
+  return mc;
 }
 
 /* Liest eine Fach-Datei: jedes <article> ist eine Karte,
@@ -528,12 +612,14 @@ function parseFach(html, eintrag){
     }
     gesehen.add(id);
 
+    const mc = leseMC(el, eintrag.datei, id);
+
     karten.push({
       id,
       cat: (el.getAttribute('data-kapitel') || '').trim() || 'Ohne Kapitel',
       src: (el.getAttribute('data-quelle') || '').trim(),
       ref: (el.getAttribute('data-ref') || '').trim(),
-      q, hint, a: el.innerHTML.trim()
+      q, hint, mc, a: el.innerHTML.trim()
     });
   });
 
@@ -609,7 +695,43 @@ function build(){
     p = [];
     [1,2,0,3,4,5].forEach(b => { if (g[b]) p.push(...shuffle(g[b])); });
   } else p = shuffle(p.slice());
-  queue = p; qi = 0; revealed = false;
+  queue = p; qi = 0; neueKarte();
+}
+
+/* Setzt alles zurück, was nur zur gerade gezeigten Karte gehört. */
+function neueKarte(){
+  revealed = false; checked = false; picked = new Set(); mcOrder = null;
+}
+
+/* Antworten in der Reihenfolge, in der sie gerade auf dem Schirm stehen.
+   Die Reihenfolge steht fest, solange dieselbe Karte offen ist. */
+function mcOpts(c){
+  if (!c || !c.mc) return [];
+  if (!mcOrder){
+    mcOrder = c.mc.opts.map((_, i) => i);
+    if (c.mc.mischen) shuffle(mcOrder);
+  }
+  return mcOrder.map(i => c.mc.opts[i]);
+}
+function mcTrefferzahl(c){ return mcOpts(c).filter(o => o.richtig).length; }
+function mcIstRichtig(c){ return mcOpts(c).every((o, i) => o.richtig === picked.has(i)); }
+
+function mcWaehle(i){
+  const c = queue[qi];
+  if (!c || !c.mc || checked) return;
+  if (c.mc.mehrfach){
+    picked.has(i) ? picked.delete(i) : picked.add(i);
+    render();
+  } else {
+    picked = new Set([i]);
+    mcPruefen();
+  }
+}
+function mcPruefen(){
+  const c = queue[qi];
+  if (!c || !c.mc || checked || !picked.size) return;
+  checked = true; revealed = true;
+  render();
 }
 
 function grade(ok){
@@ -623,9 +745,13 @@ function grade(ok){
   }
   persist(); next();
 }
-function next(){ qi++; revealed = false; render(); }
-function prev(){ if (qi > 0){ qi--; revealed = false; render(); } }
-function reveal(){ if (!revealed){ revealed = true; render(); } }
+function next(){ qi++; neueKarte(); render(); }
+function prev(){ if (qi > 0){ qi--; neueKarte(); render(); } }
+function reveal(){
+  const c = queue[qi];
+  if (c && c.mc) return;               // Auswahlfragen werden geprüft, nicht aufgedeckt
+  if (!revealed){ revealed = true; render(); }
+}
 
 /* ======================= Rendering ======================= */
 function boxLabel(b){ return b === 0 ? 'ungesehen' : 'Box ' + b + '/5'; }
@@ -680,7 +806,8 @@ function renderFachAuswahl(){
     '<div class="msg"><h2>Fach hinzufügen</h2>' +
     '<p>Neue HTML-Datei in den Ordner <code>faecher/</code> legen und in ' +
     '<code>faecher/index.json</code> eine Zeile ergänzen. Aufbau siehe ' +
-    '<code>faecher/vorlage.html</code>.</p></div>';
+    '<code>vorlage.html</code> — dort stehen auch die Auswahlfragen ' +
+    '(bis zu acht Antworten, Mehrfachauswahl, Begründungen).</p></div>';
   fuelleFachliste($('fl'));
 }
 
@@ -734,19 +861,28 @@ function renderCard(){
   }
 
   const c = queue[qi], r = rec(c.id);
+  const istMC = !!c.mc;
+  const richtig = istMC && checked && mcIstRichtig(c);
+
   host.innerHTML = `
   <article class="card">
     <div class="card-top">
       <span class="kap">${c.cat}</span>
       <span class="sp"></span>
+      ${istMC ? '<span>Auswahl</span>' : ''}
       <span>${boxLabel(r.box)}</span>
       <span class="pos">${qi + 1}/${queue.length}</span>
     </div>
     <div class="q">${c.q}</div>
     ${c.hint ? `<div class="q-hint">${c.hint}</div>` : ''}
-    ${revealed
-      ? `<div class="a"><div class="a-lab">Lösung</div>${c.a}</div>`
-      : `<div class="tap-hint">Tippen oder Leertaste zeigt die Lösung</div>`}
+    ${istMC ? mcMarkup(c) : ''}
+    ${istMC && checked
+      ? `<div class="mc-res ${richtig ? 'ok' : 'no'}">${richtig ? '✓ Richtig' : '✗ Nicht richtig'}</div>`
+      : ''}
+    ${revealed && c.a
+      ? `<div class="a"><div class="a-lab">${istMC ? 'Begründung' : 'Lösung'}</div>${c.a}</div>`
+      : ''}
+    ${!revealed && !istMC ? `<div class="tap-hint">Tippen oder Leertaste zeigt die Lösung</div>` : ''}
     <div class="block">
       <div>Quelle<b>${c.src || '—'}</b></div>
       <div>Fundstelle<b>${c.ref || '—'}</b></div>
@@ -762,20 +898,72 @@ function renderCard(){
     w.appendChild(t);
   });
 
+  let mitte;
+  if (istMC && !checked){
+    mitte = picked.size
+      ? `<button class="big" id="bCheck">Antwort prüfen<small>${picked.size} gewählt · Enter</small></button>`
+      : `<button class="big matt" id="bCheck" disabled>Antwort wählen<small>Tasten 1–${Math.min(MC_MAX, mcOpts(c).length)}</small></button>`;
+  } else if (revealed){
+    /* Nach dem Prüfen ist die Bewertung schon klar — sie bleibt trotzdem
+       änderbar, falls geraten wurde. Die vorgeschlagene Seite ist markiert. */
+    const vorNo = istMC && !richtig ? ' vor' : '';
+    const vorOk = istMC && richtig ? ' vor' : '';
+    mitte =
+      `<button class="big no${vorNo}" id="bNo">✗ Nicht gewusst<small>Taste 1</small></button>
+       <button class="big ok${vorOk}" id="bOk">✓ Gewusst<small>Taste 2</small></button>`;
+  } else {
+    mitte = `<button class="big" id="bShow">Lösung zeigen<small>Leertaste</small></button>`;
+  }
+
   acts.classList.remove('hidden');
   acts.innerHTML = `<div class="acts">
     <button class="nudge" id="bPrev" aria-label="Vorherige Karte" ${qi === 0 ? 'disabled' : ''}>←</button>
-    ${revealed
-      ? `<button class="big no" id="bNo">✗ Nicht gewusst<small>Taste 1</small></button>
-         <button class="big ok" id="bOk">✓ Gewusst<small>Taste 2</small></button>`
-      : `<button class="big" id="bShow">Lösung zeigen<small>Leertaste</small></button>`}
+    ${mitte}
     <button class="nudge" id="bSkip" aria-label="Überspringen">→</button>
   </div>`;
 
-  if (revealed){ $('bNo').onclick = () => grade(false); $('bOk').onclick = () => grade(true); }
-  else { $('bShow').onclick = reveal; }
+  if ($('bCheck')) $('bCheck').onclick = mcPruefen;
+  if ($('bNo')){ $('bNo').onclick = () => grade(false); $('bOk').onclick = () => grade(true); }
+  if ($('bShow')) $('bShow').onclick = reveal;
   $('bPrev').onclick = prev;
   $('bSkip').onclick = next;
+}
+
+/* Antwortliste einer Auswahlfrage. Vor dem Prüfen sind die Antworten
+   Schaltflächen, danach zeigen sie an, was richtig war, und geben die
+   hinterlegten Begründungen aus. */
+function mcMarkup(c){
+  const opts = mcOpts(c);
+  const treffer = mcTrefferzahl(c);
+  const lead = checked
+    ? 'Antworten'
+    : (c.mc.mehrfach
+        ? 'Mehrfachauswahl' + (treffer > 1 ? ' · ' + treffer + ' richtig' : '')
+        : 'Eine Antwort wählen');
+
+  const zeilen = opts.map((o, i) => {
+    const gewaehlt = picked.has(i);
+    let cls = '', mark = '';
+    if (checked){
+      if (o.richtig && gewaehlt){ cls = ' ist-ok'; mark = '✓'; }
+      else if (o.richtig)       { cls = ' fehlt';  mark = '✓'; }
+      else if (gewaehlt)        { cls = ' ist-no'; mark = '✗'; }
+    } else if (gewaehlt) mark = '•';
+
+    const btn =
+      `<button class="mc-opt${cls}" data-opt="${i}" aria-pressed="${gewaehlt}" ${checked ? 'disabled' : ''}>
+         <span class="kbd">${MC_LABELS[i] || (i + 1)}</span>
+         <span class="txt">${o.text}</span>
+         <span class="mk" aria-hidden="true">${mark}</span>
+       </button>`;
+
+    const why = checked && o.why
+      ? `<div class="mc-why ${o.richtig ? 'ok' : 'no'}">${o.why}</div>`
+      : '';
+    return btn + why;
+  }).join('');
+
+  return `<div class="mc-lead">${lead}</div><div class="mc-opts">${zeilen}</div>`;
 }
 
 function renderList(){
@@ -784,7 +972,8 @@ function renderList(){
   const p = pool().filter(c => !term ||
     strip(c.q).toLowerCase().includes(term) ||
     c.cat.toLowerCase().includes(term) ||
-    c.id.toLowerCase().includes(term));
+    c.id.toLowerCase().includes(term) ||
+    (c.mc && c.mc.opts.some(o => strip(o.text).toLowerCase().includes(term))));
 
   $('listHost').innerHTML = p.map(c => {
     const r = rec(c.id);
@@ -792,6 +981,7 @@ function renderList(){
       <span class="dot b${r.box}"></span>
       <span class="n">${c.id}</span>
       <span class="t">${c.q}</span>
+      ${c.mc ? '<span class="li-mc">MC</span>' : ''}
       <span class="k">${c.cat}</span>
     </button>`;
   }).join('') || `<div class="empty">${term ? 'Keine Treffer für „' + term + '“.' : 'Keine Karten in diesem Filter.'}</div>`;
@@ -844,6 +1034,12 @@ function openMenu(){
       <kbd>1</kbd> / <kbd>←</kbd> nicht gewusst · <kbd>2</kbd> / <kbd>→</kbd> gewusst<br>
       <kbd>N</kbd> nächste Karte · <kbd>Esc</kbd> schließen
     </div>
+    <h3>Auswahlfragen</h3>
+    <div class="keys">
+      <kbd>1</kbd> … <kbd>8</kbd> Antwort wählen<br>
+      <kbd>Enter</kbd> prüfen, danach Bewertung übernehmen
+    </div>
+    <p class="mrow" style="margin-top:8px">Bei mehreren richtigen Antworten bleiben alle Auswahlen bestehen, bis du prüfst. Die Bewertung wird vorgeschlagen und lässt sich weiterhin selbst setzen.</p>
     <p class="mrow" style="margin-top:8px">Am Handy: nach links wischen für „nicht gewusst“, nach rechts für „gewusst“.</p>
 
     <h3>Fortschritt</h3>
@@ -958,15 +1154,19 @@ document.addEventListener('click', e => {
     view = 'learn'; build();
     const idx = queue.findIndex(c => c.id === j.dataset.jump);
     if (idx >= 0) qi = idx;
-    revealed = false; render();
+    neueKarte(); render();
     window.scrollTo({ top:0, behavior:'smooth' });
     return;
   }
 
+  const o = e.target.closest('[data-opt]');
+  if (o){ mcWaehle(+o.dataset.opt); return; }
+
   const f = e.target.closest('.fig');
   if (f && !e.target.closest('.lb')){ openFigure(f); return; }
 
-  if (!revealed && view === 'learn' && e.target.closest('.card')) reveal();
+  const akt = queue[qi];
+  if (!revealed && view === 'learn' && !(akt && akt.mc) && e.target.closest('.card')) reveal();
 });
 
 let tX = 0, tY = 0, tT = 0;
@@ -981,6 +1181,8 @@ host.addEventListener('touchend', e => {
   const dx = t.clientX - tX, dy = t.clientY - tY;
   if (Date.now() - tT > 700) return;
   if (Math.abs(dx) < 65 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+  const c = queue[qi];
+  if (c && c.mc && !checked) return;    // erst antworten, dann bewerten
   if (!revealed){ reveal(); return; }
   grade(dx > 0);
 }, { passive:true });
@@ -994,8 +1196,24 @@ document.addEventListener('keydown', e => {
   if (view !== 'learn') return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if (document.querySelector('.scrim, .lb')) return;
-  if (e.code === 'Space'){ e.preventDefault(); reveal(); return; }
+
+  const c = queue[qi];
+
+  /* Auswahlfrage, noch nicht geprüft: Ziffern wählen, Enter prüft. */
+  if (c && c.mc && !checked){
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && n <= mcOpts(c).length){ e.preventDefault(); mcWaehle(n - 1); return; }
+    if (e.code === 'Space' || e.key === 'Enter'){ e.preventDefault(); mcPruefen(); return; }
+    if (e.key.toLowerCase() === 'n'){ e.preventDefault(); next(); }
+    return;
+  }
+
+  if (e.code === 'Space' && !revealed){ e.preventDefault(); reveal(); return; }
   if (!revealed) return;
+  /* Nach dem Prüfen übernimmt Enter die vorgeschlagene Bewertung. */
+  if (c && c.mc && (e.code === 'Space' || e.key === 'Enter')){
+    e.preventDefault(); grade(mcIstRichtig(c)); return;
+  }
   if (e.key === '1' || e.key === 'ArrowLeft'){ e.preventDefault(); grade(false); }
   if (e.key === '2' || e.key === 'ArrowRight'){ e.preventDefault(); grade(true); }
   if (e.key.toLowerCase() === 'n'){ e.preventDefault(); next(); }

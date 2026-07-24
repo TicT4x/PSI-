@@ -3,7 +3,7 @@
    App-Shell fest im Cache, Fachdateien bevorzugt frisch aus dem Netz
    (damit neue Karten sofort ankommen), im Offline-Fall aus dem Cache.
    ===================================================================== */
-const VERSION = 'karten-2026-07-23-3';
+const VERSION = 'karten-2026-07-24-1';
 const SHELL   = 'shell-' + VERSION;
 const DATEN   = 'faecher-' + VERSION;
 const EXTERN  = 'extern-' + VERSION;

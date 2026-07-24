@@ -26,6 +26,10 @@ article{border:1px solid #ccc;padding:1em 1.5em;margin:1.5em 0}
 h1{font-size:1.3em;margin:0 0 .5em}
 svg{max-width:100%;height:auto}
 table{border-collapse:collapse}th,td{border:1px solid #ccc;padding:.3em .6em}
+ul.mc,ol.mc{list-style:none;padding:0;margin:1em 0}
+ul.mc li,ol.mc li{border:1px solid #ccc;padding:.5em .8em;margin:.35em 0}
+ul.mc li[data-richtig],ol.mc li[data-richtig],.mc li.richtig{border-color:#1c6a56}
+.begruendung{display:block;font-size:.85em;color:#555;border-left:2px solid #ddd;padding-left:.7em;margin-top:.4em}
 </style>
 </head>
 <body>
@@ -44,6 +48,13 @@ table{border-collapse:collapse}th,td{border:1px solid #ccc;padding:.3em .6em}
 
      Die erste Überschrift (h1, h2 oder h3) ist die FRAGE.
      Alles danach ist die ANTWORT — beliebiges HTML.
+
+     ZWEI KARTENARTEN
+       Freie Karte       Frage, dann Lösung. Du bewertest dich selbst.
+       Auswahlfrage      Sobald im <article> eine Liste mit class="mc"
+                         steht, wird daraus eine Multiple-Choice-Karte.
+                         Die App wertet sie selbst aus und schlägt die
+                         Bewertung vor. Siehe Beispiel 3 und 4.
      =================================================================== -->
 
 
@@ -106,12 +117,102 @@ table{border-collapse:collapse}th,td{border:1px solid #ccc;padding:.3em .6em}
 </article>
 
 
+<!-- ===================================================================
+     AUSWAHLFRAGEN (MULTIPLE CHOICE)
+
+     Eine Karte wird zur Auswahlfrage, sobald sie eine Liste mit
+     class="mc" enthält — <ul class="mc"> oder <ol class="mc">.
+     Jedes <li> darin ist eine Antwortmöglichkeit, höchstens acht.
+     Sie erscheinen in der App als A, B, C … und sind per Tastatur
+     über die Ziffern 1–8 erreichbar.
+
+     Am <li>:
+       data-richtig            diese Antwort ist richtig. Mehrere <li>
+                               dürfen sie tragen. Alternativ class="richtig".
+       class="begruendung"     Begründung zu genau dieser Antwort. Wird
+                               erst nach dem Antworten gezeigt — bei
+                               richtigen wie bei falschen Antworten.
+       data-begruendung="…"    dasselbe als Attribut, wenn es nur ein
+                               kurzer Satz ohne Auszeichnung ist.
+
+     An der Liste oder am <article>:
+       data-mehrfach           erzwingt Mehrfachauswahl, auch wenn nur
+                               eine Antwort richtig ist. Ohne das Attribut
+                               schaltet die App von selbst auf Mehrfach-
+                               auswahl um, sobald mehr als ein <li>
+                               markiert ist — dann steht allerdings die
+                               Zahl der richtigen Antworten über der Liste.
+       data-mischen            mischt die Antworten bei jedem Aufruf.
+                               Nicht setzen, wenn eine Antwort auf die
+                               Reihenfolge Bezug nimmt („A und B“).
+
+     Alles, was neben der Liste im <article> steht, bleibt die
+     allgemeine Begründung und erscheint unter dem Ergebnis. Dort passen
+     Zeichnungen, Tabellen und Formeln genauso hin wie in eine freie Karte.
+
+     Bedienung: Bei einer einzigen richtigen Antwort wertet ein Tippen
+     sofort aus. Bei Mehrfachauswahl sammelst du erst alle Antworten und
+     drückst dann „Antwort prüfen“. Richtig gilt nur, wenn die Auswahl
+     genau stimmt — keine fehlt und keine zu viel. Die Bewertung für die
+     Leitner-Box wird vorgeschlagen, du kannst sie überschreiben, falls
+     du geraten hast.
+     =================================================================== -->
+
+
+<!-- Beispiel 3: Auswahlfrage, eine richtige Antwort, Begründung zu jeder -->
+<article data-id="3" data-kapitel="Grundlagen" data-quelle="Klausur SS 25" data-ref="Kap. 1.2">
+<h1>Welche Größe bleibt bei einer isentropen Zustandsänderung konstant?</h1>
+
+<ul class="mc" data-mischen>
+<li data-richtig>Die Entropie <span class="fx">s</span>
+  <span class="begruendung">Isentrop heißt wörtlich „gleiche Entropie“: reversibel und adiabat.</span></li>
+<li>Die Temperatur <span class="fx">T</span>
+  <span class="begruendung">Konstant bleibt sie bei der isothermen Zustandsänderung.</span></li>
+<li data-begruendung="Das wäre isobar.">Der Druck <span class="fx">p</span></li>
+<li data-begruendung="Das wäre isochor.">Das Volumen <span class="fx">V</span></li>
+</ul>
+
+<div class="note">Merksatz: iso- + die Größe, die bleibt.</div>
+</article>
+
+
+<!-- Beispiel 4: Mehrfachauswahl. Sobald zwei oder mehr <li> ein
+     data-richtig tragen, sammelt die App die Auswahl und wertet erst
+     auf „Antwort prüfen“ hin aus. -->
+<article data-id="4" data-kapitel="Kreisprozesse" data-quelle="Übung C">
+<h1>Welche Zustandsänderungen des Carnot-Prozesses laufen ohne Wärmeaustausch ab?</h1>
+<p class="hinweis">Mehrere Antworten sind richtig.</p>
+
+<ol class="mc">
+<li>1 → 2 isotherme Expansion
+  <span class="begruendung">Hier wird Wärme bei <span class="fx">T<sub>max</sub></span> zugeführt.</span></li>
+<li data-richtig>2 → 3 isentrope Expansion
+  <span class="begruendung">Adiabat: <span class="fx">δQ = 0</span>, die Temperatur fällt durch Arbeitsabgabe.</span></li>
+<li>3 → 4 isotherme Kompression
+  <span class="begruendung">Hier wird Wärme bei <span class="fx">T<sub>min</sub></span> abgeführt.</span></li>
+<li data-richtig>4 → 1 isentrope Kompression
+  <span class="begruendung">Ebenfalls adiabat, die Temperatur steigt durch Arbeitszufuhr.</span></li>
+</ol>
+
+<h4>Warum das so ist</h4>
+<p>Die beiden Isentropen verbinden die Temperaturniveaus, ohne dass Wärme
+über die Systemgrenze geht. Nur auf den Isothermen wird Wärme getauscht.</p>
+</article>
+
+
 <!-- Nutzbare Klassen in der Antwort:
        <span class="fx">…</span>   Formel oder Größe in Festbreitenschrift
        <div class="note">…</div>   Merksatz, rot abgesetzt
        <figure class="fig">…       Zeichnung, antippbar
        <h4>…</h4>                  Zwischenüberschrift
-     Listen und Tabellen brauchen keine Klasse. -->
+     Listen und Tabellen brauchen keine Klasse.
+
+     Nur für Auswahlfragen:
+       <ul class="mc">…            Liste der Antwortmöglichkeiten
+       data-richtig                richtige Antwort
+       class="begruendung"         Begründung zu einer Antwort
+       data-mehrfach               Mehrfachauswahl erzwingen
+       data-mischen                Antworten mischen -->
 
 </body>
 </html>
