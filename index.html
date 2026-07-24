@@ -459,21 +459,55 @@ function loadLocal(){
 }
 function saveLocal(v){ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
 
-function mergeFach(a, b){
+/* ======================= Zeitstempel ======================= */
+/* Jeder Kartenstand trägt ein t (Millisekunden seit 1970), das beim Bewerten
+   gesetzt wird. Beim Abgleich gewinnt pro Karte der jüngere Eintrag — egal ob
+   er aus dem Gerät oder aus der Datenbank kommt. Ältere Stände ohne t zählen
+   als uralt und verlieren gegen alles Gestempelte. */
+const META = '__meta';   // reservierter Schlüssel im Lernstand, kein Fach
+
+function fachKeys(o){ return Object.keys(o || {}).filter(k => k.slice(0, 2) !== '__'); }
+function holeMeta(o){
+  const m = (o && o[META]) || {};
+  return { stand: m.stand | 0, reset: m.reset || {} };
+}
+function setzeStand(o, t){
+  const m = holeMeta(o);
+  o[META] = { stand: t || Date.now(), reset: m.reset };
+  return o;
+}
+
+/* Welcher der beiden Stände derselben Karte ist der aktuellere? */
+function juenger(x, y){
+  const tx = x.t | 0, ty = y.t | 0;
+  if (tx !== ty) return tx > ty ? x : y;
+  /* Kein oder gleicher Zeitstempel: wie bisher nach Versuchen und Box */
+  const sx = (x.r|0) + (x.w|0), sy = (y.r|0) + (y.w|0);
+  if (sx !== sy) return sx > sy ? x : y;
+  return (x.box|0) >= (y.box|0) ? x : y;
+}
+
+function mergeFach(a, b, resetT){
   const out = {};
   new Set([...Object.keys(a || {}), ...Object.keys(b || {})]).forEach(id => {
     const x = (a || {})[id], y = (b || {})[id];
-    if (!x) { out[id] = y; return; }
-    if (!y) { out[id] = x; return; }
-    const sx = (x.r|0) + (x.w|0), sy = (y.r|0) + (y.w|0);
-    out[id] = sx === sy ? ((x.box|0) >= (y.box|0) ? x : y) : (sx > sy ? x : y);
+    const w = !x ? y : (!y ? x : juenger(x, y));
+    /* Wurde das Fach auf einem Gerät zurückgesetzt, verfällt alles Ältere. */
+    if (resetT && (w.t | 0) < resetT) return;
+    out[id] = w;
   });
   return out;
 }
+
 function mergeAlle(a, b){
-  const out = {};
-  new Set([...Object.keys(a || {}), ...Object.keys(b || {})]).forEach(k => {
-    out[k] = mergeFach((a || {})[k], (b || {})[k]);
+  const ma = holeMeta(a), mb = holeMeta(b);
+  const reset = {};
+  new Set([...Object.keys(ma.reset), ...Object.keys(mb.reset)]).forEach(k => {
+    reset[k] = Math.max(ma.reset[k] | 0, mb.reset[k] | 0);
+  });
+  const out = { [META]: { stand: Math.max(ma.stand, mb.stand), reset } };
+  new Set([...fachKeys(a), ...fachKeys(b)]).forEach(k => {
+    out[k] = mergeFach((a || {})[k], (b || {})[k], reset[k] | 0);
   });
   return out;
 }
@@ -488,7 +522,8 @@ const Cloud = {
       return data ? normalisiere(data.daten) : null;
     } catch(e){ console.warn('Laden nicht möglich:', e); return null; }
   },
-  async save(v){
+  /* Schreibt ungeprüft — nur aus abgleichen() heraus benutzen. */
+  async put(v){
     if (!supabaseClient || !USER_ID) return false;
     try {
       const { error } = await supabaseClient.from('lernstand').upsert({ user_id: USER_ID, daten: v });
@@ -523,12 +558,59 @@ let view = 'fach', filtersOpen = false, saveTimer = null;
 const MODES = [['prio','Priorität'],['all','Alle gemischt'],['new','Nur ungesehene'],['weak','Nur wackelige']];
 const $ = id => document.getElementById(id);
 
+/* ======================= Abgleich ======================= */
+/* Nie blind überschreiben: erst holen, was in der Datenbank steht, beides
+   zusammenführen, dann zurückschreiben. Dadurch verliert weder das Handy noch
+   der Rechner Fortschritt, egal in welcher Reihenfolge gelernt wurde. */
+let syncLaeuft = false, syncOffen = false;
+
+async function abgleichen(hinweis){
+  if (!supabaseClient || !USER_ID){ saveLocal(ALLE); return false; }
+  if (syncLaeuft){ syncOffen = true; return false; }
+  syncLaeuft = true;
+  try {
+    const remote  = await Cloud.load();
+    const vorher  = JSON.stringify(ALLE);
+    const zusammen = remote ? mergeAlle(ALLE, remote) : ALLE;
+    const neuFuerUns   = JSON.stringify(zusammen) !== vorher;
+    const neuFuerCloud = !remote || JSON.stringify(zusammen) !== JSON.stringify(remote);
+
+    if (neuFuerUns){
+      ALLE = zusammen;
+      saveLocal(ALLE);
+      if (FACH){
+        if (!ALLE[FACH.kuerzel]) ALLE[FACH.kuerzel] = {};
+        S = ALLE[FACH.kuerzel];   // Verweis auf das neue Objekt nachziehen
+      }
+      render();
+      if (hinweis) toast('Fortschritt von einem anderen Gerät übernommen.');
+    }
+    if (neuFuerCloud) await Cloud.put(ALLE);
+    else lastSync = new Date();
+
+    updateSyncDot();
+    return true;
+  } finally {
+    syncLaeuft = false;
+    if (syncOffen){ syncOffen = false; setTimeout(() => abgleichen(hinweis), 0); }
+  }
+}
+
 function persist(){
+  setzeStand(ALLE);
   saveLocal(ALLE);
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => Cloud.save(ALLE).then(ok => { if (ok) updateSyncDot(); }), 800);
+  saveTimer = setTimeout(() => { saveTimer = null; abgleichen(false); }, 800);
 }
-function rec(id){ if (!S[id]) S[id] = { box:0, r:0, w:0 }; return S[id]; }
+
+/* Offene Änderung sofort wegschreiben, statt auf die 800 ms zu warten. */
+function persistJetzt(){
+  if (!saveTimer) return;
+  clearTimeout(saveTimer); saveTimer = null;
+  abgleichen(false);
+}
+
+function rec(id){ if (!S[id]) S[id] = { box:0, r:0, w:0, t:0 }; return S[id]; }
 
 /* ======================= Fächer laden ======================= */
 async function ladeRegister(){
@@ -739,6 +821,7 @@ function mcPruefen(){
 function grade(ok){
   const c = queue[qi]; if (!c) return;
   const r = rec(c.id);
+  r.t = Date.now();
   if (ok){ r.r++; r.box = Math.min(5, (r.box || 0) + 1); }
   else {
     r.w++; r.box = 1;
@@ -1086,8 +1169,13 @@ function openMenu(){
     if (!FACH) return;
     if (!confirm('Lernfortschritt in ' + FACH.name + ' löschen? Das lässt sich nicht rückgängig machen.')) return;
     close();
+    const t = Date.now();
     ALLE[FACH.kuerzel] = {}; S = ALLE[FACH.kuerzel];
-    saveLocal(ALLE); await Cloud.save(ALLE);
+    const m = holeMeta(ALLE);
+    m.reset[FACH.kuerzel] = t;
+    ALLE[META] = { stand: t, reset: m.reset };
+    saveLocal(ALLE); await abgleichen(false);
+    S = ALLE[FACH.kuerzel];
     build(); render();
     toast('Fortschritt in ' + FACH.kuerzel + ' zurückgesetzt.');
   };
@@ -1227,10 +1315,8 @@ if (supabaseClient){
     if (session){
       USER_ID = session.user.id;
       USER_MAIL = session.user.email || '';
-      const remote = await Cloud.load();
-      ALLE = mergeAlle(loadLocal(), remote || {});
-      saveLocal(ALLE);
-      await Cloud.save(ALLE);
+      ALLE = loadLocal();
+      await abgleichen(false);
     } else {
       USER_ID = null; USER_MAIL = '';
       ALLE = loadLocal();
@@ -1244,6 +1330,19 @@ if (supabaseClient){
     render();
   });
 }
+
+/* ---------- Wann abgeglichen wird ----------
+   Beim Sichtbarwerden holt sich die App den Stand der Datenbank. Genau das
+   fehlte bisher: ein Tab, der seit gestern offen liegt, kannte den Fortschritt
+   vom Handy nicht und hat ihn beim nächsten Speichern platt gemacht. */
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') persistJetzt();
+  else abgleichen(true);
+});
+window.addEventListener('pagehide', persistJetzt);
+window.addEventListener('online',  () => abgleichen(true));
+window.addEventListener('focus',   () => abgleichen(true));
+setInterval(() => { if (document.visibilityState === 'visible') abgleichen(true); }, 5 * 60 * 1000);
 
 /* ======================= Start ======================= */
 updateSyncDot();
